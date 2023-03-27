@@ -17,15 +17,15 @@
 
             <div class="card col-lg-10 offset-1 col-md-12">
                 <div style="margin:20px;">
-                    <h3>Enregistrement d'une nouvelle facture</h3>
+                    <h3>Règlement d'une nouvelle facture</h3>
                     <div class="d-flex mb-2">
                         <h2 class="card-title flex-grow-1"> </h2>
                     </div>
                     <form class="row g-3" @submit.prevent="store">
                         <div class="col-6">
-                            <label for="inputName" class="form-label">Montant paiement</label>
+                            <label for="inputName" class="form-label">Lieu de l'opération</label>
                             <select  v-model="type" class="form-control form-select" id="" aria-label=".form-select-lg example"  required="" >
-                                <option >Selectionner la facture </option>
+                                <option value="">Selectionner  </option>
                                 <option  value="caisse">Caisse </option>
                                 <option  value="banque">Banque </option>
                                
@@ -33,18 +33,26 @@
                         </div>
                         <div class="col-6">
                             <label for="inputFirstname" class="form-label">N° facture</label>
-                            <select  v-model="selectedFacture" class="form-control form-select" id="facture" @change="getMontant" aria-label=".form-select-lg example"  required="" >
+                            <select  v-model="selectedFacture" class="form-control form-select" id="facture"  aria-label=".form-select-lg example"  required="" >
                                 <option selected>Selectionner la facture </option>
                                 <option v-for="facture in factures" :key="facture.id" :value="facture.id"  >
                                     {{ facture.numero_facture }} </option>
 
                             </select>
                         </div>
-                        <div  v-if="selectedClient" class="col-6">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="inputName" class="form-label">Client</label>
-                                <p class="form-control"> {{ selectedClient.nom }} {{ selectedClient.prenom }}</p>
+                                <input required type="text" v-model="client" class="form-control"  id="inputName" readonly>
+                                
                             </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for=""> Montant </label>
+                                    <input required type="number" v-model="montant_facture" readonly class="form-control"  id="inputName">
+
+                                </div>
                         </div>
                         <br>
 
@@ -62,7 +70,7 @@
                                 <div class="form-group">
                                     <label for="inputFirstname" class="form-label">Banque</label>
                                     <select  v-model="banque" class="form-control form-select" id="facture" aria-label=".form-select-lg example"  required="" >
-                                        <option selected>Selectionner la banque </option>
+                                        <option selected value="">Selectionner la banque </option>
                                         <option v-for="banque in banques" :key="banque.id" :value="banque.id"  >
                                             {{ banque.nom }} </option>
         
@@ -73,7 +81,7 @@
                                 <div class="form-group">
                                     <label for="inputName" class="form-label">Operation</label>
                                     <select  v-model="operation" class="form-control form-select" id="" aria-label=".form-select-lg example"  required="" >
-                                        <option >Selectionner l'operation </option>
+                                        <option value="">Selectionner l'operation </option>
                                         <option  value="virement">Virement bancaire </option>
                                         <option  value="cheque">Chèque </option>
                                        
@@ -82,9 +90,8 @@
                                   </div>
                             </div>
                         
-                        <div v-if="operation === 'virement'" class="">
+                        <div v-if="operation === 'virement'" class="row">
                             <div class="col-6">
-
                                 <div class="form-group">
                                 <label for=""> Numero de compte </label>
                                     <input required type="number" v-model="numero_compte" class="form-control"  id="inputName">
@@ -92,7 +99,6 @@
                                 </div>
                             </div>
                             <div class="col-6">
-
                                 <div class="form-group">
                                 <label for=""> Montant  </label>
                                     <input required type="number" v-model="montant" class="form-control"  id="inputName">
@@ -122,7 +128,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for=""> Montant </label>
-                                        <input required type="number"  class="form-control"  id="inputName">
+                                        <input required type="number" v-model="montant_facture" readonly class="form-control"  id="inputName">
     
                                     </div>
                             </div>
@@ -253,39 +259,30 @@
                 numero_compte:'',
                 numero_ordre:'',
                 montant_facture:'',
+                client:'',  
                 banque:'',  
             }
         },
-        computed: {
-            selectedClient() {
-              
-                const facture = this.factures.find(
-                    (facture) => facture.id === this.selectedFacture
-                );
-                if (facture) {
-                    return this.clients.find(
-                        (client) => client.id === facture.client_id
-                    );
-                    
-                }
-               
-                return null;
-            },
-            selectedFactureMontant() {
-                const facture = this.factures.find(
-                    (facture) => facture.id === this.selectedFacture
-                );
-                if (facture) {
-                    return facture.montant;
-                }
-                return null;
-            },
-        },
-        
         methods:{
-            
+            selectedFactureDetails() {
+            const facture = this.factures.find(
+                (facture) => facture.id === this.selectedFacture
+            );
+            if (facture) {
+                const client = this.clients.find(
+                (client) => client.id === facture.client_id
+                );
+                if (client) {
+                return {
+                    montant: facture.montant,
+                    nomPrenom: client.nom + ' ' + client.prenom,
+                };
+                }
+            }
+            return null;
+            },
             store() {
-                this.$inertia.post('/paiement', { selectedFacture: this.selectedFacture , operation: this.operation, numero_compte: this.numero_compte,numero_ordre: this.numero_ordre,banque: this.banque,montant: this.montant});
+                this.$inertia.post('/paiement', { selectedFacture: this.selectedFacture , type: this.type,operation: this.operation, numero_compte: this.numero_compte,numero_ordre: this.numero_ordre,banque: this.banque,montant: this.montant,montant_facture: this.montant_facture,client: this.client});
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -297,7 +294,20 @@
             },
 
 
-                }
+             },
+        watch: {
+            selectedFacture(newVal, oldVal) {
+            // Mettre à jour les détails de la facture lorsqu'une nouvelle facture est sélectionnée
+            const factureDetails = this.selectedFactureDetails();
+            if (factureDetails) {
+                this.montant_facture = factureDetails.montant;
+                this.client = factureDetails.nomPrenom;
+            } else {
+                this.montant_facture = null;
+                this.client = null;
+            }
+            },
+        },
 
 
     }

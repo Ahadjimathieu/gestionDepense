@@ -63,6 +63,34 @@ class PaiementController extends Controller
      */
     public function store(Request $request)
     {
+
+        
+        $typeOperation = $request->validate([
+            "type" => "required"
+        ]);   
+        $Operation = $request->validate([
+            "operation" => "required"
+        ]);
+
+        if($typeOperation == "caisse"){
+                dd("C'est la caisse");
+        }else{
+
+            if($Operation == "virement")
+            {
+                dd("virement");
+            }else{
+                dd("cheque");
+            }
+          
+        }
+
+        $request->validate([
+            "selectedFacture" => "required",
+            "montant" => "required|integer|min:1",
+          
+            
+        ]);
         dd($request->all());
     }
 
