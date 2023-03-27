@@ -67,7 +67,7 @@
                                                 <td class="text-center">{{client.prenom}}</td>
                                                 <td class="text-center">{{client.adresse}}</td>
                                                 <td class="text-center">{{client.telephone}}</td>
-                                                <td class="text-center">{{moment(client.created_at).format("DD-MM-YYYY")}}</td>
+                                                <td class="text-center">{{moment(client.created_at).format("DD/MM/YYYY")}}</td>
                                                 <td class="text-center">
                                                     <Link :href="`/client/${client.id}/edit`" class="btn
                                                         btn-link"><i

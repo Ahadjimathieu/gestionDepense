@@ -16,7 +16,7 @@ class CreatePaiementsTable extends Migration
         Schema::create('paiements', function (Blueprint $table) {
             $table->id();
             $table->Integer("montant_paiement");
-            $table->date("date_paiement");
+            $table->string("note");
             $table->unsignedBigInteger('facture_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
             $table->foreign('facture_id')->references('id')->on('factures')->onDelete('set null');    
             $table->timestamps();

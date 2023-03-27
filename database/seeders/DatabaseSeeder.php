@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Agent;
+use App\Models\Banque;
 use App\Models\Client;
 use App\Models\Prestataire;
 use Illuminate\Database\Seeder;
@@ -41,5 +42,20 @@ class DatabaseSeeder extends Seeder
         $type3 = Type::factory()->create([
             'nom' => 'Autre',
         ]);
+
+        $banque1 = Banque::factory()->create([
+            'nom' => 'Ecobank',
+            'solde' => 2000000,
+            
+        ]);
+        $banque2 = Banque::factory()->create([
+            'nom' => 'Orabank',
+            'solde' => 2000000,
+        ]);
+        $banque3 = Banque::factory()->create([
+            'nom' => 'Corisbank',
+            'solde' => 2000000,
+        ]);
+
     }
 }

@@ -13,6 +13,9 @@ class Operation extends Model
     protected $fillable = [
         "etat",
         "montant",
+        "type",
+        "numero_ordre",
+        "numero_compte",
         "paiement_id",
          "banque_id",
     ];

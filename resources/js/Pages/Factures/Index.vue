@@ -63,7 +63,7 @@
                                                 <td class="text-center">{{facture.client.nom}}      {{facture.client.prenom }}</td>
                                                 <td class="text-center">{{facture.montant}}</td>
                                                 <td class="text-center"> <div class="badge badge-success">{{facture.etat}}</div></td>
-                                                <td class="text-center">{{moment(facture.created_at).format("DD-MM-YYYY-hh")}}</td>
+                                                <td class="text-center">{{moment(facture.created_at).format("DD/MM/YYYY")}}</td>
                                                 <td class="text-center m-3">
                                                     <Link title="Detail la facture"  :href="`/facture/${facture.id}/detail-facture/`" type="button" class="btn
                                                         btn-icon  btn-info"><i

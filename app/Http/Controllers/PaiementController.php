@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Models\Banque;
 use App\Models\Client;
 use App\Models\Facture;
 use App\Models\Paiement;
+use Illuminate\Http\Request;
 use App\Http\Requests\StorePaiementRequest;
 use App\Http\Requests\UpdatePaiementRequest;
 
@@ -20,6 +22,7 @@ class PaiementController extends Controller
     {
         $factures = Facture::all();
         $paiements = Paiement::all();
+        $banques = Banque::all();
         $montant = [];
         foreach ($factures as $facture) {
             $montant[$facture->id] = $facture->montant;
@@ -29,7 +32,8 @@ class PaiementController extends Controller
             'factures' => $factures->load(['client']),
             'clients' => $clients,
             'paiements' => $paiements->load(['facture','client']),
-            'montants' => $montant
+            'montants' => $montant,
+            'banques' => $banques,
          ]);
     }
 
@@ -43,15 +47,23 @@ class PaiementController extends Controller
         //
     }
 
+    public function getMontant(Request $request)
+    {
+        $facture_id = $request->input('selectedFacture');
+        $facture = Facture::where('id', $facture_id)->first();
+        $montant = $facture ? $facture->montant : null;
+        return response()->json(['montant' => $montant]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StorePaiementRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePaiementRequest $request)
+    public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

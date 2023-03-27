@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Client create" />
+    <Head title="Paiement facture" />
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -23,16 +23,17 @@
                     </div>
                     <form class="row g-3" @submit.prevent="store">
                         <div class="col-6">
-                            <label for="inputName" class="form-label">Date paiement</label>
-                            <input required type="date"  class="form-control"  id="inputName">
-                        </div>
-                        <div class="col-6">
                             <label for="inputName" class="form-label">Montant paiement</label>
-                            <input required type="text"  class="form-control"   id="inputName">
+                            <select  v-model="type" class="form-control form-select" id="" aria-label=".form-select-lg example"  required="" >
+                                <option >Selectionner la facture </option>
+                                <option  value="caisse">Caisse </option>
+                                <option  value="banque">Banque </option>
+                               
+                            </select>
                         </div>
                         <div class="col-6">
                             <label for="inputFirstname" class="form-label">N° facture</label>
-                            <select  v-model="selectedFacture" class="form-control form-select" id="facture" aria-label=".form-select-lg example"  required="" >
+                            <select  v-model="selectedFacture" class="form-control form-select" id="facture" @change="getMontant" aria-label=".form-select-lg example"  required="" >
                                 <option selected>Selectionner la facture </option>
                                 <option v-for="facture in factures" :key="facture.id" :value="facture.id"  >
                                     {{ facture.numero_facture }} </option>
@@ -47,19 +48,85 @@
                         </div>
                         <br>
 
-                        <div class=" row col-12">
+                        <div v-if="type === 'caisse'" class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                <label for=""> Montant  </label>
+                                    <input required type="number" v-model="montant" class="form-control"  id="inputName">
 
-                            <div class="col-4">
-                               <div class="form-group">
-                                 <label for=""> Montant dû </label>
-                                <p class="form-control" > </p>
-
-                               </div>
+                                </div>
                             </div>
-                            <div class="col-2">
-
+                        </div>
+                        <div v-else-if="type === 'banque'" class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="inputFirstname" class="form-label">Banque</label>
+                                    <select  v-model="banque" class="form-control form-select" id="facture" aria-label=".form-select-lg example"  required="" >
+                                        <option selected>Selectionner la banque </option>
+                                        <option v-for="banque in banques" :key="banque.id" :value="banque.id"  >
+                                            {{ banque.nom }} </option>
+        
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-6" style="padding-top:32px;">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="inputName" class="form-label">Operation</label>
+                                    <select  v-model="operation" class="form-control form-select" id="" aria-label=".form-select-lg example"  required="" >
+                                        <option >Selectionner l'operation </option>
+                                        <option  value="virement">Virement bancaire </option>
+                                        <option  value="cheque">Chèque </option>
+                                       
+                                    </select>
+      
+                                  </div>
+                            </div>
+                        
+                        <div v-if="operation === 'virement'" class="">
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                <label for=""> Numero de compte </label>
+                                    <input required type="number" v-model="numero_compte" class="form-control"  id="inputName">
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                <label for=""> Montant  </label>
+                                    <input required type="number" v-model="montant" class="form-control"  id="inputName">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else-if="operation === 'cheque'" class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="inputFirstname" class="form-label">Numero d'ordre</label>
+                                    <input required type="number"  v-model="numero_ordre" class="form-control"  id="inputName">
+                                   
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                <label for=""> Montant </label>
+                                    <input required type="number" v-model="montant" class="form-control"  id="inputName">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div  class=" row col-12 ms-0">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for=""> Montant </label>
+                                        <input required type="number"  class="form-control"  id="inputName">
+    
+                                    </div>
+                            </div>
+                            <div class="col-6 offset-3 " style="padding-top:32px;">
 
                                     <button type="reset" class="btn btn-icon icon-left btn-danger"><i
                                         class="fas fa-times"></i>
@@ -166,46 +233,63 @@
     import Layout from '../../components/MainLayout.vue'
     import moment from "moment";
 
+
     export default {
         layout: Layout,
         props: {
             factures:Object,
             clients:Object,
-            montant:Object
+            montant:Object,
+            banques:Object
         },
+       
 
         data() {
             return {
                 moment: moment,
                 selectedFacture: '',
+                type:'',
+                operation:'',
+                numero_compte:'',
+                numero_ordre:'',
+                montant_facture:'',
+                banque:'',  
             }
         },
         computed: {
             selectedClient() {
+              
                 const facture = this.factures.find(
                     (facture) => facture.id === this.selectedFacture
                 );
-
                 if (facture) {
                     return this.clients.find(
                         (client) => client.id === facture.client_id
                     );
+                    
                 }
-
+               
                 return null;
             },
-          
-
-
-            
+            selectedFactureMontant() {
+                const facture = this.factures.find(
+                    (facture) => facture.id === this.selectedFacture
+                );
+                if (facture) {
+                    return facture.montant;
+                }
+                return null;
+            },
         },
+        
         methods:{
+            
             store() {
-                this.$inertia.post('/facture', { });
+                this.$inertia.post('/paiement', { selectedFacture: this.selectedFacture , operation: this.operation, numero_compte: this.numero_compte,numero_ordre: this.numero_ordre,banque: this.banque,montant: this.montant});
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Facture Créé avec succes',
+                    title: 'Paiement  réglé avec succes',
                     showConfirmButton: false,
                     timer: 5000
                     })

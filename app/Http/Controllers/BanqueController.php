@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Banque;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreBanqueRequest;
 use App\Http\Requests\UpdateBanqueRequest;
 
@@ -15,7 +17,10 @@ class BanqueController extends Controller
      */
     public function index()
     {
-        //
+        $banques = Banque::all();
+        return Inertia::render('Banques/Index',[
+            'banques' => $banques
+        ]);
     }
 
     /**
@@ -34,8 +39,21 @@ class BanqueController extends Controller
      * @param  \App\Http\Requests\StoreBanqueRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBanqueRequest $request)
+    public function store(Request $request)
     {
+        $request->validate([
+            "nom" => "required",
+            "solde" => "required",
+
+        ]);
+        $banque = new Banque();
+        $banque->nom = $request->nom;
+        $banque->solde = $request->solde;
+       
+
+
+        $banque->save();
+        return redirect()->route('banque.index');
         //
     }
 
@@ -58,7 +76,12 @@ class BanqueController extends Controller
      */
     public function edit(Banque $banque)
     {
-        //
+        
+        $BanqueEdit = Banque::find($banque->id);
+        return Inertia::render("Banques/Edit",[
+            'banque' => $BanqueEdit,
+            'banques' => Banque::all()
+        ]);
     }
 
     /**
@@ -68,9 +91,17 @@ class BanqueController extends Controller
      * @param  \App\Models\Banque  $banque
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBanqueRequest $request, Banque $banque)
+    public function update(Request $request, Banque $banque)
     {
-        //
+    
+        $banque->update(
+            $request->validate([
+                'nom' => 'required',
+                'solde' => 'required',
+            ])
+            );
+
+        return redirect()->route('banque.index');
     }
 
     /**

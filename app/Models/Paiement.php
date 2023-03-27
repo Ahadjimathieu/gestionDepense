@@ -15,7 +15,7 @@ class Paiement extends Model
     use HasFactory;
     protected $fillable = [
         "date_paiement",
-        "montant_paiement",
+        "note",
         "facture_id",
     ];
     public function caisses():HasMany {
