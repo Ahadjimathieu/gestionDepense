@@ -22,11 +22,7 @@
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
-                                    <div class="dt-buttons btn-group flex-wrap"><Link
-                                            class="btn btn-primary"
-                                            href="/facture/create" > <i class="fa fa-user-plus" ></i> Ajouter une nouvelle facture</Link>
-
-                                    </div>
+                                    
                                 </div>
                                 <div class="col-sm-12 col-md-6" >
                                     <div id="example1_filter"  style="float:right;" class="dataTables_filter"><label>Search:<input
@@ -66,21 +62,20 @@
                                                 <td class="text-center">{{facture.numero_facture}}</td>
                                                 <td class="text-center">{{facture.client.nom}}      {{facture.client.prenom }}</td>
                                                 <td class="text-center">{{facture.montant}}</td>
-                                                <td class="text-center"> {{facture.etat}}</td>
-                                                <td class="text-center">{{moment(facture.created_at).format("DD-MM-YYYY")}}</td>
-                                                <td class="text-center">
-                                                    <Link title="Detail la facture" class="btn
-                                                        btn-link"><i
+                                                <td class="text-center"> <div class="badge badge-success">{{facture.etat}}</div></td>
+                                                <td class="text-center">{{moment(facture.created_at).format("DD-MM-YYYY-hh")}}</td>
+                                                <td class="text-center m-3">
+                                                    <Link title="Detail la facture"  :href="`/facture/${facture.id}/detail-facture/`" type="button" class="btn
+                                                        btn-icon  btn-info"><i
+                                                            class="fas fa-info"></i></Link>
+                                                            <Link  type="button" :href="`/facture/${facture.id}/facture-pdf/`" title="imprimer la facture" class="btn
+                                                        btn-icon btn-warning"><i
                                                             class="fas
-                                                            fa-edit"></i></Link>
-                                                            <Link title="Regler la facture" class="btn
-                                                        btn-link"><i
-                                                            class="fas
-                                                            fa-edit"></i></Link>
+                                                            fa-print"></i></Link>
                                                     <button class="btn
                                                         btn-link"><i
                                                             class="fas
-                                                            fa-trash"></i></button>
+                                                            fa"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>

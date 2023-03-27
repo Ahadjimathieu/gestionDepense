@@ -19,7 +19,8 @@ class CreateFacturesTable extends Migration
             $table->Integer("montant");
             $table->Integer("montant_restant");
             $table->string("etat");
-            $table->foreignId('client_id')->constrained();
+            $table->unsignedBigInteger('client_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('set null');
             $table->timestamps();
         });
     }

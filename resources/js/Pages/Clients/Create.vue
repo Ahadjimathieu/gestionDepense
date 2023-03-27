@@ -107,11 +107,11 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="client in clients" :key="client.id" class="">
-                                                <td>{{client.nom}}</td>
-                                                <td>{{client.prenom}}</td>
-                                                <td>{{client.adresse}}</td>
-                                                <td>{{client.telephone}}</td>
-                                                <td>{{moment(client.created_at).format("DD-MM-YYYY")}}</td>
+                                                <td class="text-center" >{{client.nom}}</td>
+                                                <td class="text-center" >{{client.prenom}}</td>
+                                                <td class="text-center" >{{client.adresse}}</td>
+                                                <td class="text-center" >{{client.telephone}}</td>
+                                                <td class="text-center" >{{moment(client.created_at).format("DD-MM-YYYY")}}</td>
                                                 <td class="text-center">
                                                     <button class="btn
                                                         btn-link"><i

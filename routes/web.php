@@ -7,6 +7,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FactureController;
+use App\Http\Controllers\PaiementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,13 @@ Route::get('/facture/{facture}/detail-facture', [FactureController::class, 'edit
 
 Route::get('/facture/{facture}/facture-pdf', [FactureController::class, 'generatePDF'])->name('facture.pdf')->middleware("auth");
 
-Route::put('/facture/{facture}', [FactureController::class, 'update'])->name('facture.update')->middleware("auth");
+//Route::put('/facture/{facture}', [FactureController::class, 'update'])->name('facture.update')->middleware("auth");
+
+// Paiement de Facture
+
+Route::get('/paiement/regler', [PaiementController::class, 'index'])->name('paiement.index')->middleware("auth");
+
+Route::get('/paiement', [PaiementController::class, 'create'])->name('paiement.create')->middleware("auth");
+
 
 

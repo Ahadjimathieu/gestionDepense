@@ -3,22 +3,23 @@
 namespace App\Models;
 
 use App\Models\Banque;
-use App\Models\Caisse;
+use App\Models\Paiement;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Operation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "montant_op",
-        "type_op"
+        "etat",
+        "montant",
+        "paiement_id",
+         "banque_id",
     ];
-    public function caisses():HasMany {
-        return $this->hasMany(Caisse::class);
+    public function banque(){
+        return $this->belongsTo(Banque::class,'banque_id')->withDefault();
     }
-    public function banques():HasMany {
-        return $this->hasMany(Banque::class);
+    public function paiement(){
+        return $this->belongsTo(Paiement::class,'paiement_id')->withDefault();
     }
 }

@@ -9,9 +9,9 @@ use App\Models\Client;
 use App\Models\Detail;
 use App\Models\Facture;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StoreFactureRequest;
-use App\Http\Requests\UpdateFactureRequest;
+use Illuminate\Support\Facades\View;
 
 class FactureController extends Controller
 {
@@ -105,8 +105,8 @@ class FactureController extends Controller
      */
     public function edit(Facture $facture)
     {
-        
-       
+
+
 
         $details = $details = DB::table('details')
                 ->join('factures', 'factures.id', '=', 'details.facture_id')
@@ -123,20 +123,35 @@ class FactureController extends Controller
 
     public function generatePDF(Facture $facture)
         {
-            // Rendre la vue Vue.js avec Inertia
-            $pdfContent = Inertia::render('Factures/Facture')->getContent();
-            
-            // Créer une instance de Dompdf
+
+             // Récupération du contenu du fichier Vue
+            $vueContent = Inertia::render('Factures/Facture')->content();
+
+            // Création d'une instance Dompdf
             $dompdf = new Dompdf();
-            
-            // Charger le contenu HTML de la vue Vue.js dans Dompdf
-            $dompdf->loadHtml($pdfContent);
-            
-            // Rendre le PDF
+
+            // Conversion du contenu Vue en HTML
+            $dompdf->loadHtml($vueContent);
+
+            // Rendu du PDF
             $dompdf->render();
-            
-            // Renvoyer le PDF en réponse HTTP
-            return $dompdf->stream('facture.pdf');
+
+            // Envoi du PDF en tant que téléchargement
+            return $dompdf->stream('document.pdf');
+            // $pdfHtml = Inertia::render('Factures/Fcature')->toHtml();
+
+            // // Instancier la classe Dompdf
+            // $pdf = new Dompdf();
+
+            // // Charger le contenu HTML dans Dompdf
+            // $pdf->loadHtml($pdfHtml);
+
+            // // Rendre le PDF
+            // $pdf->render();
+
+            // // Enregistrer le PDF généré dans un fichier
+            // $pdfOutput = $pdf->output();
+            // file_put_contents('facture.pdf', $pdfOutput);
         }
     /**
      * Update the specified resource in storage.
@@ -145,7 +160,7 @@ class FactureController extends Controller
      * @param  \App\Models\Facture  $facture
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFactureRequest $request, Facture $facture)
+    public function update(Facture $facture)
     {
         //
     }

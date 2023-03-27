@@ -17,7 +17,8 @@ class CreatePaiementsTable extends Migration
             $table->id();
             $table->Integer("montant_paiement");
             $table->date("date_paiement");
-            $table->foreignId('facture_id')->constrained();      
+            $table->unsignedBigInteger('facture_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('facture_id')->references('id')->on('factures')->onDelete('set null');    
             $table->timestamps();
         });
     }

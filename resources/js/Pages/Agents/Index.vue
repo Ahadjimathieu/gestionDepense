@@ -63,11 +63,11 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="agent in agents.data" :key="agent.id" class="">
-                                                <td>{{agent.nom}}</td>
-                                                <td>{{agent.prenom}}</td>
-                                                <td>{{agent.adresse}}</td>
-                                                <td>{{agent.telephone}}</td>
-                                                <td>{{agent.date_embauche}}</td>
+                                                <td class="text-center" >{{agent.nom}}</td>
+                                                <td class="text-center" >{{agent.prenom}}</td>
+                                                <td class="text-center" >{{agent.adresse}}</td>
+                                                <td class="text-center" >{{agent.telephone}}</td>
+                                                <td class="text-center" >{{agent.date_embauche}}</td>
                                                 <!-- {{moment(agent.created_at).format("DD-MM-YYYY")}} -->
                                                 <td class="text-center">
                                                     <!--  -->

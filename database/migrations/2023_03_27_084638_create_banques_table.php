@@ -15,13 +15,8 @@ class CreateBanquesTable extends Migration
     {
         Schema::create('banques', function (Blueprint $table) {
             $table->id();
-            $table->string("nom");
-            $table->string("adresse");
-            $table->string("telephone");
-            $table->foreignId('salaire_id')->constrained();
-            $table->foreignId('depense_id')->constrained();
-            $table->foreignId('operation_id')->constrained();
-            $table->foreignId('paiement_id')->constrained();
+            $table->string('nom');
+            $table->integer('solde');
             $table->timestamps();
         });
     }

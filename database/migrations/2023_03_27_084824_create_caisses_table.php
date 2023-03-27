@@ -15,12 +15,12 @@ class CreateCaissesTable extends Migration
     {
         Schema::create('caisses', function (Blueprint $table) {
             $table->id();
-            $table->string("nom");
-            $table->Integer("solde");
-            $table->foreignId('salaire_id')->constrained();
+            $table->integer('solde');
+            $table->unsignedBigInteger('virement_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('virement_id')->references('id')->on('virements')->onDelete('set null');
+            $table->unsignedBigInteger('paiement_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('paiement_id')->references('id')->on('paiements')->onDelete('set null');
             $table->foreignId('depense_id')->constrained();
-            $table->foreignId('operation_id')->constrained();
-            $table->foreignId('paiement_id')->constrained();
             $table->timestamps();
         });
     }

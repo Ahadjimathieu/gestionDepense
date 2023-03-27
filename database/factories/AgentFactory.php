@@ -15,7 +15,12 @@ class AgentFactory extends Factory
     {
         return [
            
-            //
+            'nom' => $this->faker->lastName(),
+            'prenom' => $this->faker->FirstName(),
+            'telephone' => $this->faker->phoneNumber,
+            'adresse' => $this->faker->address,
+            'date_embauche' => now()
+            
         ];
     }
 }

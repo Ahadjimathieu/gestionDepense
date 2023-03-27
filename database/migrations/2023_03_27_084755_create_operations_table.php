@@ -15,8 +15,11 @@ class CreateOperationsTable extends Migration
     {
         Schema::create('operations', function (Blueprint $table) {
             $table->id();
-            $table->Integer("montant_op");
-            $table->string("type_op");
+            $table->integer('montant');
+            $table->string('etat');
+            $table->unsignedBigInteger('paiement_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('paiement_id')->references('id')->on('paiements')->onDelete('set null');
+            $table->foreignId('banque_id')->constrained();
             $table->timestamps();
         });
     }

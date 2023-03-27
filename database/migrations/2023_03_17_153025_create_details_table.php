@@ -19,7 +19,9 @@ class CreateDetailsTable extends Migration
             $table->Integer('qantite');
             $table->Integer('prix_unit');
             $table->Integer('total');
-            $table->foreignId('facture_id')->constrained();
+            $table->unsignedBigInteger('facture_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('facture_id')->references('id')->on('factures')->onDelete('set null');
+
             $table->timestamps();
         });
     }

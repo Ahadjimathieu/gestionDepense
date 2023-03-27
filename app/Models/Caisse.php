@@ -2,27 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Depense;
+use App\Models\Paiement;
+use App\Models\Virement;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Caisse extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        "nom",
-        "solde"
+    protected $fiillable = [
+        "solde",
+        "paiement_id",
+        "virement_id"
     ];
-
+    public function paiement(){
+        return $this->belongsTo(Paiement::class,'paiement_id')->withDefault();
+    }
+    public function virement(){
+        return $this->belongsTo(Virement::class,'virement_id')->withDefault();
+    }
     public function depense(){
         return $this->belongsTo(Depense::class);
-    }
-    public function salaire(){
-        return $this->belongsTo(Salaire::class);
-    }
-    public function paiement(){
-        return $this->belongsTo(Paiement::class);
-    }
-    public function operation(){
-        return $this->belongsTo(Operation::class);
     }
 }
