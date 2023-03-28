@@ -63,16 +63,25 @@ class PaiementController extends Controller
      */
     public function store(Request $request)
     {
-        $typeOperation = $request->type;
-        $operation = $request->operation;
+       
          $request->validate([
-            'montant' => "required|regex:/^\d{10}$/",
+            'type' => "required",
+            'operation' => "required",
+            'montant' => "required|numeric|regex:/^[0-9]{10}$/",
             'montant_facture' => "",
             'selectedFacture' => "required",
+            'numero_compte' => "nullable|numeric|regex:/^[0-9]{10}$/",
+            'numero_ordre' => "nullable|numeric|regex:/^[0-9]{10}$/",
+            'banque' => "nullable|numeric",
         ]);
 
+        $typeOperation = $request->type;
+        $operation = $request->operation;
         $montant = $request->montant;
         $montant_facture = $request->montant_facture;
+        $facture = $request->selectedFacture;
+        $numero_compte = $request->numero_compte;
+        $banque = $request->banque;
         $facture = $request->selectedFacture;
         if($typeOperation == 'caisse'){
 
@@ -81,7 +90,7 @@ class PaiementController extends Controller
                 'montant_facture' => "",
                 'selectedFacture' => "required",
             ]);
-            
+
                 $paiement = new Paiement();
 
 
