@@ -31,4 +31,11 @@ class HomeController extends Controller
             'user'=> $user
         ]);
     }
+
+        public function logout()
+        {
+            auth()->logout();
+
+            return Inertia::location(route('login'));
+        }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\BanqueController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,8 @@ use App\Http\Controllers\PaiementController;
 
 
 Auth::routes();
+
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'index'])->name('dashboard')->middleware("auth");
 

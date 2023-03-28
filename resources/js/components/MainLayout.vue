@@ -11,11 +11,31 @@
 
 
         <aside class="control-sidebar control-sidebar-dark">
+            <div class="card-body bg-dark box-profile">
+                <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/user.png')}}"
+                        alt="User profile picture">
+                </div>
 
-            <div class="p-3">
-                <h5>{{user.nom}} {{user.prenom}}</h5>
-               
+                <h3 class="profile-username text-center ellipsis">{{user.nom}} {{user.prenom}}</h3>
+                <p class="text-muted text-center"></p>
+                <p class="text-muted text-center"></p>
+                <ul class="list-group bg-dark mb-3">
+                    <li class="list-group-item">
+                    <i class="fa fa-lock pr-2"></i><b>Mot de passe</b>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fa fa-lock pr-2"></i><b>Mon profile</b>
+                    </li>
+                </ul>
+
+                <Link class="btn btn-primary btn-block" href="/logout"  method="post" type="button">
+                    Déconnexion
+                </Link>
+
             </div>
+
+
         </aside>
 
 
@@ -39,4 +59,6 @@
     const user = computed(() =>{
         return usePage().props.auth.user
     })
+
+
 </script>

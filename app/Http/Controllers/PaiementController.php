@@ -63,35 +63,43 @@ class PaiementController extends Controller
      */
     public function store(Request $request)
     {
-
-        
-        $typeOperation = $request->validate([
-            "type" => "required"
-        ]);   
-        $Operation = $request->validate([
-            "operation" => "required"
+        $typeOperation = $request->type;
+        $operation = $request->operation;
+         $request->validate([
+            'montant' => "required|regex:/^\d{10}$/",
+            'montant_facture' => "",
+            'selectedFacture' => "required",
         ]);
 
-        if($typeOperation == "caisse"){
-                dd("C'est la caisse");
-        }else{
+        $montant = $request->montant;
+        $montant_facture = $request->montant_facture;
+        $facture = $request->selectedFacture;
+        if($typeOperation == 'caisse'){
 
-            if($Operation == "virement")
-            {
-                dd("virement");
-            }else{
-                dd("cheque");
-            }
-          
+            $request->validate([
+                'montant' => "required|regex:/^\d{10}$/",
+                'montant_facture' => "",
+                'selectedFacture' => "required",
+            ]);
+            
+                $paiement = new Paiement();
+
+
+        }elseif(($typeOperation == 'banque')  && ($operation =='cheque')){
+
+            dd("C'est la banque et le cheque");
+            $paiement = new Paiement();
+
+
+        }elseif(($typeOperation == 'banque') && ($operation == 'virement')){
+            dd("C'est la banque et le virement");
+            $paiement = new Paiement();
+
         }
 
-        $request->validate([
-            "selectedFacture" => "required",
-            "montant" => "required|integer|min:1",
-          
-            
-        ]);
-        dd($request->all());
+
+
+        //dd($request->all());
     }
 
     /**

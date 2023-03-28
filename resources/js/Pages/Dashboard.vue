@@ -1,6 +1,6 @@
 <template>
     <layout>
-    
+        <Head title="Tableau de bord"/>
 
         <div class="content-header">
             <div class="container-fluid">
