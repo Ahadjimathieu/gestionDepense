@@ -60,7 +60,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                 <label for=""> Montant  </label>
-                                    <input  type="number" class="form-control"  :class="{ 'is-invalid': errors.montant }"   v-model="montant" id="inputName">
+                                    <input  type="number" class="form-control"  :class="{ 'is-invalid': errors.montant }"   v-model="montant" id="montant" >
 
                                 </div>
                             </div>
@@ -283,7 +283,7 @@
             return null;
             },
             store() {
-                this.$inertia.post('/paiement', { selectedFacture: this.selectedFacture , type: this.type,operation: this.operation, numero_compte: this.numero_compte,numero_ordre: this.numero_ordre,banque: this.banque,montant: this.montant,montant_facture: this.montant_facture,client: this.client});
+                this.$inertia.post('/paiement', { selectedFacture: this.selectedFacture , type: this.type,operation: this.operation, numero_compte: this.numero_compte,numero_ordre: this.numero_ordre,banque: this.banque,montant: this.montant,montant_facture: this.montant_facture});
                 // Swal.fire({
                 //     position: 'top-end',
                 //     icon: 'success',
@@ -293,9 +293,7 @@
                 //     })
 
             },
-
-
-             },
+        },
         watch: {
             selectedFacture(newVal, oldVal) {
             // Mettre à jour les détails de la facture lorsqu'une nouvelle facture est sélectionnée

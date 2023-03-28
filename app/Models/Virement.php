@@ -12,6 +12,7 @@ class Virement extends Model
     use HasFactory;
 
     protected $fillable = [
+        "montant",
         "banque_id"
     ];
     public function caisses(){

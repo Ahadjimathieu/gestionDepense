@@ -20,7 +20,8 @@ class CreateCaissesTable extends Migration
             $table->foreign('virement_id')->references('id')->on('virements')->onDelete('set null');
             $table->unsignedBigInteger('paiement_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
             $table->foreign('paiement_id')->references('id')->on('paiements')->onDelete('set null');
-            $table->foreignId('depense_id')->constrained();
+            $table->unsignedBigInteger('depense_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('depense_id')->references('id')->on('depenses')->onDelete('set null');
             $table->timestamps();
         });
     }

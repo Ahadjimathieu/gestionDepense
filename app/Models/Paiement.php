@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Banque;
 use App\Models\Caisse;
 use App\Models\Facture;
 use App\Models\Operation;
@@ -14,8 +13,9 @@ class Paiement extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "date_paiement",
+        "montant_paiement",
         "note",
+        "etat",
         "facture_id",
     ];
     public function caisses():HasMany {

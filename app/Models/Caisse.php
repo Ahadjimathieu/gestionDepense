@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Caisse extends Model
 {
     use HasFactory;
-    protected $fiillable = [
+    protected $fillable = [
         "solde",
         "paiement_id",
-        "virement_id"
+        "virement_id",
+        "depense_id"
     ];
     public function paiement(){
         return $this->belongsTo(Paiement::class,'paiement_id')->withDefault();

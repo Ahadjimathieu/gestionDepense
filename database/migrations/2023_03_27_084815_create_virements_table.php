@@ -15,6 +15,7 @@ class CreateVirementsTable extends Migration
     {
         Schema::create('virements', function (Blueprint $table) {
             $table->id();
+            $table->Integer("montant");
             $table->foreignId('banque_id')->constrained();
             $table->timestamps();
         });

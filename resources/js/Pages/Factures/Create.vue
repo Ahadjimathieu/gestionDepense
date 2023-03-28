@@ -28,8 +28,8 @@
                         </div>
                         <div class="col-6">
                             <label for="inputFirstname" class="form-label">Client</label>
-                            <select class="form-control form-select" aria-label=".form-select-lg example" v-model="client_id" required="" >
-                                <option selected>Selectionner le client </option>
+                            <select class="form-control form-select" required aria-label=".form-select-lg example" v-model="client_id"  >
+                                <option value="" >Selectionner le client </option>
                                 <option v-for="client in clients" :key="client.id" :value="client.id">
                                     {{ client . nom }} {{ client . prenom }}</option>
 
@@ -46,21 +46,21 @@
                                 <div   class="col-lg-4 col-md-4">
                                     <div class="form-group">
                                         <label>Désignation <font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="text"   v-model="detail.designation" class="form-control" name="" required="">
+                                        <input title="saisir la quantité" type="text"  :class="{ 'is-invalid': errors.designation }" v-model="detail.designation" class="form-control" name="" >
                                     </div>
                                 </div>
 
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label>Qté <font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="number"  v-model="detail.quantite" class="form-control" name="" required="" @change="updateTotal(detail)">
+                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid': errors.quantite }" v-model="detail.quantite" class="form-control" name=""  @change="updateTotal(detail)">
 
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label>Prix Unitaire<font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="number" v-model="detail.prix_unit" class="form-control" name="" required="" @change="updateTotal(detail)">
+                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid':errors.prix_unit }" v-model="detail.prix_unit" class="form-control" name="" @change="updateTotal(detail)">
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
@@ -215,6 +215,7 @@
             clients: Object,
             facture: String,
             factures:Object,
+            errors:Object,
         },
 
         data() {
@@ -222,10 +223,17 @@
 
                 moment: moment,
                 details: [
-                    {designation:'',quantite:0,prix_unit:0,total:null},
+                    {designation:'',quantite:0,prix_unit:0,total:null,},
                 ],
                 client_id: '',
                 montant: null,
+
+                errors: {
+                designation: [],
+                quantite: [],
+                prix_unit: [],
+                // ...
+                },
 
             }
         },
