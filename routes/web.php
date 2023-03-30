@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\PagesController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,15 +69,23 @@ Route::get('/facture/{facture}/facture-pdf', [FactureController::class, 'generat
 
 Route::post('/facture/montant', [PaiementController::class, 'getMontant'])->name('facture.montant');
 
+Route::get('/pdf', [PdfController::class, 'getPdf']);
+
 //Route::put('/facture/{facture}', [FactureController::class, 'update'])->name('facture.update')->middleware("auth");
 
 // Paiement de Facture
 
-Route::get('/paiement/regler', [PaiementController::class, 'index'])->name('paiement.index')->middleware("auth");
 
-Route::get('/paiement', [PaiementController::class, 'create'])->name('paiement.create')->middleware("auth");
+Route::get('/paiement', [PaiementController::class, 'index'])->name('paiement.index')->middleware("auth");
+
+Route::get('/paiement/regler', [PaiementController::class, 'create'])->name('paiement.create')->middleware("auth");
 
 Route::post('/paiement', [PaiementController::class, 'store'])->name('paiement.store')->middleware("auth");
+
+Route::post('/paiement/{paiement}/valider-paiement', [PaiementController::class, 'validatePayment'])->name('paiement.validate')->middleware("auth");
+
+Route::delete('/paiement/{paiement}/annuler-paiement', [PaiementController::class, 'cancelPayment'])->name('paiement.cancel')->middleware("auth");
+
 
 
 
@@ -89,4 +99,9 @@ Route::get('/banque/{banque}/edit', [BanqueController::class, 'edit'])->name('ba
 
 Route::put('/banque/{banque}', [BanqueController::class, 'update'])->name('banque.update')->middleware("auth");
 
+// Caisse
+
+Route::get('/caisse', [TransactionController::class, 'caisse'])->name('caisse.index')->middleware("auth");
+
+Route::post('/caisse', [TransactionController::class, 'initialiserCaisse'])->name('caisse.initialiser')->middleware("auth");
 

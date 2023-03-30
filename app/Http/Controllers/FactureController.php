@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Dompdf\Dompdf;
 use Inertia\Inertia;
 use App\Models\Client;
 use App\Models\Detail;
 use App\Models\Facture;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\View;
 
 class FactureController extends Controller
@@ -28,7 +27,7 @@ class FactureController extends Controller
         ]);
     }
 
-    /**
+    /*
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -59,21 +58,21 @@ class FactureController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'client_id' => "required",
-            'facture' => "required",
-            'detail.designation' => "required|string|max:255",
-            'detail.qantite' => "required|numeric|regex:/^[0-9]$/",
-            'detail.prix_unit' => "required|numeric|regex:/^[0-9]$/",
-            'detail.total' => "required",
-        ]);
+        // $request->validate([
+        //     'client_id' => "required",
+        //     'facture' => "required",
+        //     'detail.designation' => "required|string|max:255",
+        //     'detail.qantite' => "required|numeric",
+        //     'detail.prix_unit' => "required|numeric",
+        //     'detail.total' => "required",
+        // ]);
 
 
         $facture = new Facture();
         $facture->numero_facture = $request->facture;
         $facture->montant = $request->montant;
         $facture->montant_restant = $request->montant;
-        $facture->etat = 'non-regle';
+        $facture->etat = 'non-regler';
         $facture->client_id = $request->client_id;
         $facture->save();
 
@@ -128,38 +127,38 @@ class FactureController extends Controller
     }
 
 
-    public function generatePDF(Facture $facture)
-        {
+    // public function generatePDF(Facture $facture)
+    //     {
 
-             // Récupération du contenu du fichier Vue
-            $vueContent = Inertia::render('Factures/Facture')->content();
+    //          // Récupération du contenu du fichier Vue
+    //         $vueContent = Inertia::render('Factures/Facture')->content();
 
-            // Création d'une instance Dompdf
-            $dompdf = new Dompdf();
+    //         // Création d'une instance Dompdf
+    //         $dompdf = new Dompdf();
 
-            // Conversion du contenu Vue en HTML
-            $dompdf->loadHtml($vueContent);
+    //         // Conversion du contenu Vue en HTML
+    //         $dompdf->loadHtml($vueContent);
 
-            // Rendu du PDF
-            $dompdf->render();
+    //         // Rendu du PDF
+    //         $dompdf->render();
 
-            // Envoi du PDF en tant que téléchargement
-            return $dompdf->stream('document.pdf');
-            // $pdfHtml = Inertia::render('Factures/Fcature')->toHtml();
+    //         // Envoi du PDF en tant que téléchargement
+    //         return $dompdf->stream('document.pdf');
+    //         // $pdfHtml = Inertia::render('Factures/Fcature')->toHtml();
 
-            // // Instancier la classe Dompdf
-            // $pdf = new Dompdf();
+    //         // // Instancier la classe Dompdf
+    //         // $pdf = new Dompdf();
 
-            // // Charger le contenu HTML dans Dompdf
-            // $pdf->loadHtml($pdfHtml);
+    //         // // Charger le contenu HTML dans Dompdf
+    //         // $pdf->loadHtml($pdfHtml);
 
-            // // Rendre le PDF
-            // $pdf->render();
+    //         // // Rendre le PDF
+    //         // $pdf->render();
 
-            // // Enregistrer le PDF généré dans un fichier
-            // $pdfOutput = $pdf->output();
-            // file_put_contents('facture.pdf', $pdfOutput);
-        }
+    //         // // Enregistrer le PDF généré dans un fichier
+    //         // $pdfOutput = $pdf->output();
+    //         // file_put_contents('facture.pdf', $pdfOutput);
+    //     }
     /**
      * Update the specified resource in storage.
      *

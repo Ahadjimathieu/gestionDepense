@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Agents" />
+    <Head title="Nouvel agent" />
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -59,7 +59,7 @@
 
 
                            <br>
-                           <div class="card-footer mt-4">
+                           <div class="card-footer">
                             <Link href="/agent" class="btn btn-danger">Annuler</Link>
                             <button type="submit"  class="btn btn-success float-right">Enregistrer</button>
                         </div>
@@ -121,14 +121,14 @@
                                                 <td class="text-center" >{{agent.date_embauche}}</td>
                                                 <!-- {{moment(agent.created_at).format("DD-MM-YYYY")}} -->
                                                 <td class="text-center">
-                                                    <button class="btn
-                                                        btn-link"><i
-                                                            class="fas
-                                                            fa-edit"></i></button>
-                                                    <button class="btn
-                                                        btn-link"><i
-                                                            class="fas
-                                                            fa-trash"></i></button>
+                                                    <Link  :href="`/agent/${agent.id}/edit`" class="btn
+                                                    btn-link"><i
+                                                        class="fas
+                                                        fa-edit"></i></Link>
+                                                <button class="btn
+                                                    btn-link"><i
+                                                        class="fas
+                                                        fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         </tbody>

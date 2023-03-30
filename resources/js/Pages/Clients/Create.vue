@@ -1,5 +1,5 @@
 <template>
-    <Head title="Client create"/>
+    <Head title="Nouveau client"/>
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -106,17 +106,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="client in clients" :key="client.id" class="">
+                                            <tr v-for="client in clients.data" :key="client.id" class="">
                                                 <td class="text-center" >{{client.nom}}</td>
                                                 <td class="text-center" >{{client.prenom}}</td>
                                                 <td class="text-center" >{{client.adresse}}</td>
                                                 <td class="text-center" >{{client.telephone}}</td>
                                                 <td class="text-center" >{{moment(client.created_at).format("DD-MM-YYYY")}}</td>
                                                 <td class="text-center">
-                                                    <button class="btn
+                                                    <Link :href="`/client/${client.id}/edit`" class="btn
                                                         btn-link"><i
                                                             class="fas
-                                                            fa-edit"></i></button>
+                                                            fa-edit"></i></Link>
                                                     <button class="btn
                                                         btn-link"><i
                                                             class="fas
@@ -129,7 +129,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12" style="float:left;" >
-                                   <Pagination :links="clients.links"/> 
+                                   <Pagination :links="clients.links" /> 
                                 </div>
                             </div>
                         </div>
@@ -145,6 +145,7 @@
     import moment from "moment";
     export default {
         layout: Layout,
+      
         props:{
             clients:Object
         },
@@ -159,6 +160,8 @@
     }
 </script>
 <script setup>
+   import Pagination from '../../components/Pagination.vue'
+
     import {reactive} from 'vue'
     import {router} from '@inertiajs/vue3'
     let form =  reactive({

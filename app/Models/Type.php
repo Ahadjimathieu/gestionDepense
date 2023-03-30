@@ -10,10 +10,4 @@ class Type extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        "nom",
-    ];
-    public function depenses(){
-        return $this->hasMany(Depense::class);
-    }
 }

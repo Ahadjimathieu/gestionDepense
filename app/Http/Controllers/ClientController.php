@@ -21,7 +21,7 @@ class ClientController extends Controller
     public function index()
     {
         return Inertia::render('Clients/Index',[
-            'clients' => Client::paginate(1)
+            'clients' => Client::paginate(10)
         ]);
     }
 
@@ -33,7 +33,7 @@ class ClientController extends Controller
     public function create()
     {
         return Inertia::render('Clients/Create',[
-            'clients' => Client::all()
+            'clients' => Client::paginate(10)
         ]);
     }
 

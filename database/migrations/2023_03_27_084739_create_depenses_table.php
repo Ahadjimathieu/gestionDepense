@@ -15,13 +15,13 @@ class CreateDepensesTable extends Migration
     {
         Schema::create('depenses', function (Blueprint $table) {
             $table->id();
-            $table->string('montant');
-            $table->string('etat');
+            $table->Integer('montant');
+            $table->string('type');
+            $table->string('operation');
             $table->unsignedBigInteger('salaire_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
             $table->foreign('salaire_id')->references('id')->on('salaires')->onDelete('set null');
             $table->unsignedBigInteger('prestataire_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
             $table->foreign('prestataire_id')->references('id')->on('prestataires')->onDelete('set null');
-            $table->foreignId('type_id')->constrained();
             $table->timestamps();
         });
     }

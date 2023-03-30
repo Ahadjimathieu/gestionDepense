@@ -67,7 +67,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -78,15 +78,15 @@
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/caisse" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Paiement de salaire</p>
+                                    <p>Initialiser la caisse</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <Link href="/agent" class="nav-link" :class="{ 'active': $page.url === '/agent' }">
+                                <Link href="/agent/create" class="nav-link" :class="{ 'active': $page.url === '/agent/create' }">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Liste des agents</p>
+                                <p>Nouvel  agent /Liste</p>
                                 </Link>
                             </li>
                             <li class="nav-item">

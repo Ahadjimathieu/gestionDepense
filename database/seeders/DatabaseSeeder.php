@@ -33,20 +33,10 @@ class DatabaseSeeder extends Seeder
             'nom' => 'Loyer',
         ]);
 
-        $type1 = Type::factory()->create([
-            'nom' => 'Salaire',
-        ]);
-        $type2 = Type::factory()->create([
-            'nom' => 'Prestataire',
-        ]);
-        $type3 = Type::factory()->create([
-            'nom' => 'Autre',
-        ]);
-
         $banque1 = Banque::factory()->create([
             'nom' => 'Ecobank',
             'solde' => 2000000,
-            
+
         ]);
         $banque2 = Banque::factory()->create([
             'nom' => 'Orabank',

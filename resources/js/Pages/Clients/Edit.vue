@@ -51,7 +51,7 @@
 
 
                            <br>
-                           <div class="card-footer  offset-5">
+                           <div class="card-footer">
                             <Link href="/client" class="btn btn-danger">Annuler</Link>
                             <button type="submit"  class="btn btn-primary float-right">Modifier</button>
                         </div>

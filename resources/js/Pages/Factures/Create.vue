@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Client create" />
+    <Head title="Nouvelle facture" />
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -102,14 +102,18 @@
                             <div class="col-2">
 
                             </div>
+                            <div class="card-footer">
+                                <button type="reset" class="btn btn-icon icon-left btn-danger"><i
+                                    class="fas fa-times"></i>
+                                        Annuler
+                                    </button>
+                                    <button class="btn btn-icon icon-left btn-primary float-right" type="submit"  id="addvente"><i
+                                        class="fas fa-check"></i> Enregistrer</button>
+                            </div>
                             <div class="col-6" style="padding-top:32px;">
 
-                                    <button type="reset" class="btn btn-icon icon-left btn-danger"><i
-                                        class="fas fa-times"></i>
-                                            Annuler
-                                        </button>
-                                        <button class="btn btn-icon icon-left btn-primary" type="submit"  id="addvente"><i
-                                        class="fas fa-check"></i> Enregistrer</button>
+                                    
+                                        
 
                             </div>
 
@@ -204,7 +208,9 @@
         </div>
     </div>
 </template>
-
+<script setup>
+import Pagination from '../../components/Pagination.vue'
+</script>
 <script>
     import Layout from '../../components/MainLayout.vue'
     import moment from "moment";
@@ -227,13 +233,6 @@
                 ],
                 client_id: '',
                 montant: null,
-
-                errors: {
-                designation: [],
-                quantite: [],
-                prix_unit: [],
-                // ...
-                },
 
             }
         },
@@ -266,13 +265,13 @@
                 },
             store() {
                 this.$inertia.post('/facture', { details: this.details , client_id: this.client_id, facture: this.facture,montant: this.montant});
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Facture Créé avec succes',
-                    showConfirmButton: false,
-                    timer: 5000
-                    })
+                // Swal.fire({
+                //     position: 'top-end',
+                //     icon: 'success',
+                //     title: 'Facture Créé avec succes',
+                //     showConfirmButton: false,
+                //     timer: 5000
+                //     })
 
             },
 

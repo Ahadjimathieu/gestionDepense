@@ -17,8 +17,8 @@ class CreateSalairesTable extends Migration
             $table->id();
             $table->Integer("montant_salaire");
             $table->date("date_salaire");
-            $table->unsignedBigInteger('aganet_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
-            $table->foreign('aganet_id')->references('id')->on('agents')->onDelete('set null');
+            $table->unsignedBigInteger('agent_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('agent_id')->references('id')->on('agents')->onDelete('set null');
             $table->timestamps();
         });
     }

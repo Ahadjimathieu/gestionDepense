@@ -48,7 +48,7 @@
 
 
                         <br>
-                        <div class="card-footer mt-4">
+                        <div class="card-footer">
                             <Link href="/agent" class="btn btn-danger">Annuler</Link>
                             <button type="submit" class="btn btn-success float-right">Modifier</button>
                         </div>

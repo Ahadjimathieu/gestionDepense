@@ -1,5 +1,5 @@
 <template>
-    <Head title="Clients"/>
+    <Head title="Liste des factures"/>
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -68,7 +68,7 @@
                                                     <Link title="Detail la facture"  :href="`/facture/${facture.id}/detail-facture/`" type="button" class="btn
                                                         btn-icon  btn-info"><i
                                                             class="fas fa-info"></i></Link>
-                                                            <Link  type="button" :href="`/facture/${facture.id}/facture-pdf/`" title="imprimer la facture" class="btn
+                                                            <Link  type="button" href="/pdf" title="imprimer la facture" class="btn
                                                         btn-icon btn-warning"><i
                                                             class="fas
                                                             fa-print"></i></Link>

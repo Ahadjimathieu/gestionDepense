@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Salaire;
 use App\Models\Prestataire;
+use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,8 +14,8 @@ class Depense extends Model
 
     protected $fillable = [
         "montant",
-        "etat",
-        "type_id",
+        "operation",
+        "type",
         "prestataire_id",
         "salaire_id",
     ];
@@ -22,11 +23,9 @@ class Depense extends Model
         return $this->belongsTo(Salaire::class,'salaire_id')->withDefault();
     }public function prestataire(){
         return $this->belongsTo(Prestataire::class,'prestataire_id')->withDefault();
-    }public function type(){
-        return $this->belongsTo(Type::class,'type_id')->withDefault();
     }
 
-    public function caisses(){
-        return $this->hasMany(Caisse::class);
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
     }
 }
