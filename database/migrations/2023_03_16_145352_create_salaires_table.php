@@ -16,7 +16,6 @@ class CreateSalairesTable extends Migration
         Schema::create('salaires', function (Blueprint $table) {
             $table->id();
             $table->Integer("montant_salaire");
-            $table->date("date_salaire");
             $table->unsignedBigInteger('agent_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
             $table->foreign('agent_id')->references('id')->on('agents')->onDelete('set null');
             $table->timestamps();

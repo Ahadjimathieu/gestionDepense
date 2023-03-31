@@ -8,6 +8,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\BanqueController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\Auth\LoginController;
@@ -105,3 +106,10 @@ Route::get('/caisse', [TransactionController::class, 'caisse'])->name('caisse.in
 
 Route::post('/caisse', [TransactionController::class, 'initialiserCaisse'])->name('caisse.initialiser')->middleware("auth");
 
+// Depense
+
+Route::get('/depense', [DepenseController::class, 'index'])->name('depense.index')->middleware("auth");
+
+Route::get('/depense/create', [DepenseController::class, 'create'])->name('depense.create')->middleware("auth");
+
+Route::post('/depense', [DepenseController::class, 'store'])->name('depense.store')->middleware("auth");

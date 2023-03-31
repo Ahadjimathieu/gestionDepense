@@ -72,13 +72,13 @@
                         <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                Caisse
+                                Depense
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="/caisse" class="nav-link">
+                                <a href="/caisse" class="nav-link" :class="{ 'active': $page.url === '/caisse' }">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Initialiser la caisse</p>
                                 </a>
@@ -90,15 +90,21 @@
                                 </Link>
                             </li>
                             <li class="nav-item">
-                                <Link href="/paiement/regler" class="nav-link" :class="{ 'active': $page.url === '/paiement/regler' }" >
+                                <Link href="/depense/create" class="nav-link" :class="{ 'active': $page.url === '/depense/create' }" >
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Reglement de facture</p>
+                                    <p>Nouvelle depense</p>
+                                </Link>
+                            </li>
+                            <li class="nav-item">
+                                <Link  href="/depense" class="nav-link" :class="{ 'active': $page.url === '/depense' }">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Liste des depense</p>
                                 </Link>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>autre depense</p>
+                                    <p>Décaissement</p>
                                 </a>
                             </li>
                         </ul>

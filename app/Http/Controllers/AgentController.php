@@ -35,7 +35,7 @@ class AgentController extends Controller
     public function create()
     {
         return Inertia::render('Agents/Create',[
-            'agents' => Agent::all()
+            'agents' => Agent::paginate(5)
         ]);
     }
 

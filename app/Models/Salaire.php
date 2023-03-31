@@ -15,9 +15,9 @@ class Salaire extends Model
     use HasFactory;
     protected $fillable = [
         "montant_salaire",
-        "date_salaire",
+        "agent_id",
     ];
-    public function depense():HasMany {
+    public function depenses():HasMany {
         return $this->hasMany(Depense::class);
     }
   

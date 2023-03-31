@@ -113,7 +113,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="agent in agents"  :key="agent.id" class="">
+                                            <tr v-for="agent in agents.data"  :key="agent.id" class="">
                                                 <td class="text-center" >{{agent.nom}}</td>
                                                 <td class="text-center" >{{agent.prenom}}</td>
                                                 <td class="text-center" >{{agent.adresse}}</td>
@@ -151,8 +151,10 @@
 <script>
     import Layout from '../../components/MainLayout.vue'
    
+    
     export default {
         layout: Layout,
+    
         props:{
             agents:Object
         },
@@ -168,6 +170,8 @@
 
     import {reactive} from 'vue'
     import {router} from '@inertiajs/vue3'
+import Pagination from '../../components/Pagination.vue'
+
     let form =  reactive({
         nom:null,
         prenom:null,

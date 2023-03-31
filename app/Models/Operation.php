@@ -18,9 +18,14 @@ class Operation extends Model
         "numero_compte",
         "paiement_id",
          "banque_id",
+         "depense_id",
     ];
     public function banque(){
         return $this->belongsTo(Banque::class,'banque_id')->withDefault();
+    }
+
+    public function depense(){
+        return $this->belongsTo(Depense::class,'depense_id')->withDefault();
     }
     public function paiement(){
         return $this->belongsTo(Paiement::class,'paiement_id')->withDefault();

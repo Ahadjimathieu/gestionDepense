@@ -14,7 +14,10 @@ class Virement extends Model
 
     protected $fillable = [
         "montant",
-        "banque_id"
+        "type",
+        "operation",
+        "banque_id",
+        "transaction_id",
     ];
     public function transaction(){
         return $this->belongsTo(Transaction::class);

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Salaire;
+use App\Models\Operation;
 use App\Models\Prestataire;
 use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Model;
@@ -27,5 +28,9 @@ class Depense extends Model
 
     public function transactions(){
         return $this->hasMany(Transaction::class);
+    }
+
+    public function operations(){
+        return $this->hasMany(Operation::class);
     }
 }

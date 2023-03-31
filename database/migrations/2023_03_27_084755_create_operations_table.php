@@ -22,6 +22,7 @@ class CreateOperationsTable extends Migration
             $table->string('numero_compte')->nullable();
             $table->unsignedBigInteger('paiement_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
             $table->foreign('paiement_id')->references('id')->on('paiements')->onDelete('set null');
+            $table->foreign('depense_id')->references('id')->on('depenses')->onDelete('set null');
             $table->foreignId('banque_id')->constrained();
             $table->timestamps();
         });

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use App\Models\Agent;
+use App\Models\Banque;
 use App\Models\Depense;
+use App\Models\Prestataire;
 use App\Http\Requests\StoreDepenseRequest;
 use App\Http\Requests\UpdateDepenseRequest;
 
@@ -15,7 +19,7 @@ class DepenseController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -25,7 +29,14 @@ class DepenseController extends Controller
      */
     public function create()
     {
-        //
+        $agents = Agent::all();
+        $prestataires = Prestataire::all();
+        $banques = Banque::all();
+        return Inertia::render('Depenses/Create',[
+            'agents' => $agents,
+            'prestataires' => $prestataires,
+            'banques' => $banques,
+        ]);
     }
 
     /**

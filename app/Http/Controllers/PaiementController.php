@@ -257,6 +257,7 @@ class PaiementController extends Controller
             $operationcheque->banque_id = $banque;
             $operationcheque->montant = $paiement->montant_paiement;
             $operationcheque->paiement_id = $id;
+            $operationcheque->depense_id = null;
             session()->put('operationcheque', $operationcheque);
 
             //Virement
@@ -307,6 +308,7 @@ class PaiementController extends Controller
             $operationvirement->numero_compte = $numero_compte;
             $operationvirement->banque_id = $banque;
             $operationvirement->paiement_id = $id;
+            $operationvirement->depense_id = null;
             session()->put('operationvirement', $operationvirement);
 
             //Virement
