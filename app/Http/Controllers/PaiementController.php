@@ -26,7 +26,7 @@ class PaiementController extends Controller
     public function index()
     {
  
-        $paiements = Paiement::where('etat', '=' ,'validé')->with('facture')->with('facture.client')->latest()->paginate(1);
+        $paiements = Paiement::where('etat', '=' ,'validé')->with('facture')->with('facture.client')->latest()->paginate(10);
       
         return Inertia::render('Paiements/Index', [
             'paiements' => $paiements,
@@ -42,7 +42,7 @@ class PaiementController extends Controller
     public function create()
     {
         $factures = Facture::where('etat', 'non-regler')->get();
-        $paiements = Paiement::with('facture')->with('facture.client')->latest()->paginate(1);
+        $paiements = Paiement::with('facture')->with('facture.client')->latest()->paginate(10);
         $banques = Banque::all();
         $montant = [];
         foreach ($factures as $facture) {
