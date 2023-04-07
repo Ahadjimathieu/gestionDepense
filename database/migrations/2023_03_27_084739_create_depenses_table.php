@@ -18,6 +18,8 @@ class CreateDepensesTable extends Migration
             $table->Integer('montant');
             $table->string('type');
             $table->string('operation');
+            $table->string('etat');
+            $table->string('note');
             $table->unsignedBigInteger('salaire_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
             $table->foreign('salaire_id')->references('id')->on('salaires')->onDelete('set null');
             $table->unsignedBigInteger('prestataire_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable

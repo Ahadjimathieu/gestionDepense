@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Prestataire;
-use App\Http\Requests\StorePrestataireRequest;
-use App\Http\Requests\UpdatePrestataireRequest;
+use Illuminate\Http\Request;
+
 
 class PrestataireController extends Controller
 {
@@ -15,7 +16,9 @@ class PrestataireController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render("Prestataires/Index",[
+            'prestataires' => Prestataire::paginate(10)
+        ]);
     }
 
     /**
@@ -25,7 +28,9 @@ class PrestataireController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Prestataires/Create',[
+            'prestataires' => Prestataire::paginate(5)
+        ]);
     }
 
     /**
@@ -34,9 +39,16 @@ class PrestataireController extends Controller
      * @param  \App\Http\Requests\StorePrestataireRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePrestataireRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            "nom" => "required",
+
+        ]);
+        $prestataire = new Prestataire();
+        $prestataire->nom = $request->nom;
+        $prestataire->save();
+        return redirect()->route('prestataire.index');
     }
 
     /**
@@ -58,7 +70,11 @@ class PrestataireController extends Controller
      */
     public function edit(Prestataire $prestataire)
     {
-        //
+        $prestataireEdit = Prestataire::find($prestataire->id);
+        return Inertia::render("Prestataires/Edit",[
+            'prestataire' => $prestataireEdit,
+            'prestataires' => Prestataire::all()
+        ]);
     }
 
     /**
@@ -68,9 +84,16 @@ class PrestataireController extends Controller
      * @param  \App\Models\Prestataire  $prestataire
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePrestataireRequest $request, Prestataire $prestataire)
+    public function update(Request $request, Prestataire $prestataire)
     {
-        //
+        $prestataire->update(
+            $request->validate([
+                'nom' => 'required',
+               
+            ])
+            );
+
+        return redirect()->route('prestataire.index');
     }
 
     /**

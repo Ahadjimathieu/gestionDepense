@@ -35,7 +35,7 @@
 
                         <br>
                         <div class="card-footer mt-4">
-                            <Link href="/agent" class="btn btn-danger">Annuler</Link>
+                            <Link href="/banque" class="btn btn-danger">Annuler</Link>
                             <button type="submit" class="btn btn-success float-right">Modifier</button>
                         </div>
                     </form>

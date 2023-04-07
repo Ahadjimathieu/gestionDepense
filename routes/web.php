@@ -11,7 +11,9 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\VirementController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PrestataireController;
 use App\Http\Controllers\TransactionController;
 
 /*
@@ -113,3 +115,31 @@ Route::get('/depense', [DepenseController::class, 'index'])->name('depense.index
 Route::get('/depense/create', [DepenseController::class, 'create'])->name('depense.create')->middleware("auth");
 
 Route::post('/depense', [DepenseController::class, 'store'])->name('depense.store')->middleware("auth");
+
+Route::post('/depense/{depense}/valider-depense', [DepenseController::class, 'validateDepense'])->name('depense.validate')->middleware("auth");
+
+Route::delete('/depense/{depense}/annuler-depense', [DepenseController::class, 'cancelDepense'])->name('depense.cancel')->middleware("auth");
+
+// Prestataires
+
+Route::get('/prestataire', [PrestataireController::class, 'index'])->name('prestataire.index')->middleware("auth");
+
+Route::get('/prestataire/create', [PrestataireController::class, 'create'])->name('prestataire.create')->middleware("auth");
+
+Route::post('/prestataire', [PrestataireController::class, 'store'])->name('prestataire.store')->middleware("auth");
+
+Route::get('/prestataire/{prestataire}/edit', [PrestataireController::class, 'edit'])->name('prestataire.edit')->middleware("auth");
+
+Route::put('/prestataire/{prestataire}', [PrestataireController::class, 'update'])->name('prestataire.update')->middleware("auth");
+
+// Virements
+
+Route::get('/virement', [VirementController::class, 'index'])->name('virement.index')->middleware("auth");
+
+Route::get('/virement/create', [VirementController::class, 'create'])->name('virement.create')->middleware("auth");
+
+Route::post('/virement', [VirementController::class, 'store'])->name('virement.store')->middleware("auth");
+
+Route::post('/virement/{virement}/valider-virement', [VirementController::class, 'validateDepense'])->name('virement.validate')->middleware("auth");
+
+Route::delete('/virement/{virement}/annuler-virement', [VirementController::class, 'cancelDepense'])->name('virement.cancel')->middleware("auth");

@@ -1,5 +1,5 @@
 <template>
-    <Head title="Liste des factures"/>
+    <Head title="Liste des depenses"/>
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <div class="card col-lg-10 offset-1 col-md-10">
                     <div class="card-header">
-                        <h2 class="col-lg-10 offset-4 col-md-12">Liste des Depenses</h2>
+                        <h2 class="col-lg-10 text-center col-md-12">Liste des depenses</h2>
                     </div>
 
                     <div class="card-body">
@@ -38,51 +38,37 @@
                                             <tr>
                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1"
-                                                    aria-label="Browser: activate to sort column ascending">Facture</th>
+                                                    aria-label="Browser: activate to sort column ascending">Date </th>
+    
                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1">
-                                                    Client</th>
+                                                    Type</th> <th class="text-center" tabindex="0" aria-controls="example1"
+                                                    rowspan="1" colspan="1">
+                                                    Montant</th>
                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1">
-                                                    Note</th> <th class="text-center" tabindex="0" aria-controls="example1"
-                                                    rowspan="1" colspan="1">
-                                                    Etat</th>
+                                                    Note</th>
                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1">
-                                                    Date paiement</th>
-                                                <th class="text-center" tabindex="0" aria-controls="example1"
-                                                    rowspan="1" colspan="1">
-                                                    Montant réglé</th>
-                                                <th class="text-center" tabindex="0" aria-controls="example1"
-                                                    rowspan="1">Actions
-                                                </th>
+                                                   Etat</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="paiement in paiements.data" :key="paiement.id" class="">
-                                                <td class="text-center">{{ paiement . facture . numero_facture }}</td>
-                                                <td class="text-center">{{ paiement . facture . client . nom }}
-                                                    {{ paiement . facture . client . nom }}</td>
+                                            <tr v-for="depense in depenses.data" :key="depense.id" class="">
+                                                <td class="text-center">{{moment(depense . created_at) . format('DD/MM/YYYY') }}</td>
+                                                <td class="text-center"> {{ depense .type}}
+                                                                     </td>
                                                 <td class="text-center">
-                                                    <div class="badge badge-primary">{{ paiement . note }}</div>
+                                                    <div>{{ depense . montant }}</div>
                                                 </td>
                                                 <td class="text-center">
-                                                    <div class="badge badge-success">{{ paiement . etat }}</div>
+                                                    <div>{{ depense . note }}</div>
                                                 </td>
                                                 <td class="text-center">
-                                                    {{ moment(paiement . created_at) . format('DD-MM-YYYY-hh') }}</td>
-                                                <td class="text-center">{{ paiement . montant_paiement }}</td>
-                                                <td  class="text-center">
-                                                    <Link type="button"
-                                                        href=""
-                                                        data-toggle="tooltip" title=""
-                                                        class="btn btn-icon btn-info" data-original-title="Détails"><i
-                                                            class="fas fa-info"></i></Link>
-                                                        <Link type="button" target="_blank"
-                                                        href=""
-                                                        class="btn btn-icon btn-warning"><i class="fas fa-print"></i></Link>
-                                                    </td>
-                                                
+                                                    <div  v-if="depense.etat == 'en cours'" class="badge badge-warning">{{ depense . etat}}</div>
+                                                    <div v-if="depense.etat == 'validé'"  class="badge badge-success">{{ depense . etat}}</div>
+                                                    <div v-if="depense.etat == 'annuler'"  class="badge badge-success">{{ depense . etat}}</div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -90,7 +76,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12" style="float:left;">
-                                    <Pagination :links="paiements.links"/>
+                                    <Pagination :links="depenses.links"/>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +101,7 @@
         layout: Layout,
 
         props:{
-            paiements:Object
+            depenses:Object
         },
         data() {
         return {

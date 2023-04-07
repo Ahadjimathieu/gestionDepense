@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <div class="card col-lg-10 offset-1 col-md-12">
                     <div class="card-header">
-                        <h2 class="col-lg-10 offset-4 col-md-12">Liste des Factures</h2>
+                        <h2 class="col-lg-10 text-center col-md-12">Liste des Factures</h2>
                     </div>
 
                     <div class="card-body">

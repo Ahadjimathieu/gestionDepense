@@ -1,5 +1,5 @@
 <template>
-    <Head title="Liste des factures"/>
+    <Head title="Liste des paiements"/>
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <div class="card col-lg-10 offset-1 col-md-10">
                     <div class="card-header">
-                        <h2 class="col-lg-10 offset-4 col-md-12">Liste des Paiements</h2>
+                        <h2 class="col-lg-10 text-center col-md-12">Liste des Paiements</h2>
                     </div>
 
                     <div class="card-body">

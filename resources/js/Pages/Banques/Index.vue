@@ -39,7 +39,7 @@
 
                            <br>
                            <div class="card-footer mt-4">
-                            <Link href="/banque" class="btn btn-danger">Annuler</Link>
+                            <Link href="" type="reset" class="btn btn-danger">Annuler</Link>
                             <button type="submit"  class="btn btn-success float-right">Enregistrer</button>
                         </div>
                         </form>

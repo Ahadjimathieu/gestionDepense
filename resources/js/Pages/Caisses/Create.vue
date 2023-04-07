@@ -28,7 +28,7 @@
                     <div class="small-box bg-success">
                         <h3 class="text-center">Solde de la caisse</h3>
                         <div class="inner">
-                            <h3 class="text-center">150</h3>
+                            <h3 class="text-center" >{{ solde }}  Fcfa</h3>
 
                         </div>
                         <div class="icon">
@@ -101,6 +101,7 @@
     export default {
         layout: Layout,
         props: {
+            solde:Object,
 
         },
         data() {

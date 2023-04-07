@@ -26,7 +26,7 @@
                             <label for="inputName" class="form-label">Lieu de l'opération</label>
                             <select v-model="type" class="form-control form-select" id=""
                                 :class="{ 'is-invalid': errors.type }" aria-label=".form-select-lg example">
-                                <option value="">Selectionner </option>
+                                <option selected value="">Selectionner </option>
                                 <option value="caisse">Caisse </option>
                                 <option value="banque">Banque </option>
 
@@ -37,12 +37,20 @@
                             <select v-model="depense" class="form-control form-select"
                                 :class="{ 'is-invalid': errors.depense }" id="facture"
                                 aria-label=".form-select-lg example">
-                                <option value="">Selectionner le type de dépense </option>
+                                <option selected value="">Selectionner le type de dépense </option>
                                 <option value="salaire">Salaire </option>
                                 <option value="prestataire">Prestataires </option>
                                 <option value="autre">autre </option>
 
                             </select>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for=""> Note </label>
+                                <input type="text" class="form-control" :class="{ 'is-invalid': errors.note }"
+                                    v-model="note" id="montant">
+
+                            </div>
                         </div>
                         <br>
                        
@@ -50,8 +58,8 @@
                                 <div class="form-group">
                                     <label for="inputFirstname" class="form-label">Banque</label>
                                     <select v-model="banque" class="form-control form-select" id="facture"
-                                        :class="{ 'is-invalid': errors.banque }" aria-label=".form-select-lg example">
-                                        <option selected value="">Selectionner la banque </option>
+                                        :class="{ 'is-invalid': errors.banque }" required aria-label=".form-select-lg example">
+                                        <option  selected value="">Selectionner la banque </option>
                                         <option v-for="banque in banques" :key="banque.id" :value="banque.id">
                                             {{ banque . nom }} </option>
 
@@ -63,7 +71,7 @@
                                     <div class="form-group">
                                         <label for="inputFirstname" class="form-label">Agent</label>
                                         <select v-model="agent" class="form-control form-select" id="facture"
-                                            :class="{ 'is-invalid': errors.banque }" aria-label=".form-select-lg example">
+                                            :class="{ 'is-invalid': errors.agent }"  required aria-label=".form-select-lg example">
                                             <option selected value="">Selectionner l'agent </option>
                                             <option v-for="agent in agents" :key="agent.id" :value="agent.id">
                                                 {{ agent . nom }}  {{ agent . prenom }}  </option>
@@ -84,9 +92,9 @@
                             <div v-if="depense === 'prestataire'" class="col-6">
                                 <div class="form-group">
                                     <label for="inputFirstname" class="form-label">Prestataire</label>
-                                    <select v-model="prestataire" class="form-control form-select" id="facture"
-                                        :class="{ 'is-invalid': errors.banque }" aria-label=".form-select-lg example">
-                                        <option selected value="">Selectionner le prestataire </option>
+                                    <select v-model="prestataire"  class="form-control form-select" id="facture"
+                                        :class="{ 'is-invalid': errors.prestataire }" required aria-label=".form-select-lg example">
+                                        <option  value="">Selectionner le prestataire </option>
                                         <option v-for="prestataire in prestataires" :key="prestataire.id" :value="prestataire.id">
                                             {{ prestataire . nom }}   </option>
                                     </select>
@@ -100,13 +108,16 @@
                                     </div>
                                 </div>
                             </div>
-                        <div v-if="depense === 'autre'" class="col-6">
+                        <div v-if="depense === 'autre'">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for=""> Montant </label>
                                     <input type="number" class="form-control" :class="{ 'is-invalid': errors.montant }"
                                         v-model="montant" id="montant">
 
                                 </div>
+                            </div>
+                                
                         </div>
                         <div class="card-footer">
                             <button type="reset" class="btn btn-icon icon-left btn-danger"><i
@@ -121,7 +132,7 @@
             </div>
             <div class="card col-lg-10 offset-1 col-md-12">
                 <div class="">
-                    <h2 class="text-center">Liste des paiements</h2>
+                    <h2 class="text-center">Liste des depense</h2>
                 </div>
 
                 <div class="card-body">
@@ -147,63 +158,61 @@
                                         <tr>
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1"
-                                                aria-label="Browser: activate to sort column ascending">Facture</th>
+                                                aria-label="Browser: activate to sort column ascending">Date </th>
+
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1">
-                                                Client</th>
+                                                Type</th> <th class="text-center" tabindex="0" aria-controls="example1"
+                                                rowspan="1" colspan="1">
+                                                Montant</th>
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1">
-                                                Note</th> <th class="text-center" tabindex="0" aria-controls="example1"
-                                                rowspan="1" colspan="1">
-                                                Etat</th>
+                                                Note</th>
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1">
-                                                Date paiement</th>
-                                            <th class="text-center" tabindex="0" aria-controls="example1"
-                                                rowspan="1" colspan="1">
-                                                Montant réglé</th>
+                                               Etat</th>
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1">Actions
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr v-for="paiement in paiements.data" :key="paiement.id" class="">
-                                            <td class="text-center">{{ paiement . facture . numero_facture }}</td>
-                                            <td class="text-center">{{ paiement . facture . client . nom }}
-                                                {{ paiement . facture . client . nom }}</td>
+                                        <tr v-for="depense in depenses.data" :key="depense.id" class="">
+                                            <td class="text-center">{{moment(depense . created_at) . format('DD/MM/YYYY') }}</td>
+                                            <td class="text-center"> {{ depense .type}}
+                                                                 </td>
                                             <td class="text-center">
-                                                <div class="badge badge-primary">{{ paiement . note }}</div>
+                                                <div>{{ depense . montant }}</div>
                                             </td>
                                             <td class="text-center">
-                                                <div class="badge badge-success">{{ paiement . etat }}</div>
+                                                <div>{{ depense . note }}</div>
                                             </td>
                                             <td class="text-center">
-                                                {{ moment(paiement . created_at) . format('DD-MM-YYYY-hh') }}</td>
-                                            <td class="text-center">{{ paiement . montant_paiement }}</td>
-                                            <td v-if="paiement.etat == 'en attente'" class="text-center">
-                                            <Link type="button"
-                                                data-toggle="tooltip" title=""
-                                                class="btn btn-icon btn-info" data-original-title="Détails"><i
-                                                    class="fas fa-info"></i></Link>
-                                            <Link type="button"  method="post" :href="`/paiement/${paiement.id}/valider-paiement/`" data-toggle="tooltip" data-id="7"
-                                                title=""
-                                                class="btn btn-icon btn-success data-valider"
-                                                data-original-title="Valider"><i class="fas fa-check"></i></Link>
-                                            <Link type="button" method="delete" :href="`/paiement/${paiement.id}/annuler-paiement/`"  data-id="7"
+                                                <div  v-if="depense.etat == 'en cours'" class="badge badge-warning">{{ depense . etat}}</div>
+                                                <div v-if="depense.etat == 'validé'"  class="badge badge-success">{{ depense . etat}}</div>
+                                                <div v-if="depense.etat == 'annuler'"  class="badge badge-success">{{ depense . etat}}</div>
+                                            </td>
+                                           
+                                            <td v-if="depense.etat == 'en cours'" class="text-center">
+                                                <Link type="button" method="delete" :href="`/depense/${depense.id}/annuler-depense/`"  data-id="7"
                                                 data-placement="bottom" title=""
                                                 class="btn btn-icon btn-danger data-supprimer"
                                                 data-original-title="Supprimer"><i class="fas fa-trash"></i></Link>
+                                            <Link type="button"  method="post" :href="`/depense/${depense.id}/valider-depense/`" data-toggle="tooltip" data-id="7"
+                                                title=""
+                                                class="btn btn-icon btn-success data-valider"
+                                                data-original-title="Valider"><i class="fas fa-check"></i></Link>
+                                           
                                             </td>
                                          
-                                        </tr> -->
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-sm-12" style="float:left;">
-                                <!-- <Pagination :links="paiements.links"/> -->
+                                <Pagination :links="depenses.links"/>
                             </div>
                         </div>
                     </div>
@@ -228,6 +237,7 @@ import Pagination from '../../components/Pagination.vue'
             agents: Object,
             prestataires: Object,
             banques: Object,
+            depenses: Object,
             errors: Object,
         },
 
@@ -241,11 +251,12 @@ import Pagination from '../../components/Pagination.vue'
                 agent: '',
                 prestataire: '',
                 banque: '',
+                note: '',
             }
         },
         methods: {
             store() {
-                this.$inertia.post('/depense', {
+                this.$inertia.post('/depense', { type: this.type, depense:this.depense, montant:this.montant, agent:this.agent,prestataire:this.prestataire,banque:this.banque,note:this.note
                    
                 });
                 // Swal.fire({

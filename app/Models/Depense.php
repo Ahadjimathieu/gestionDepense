@@ -17,6 +17,8 @@ class Depense extends Model
         "montant",
         "operation",
         "type",
+        "etat",
+        "note",
         "prestataire_id",
         "salaire_id",
     ];

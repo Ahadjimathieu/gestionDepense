@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <div class="card col-lg-10 offset-1 col-md-12">
                 <div style="margin:20px;">
-                    <h3>Enregistrement d'un nouvel agent</h3>
+                    <h3>EModification des information de l'agent</h3>
                     <div class="d-flex mb-2">
                         <h2 class="card-title flex-grow-1"> </h2>
                     </div>

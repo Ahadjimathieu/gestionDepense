@@ -102,10 +102,10 @@
                                 </Link>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <Link href="/prestataire" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Décaissement</p>
-                                </a>
+                                    <p>Nouveau prestataire / Liste</p>
+                                </Link>
                             </li>
                         </ul>
                     </li>
@@ -119,21 +119,15 @@
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/virement/create" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Paiement de salaire</p>
+                                    <p>Nouveau virement</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="/virement" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Reglement de facture</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>autre depense</p>
+                                    <p>Liste des virements</p>
                                 </a>
                             </li>
                         </ul>

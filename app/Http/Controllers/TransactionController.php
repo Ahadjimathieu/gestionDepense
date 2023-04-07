@@ -23,7 +23,18 @@ class TransactionController extends Controller
 
     public function caisse()
     {
-        return Inertia::render('Caisses/Create');
+
+        $credits = Transaction::where('operation', 'credit')->sum('montant');
+        $debits = Transaction::where('operation', 'debit')->sum('montant');
+        
+
+
+      
+        $solde = $credits - $debits;
+        //dd($solde);
+        return Inertia::render('Caisses/Create',[
+            'solde' => $solde
+        ]);
     }
 
     public function initialiserCaisse(Request $request)
