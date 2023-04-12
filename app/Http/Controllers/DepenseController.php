@@ -24,8 +24,8 @@ class DepenseController extends Controller
      */
     public function index()
     {
-     
-        
+
+
         $depenses = Depense::with('prestataire')->with('salaire.agent')->latest()->paginate(10);
         return Inertia::render('Depenses/Index',[
             'depenses' => $depenses
@@ -60,7 +60,7 @@ class DepenseController extends Controller
         $transaction = new Transaction();
         $operation = new Operation();
         $banque = new Banque();
-        
+
         if (Session::has('transaction')) {
             $transaction = Session::get('transaction');
         }
@@ -75,15 +75,15 @@ class DepenseController extends Controller
             $salaire = Session::get('salaire');
         }
 
-       
-        
-        
+
+
+
         if($depense->type == 'prestataire')
         {
-           
-            
-        }elseif($depense->type = 'salaire'){
-           
+
+
+        }elseif($depense->type == 'salaire'){
+
             $salaire->save();
             $salaire_id = $salaire->id;
             $depense->salaire_id = $salaire_id;
@@ -97,16 +97,17 @@ class DepenseController extends Controller
 
         if($depense->operation == 'caisse'){
 
+
             $transaction->depense_id = $id;
             $transaction->save();
         }elseif($depense->operation == 'banque'){
 
             Banque::where('id', $banque->id)->update(['solde' => $banque->solde]);
             $operation->etat = "validé";
-            $operation->depense_id = $id;  
-          
+            $operation->depense_id = $id;
+
             $operation->save();
-            
+
         }
 
     }
@@ -114,9 +115,9 @@ class DepenseController extends Controller
 
     public function cancelDpense(Depense $depense)
     {
-        
-        $depense->delete();
-       
+
+        $depense->softDelete();
+
 
 
         return redirect()->route('depense.create');
@@ -141,7 +142,7 @@ class DepenseController extends Controller
         ]);
 
 
-        
+
         $type = $request->type;
         $dep = $request->depense;
         $banque_id = $request->banque;
@@ -149,15 +150,27 @@ class DepenseController extends Controller
         $agent = $request->agent;
         $montant = $request->montant;
         $note = $request->note;
+        $credits = Transaction::where('operation', 'credit')->sum('montant');
+        $debits = Transaction::where('operation', 'debit')->sum('montant');
+        $soldeCaisse = $credits - $debits;
 
         if($type == 'caisse'){
-            //Transaction 
-            $transaction = new Transaction();
-            $transaction->montant = $montant;
-            $transaction->type = $dep;
-            $transaction->operation = "debit";
-            $transaction->paiement_id = null;
-            session()->put('transaction', $transaction);
+            //Transaction
+
+            if ($montant> $soldeCaisse){
+
+                return redirect()->route('depense.create');
+
+            }else{
+
+                $transaction = new Transaction();
+                $transaction->montant = $montant;
+                $transaction->type = $dep;
+                $transaction->operation = "debit";
+                $transaction->paiement_id = null;
+                session()->put('transaction', $transaction);
+
+            }
 
             //Depense
 
@@ -176,13 +189,13 @@ class DepenseController extends Controller
             $operation->banque_id = $banque_id;
             session()->put('operation', $operation);
 
-            
+
             // Depense
             //Banque
 
             $banque_solde = Banque::where('id', $banque_id)->first();
             $solde = $banque_solde->solde;
-            
+
             if ($solde >= $montant){
                 $nouveau = $solde - $montant;
                 $banque  = new Banque();
@@ -193,7 +206,7 @@ class DepenseController extends Controller
             }else{
                 return redirect()->route('depense.create');
             }
-            
+
 
 
         }
@@ -220,7 +233,7 @@ class DepenseController extends Controller
         }elseif($dep === 'prestataire'){
             //Prestataire
 
-            
+
             $depense = new Depense();
             $depense->montant = $montant;
             $depense->note = $note;
@@ -250,9 +263,9 @@ class DepenseController extends Controller
         }
 
         return redirect()->route('depense.create')->withInput($request->except('text', 'number'));
-      
 
-       
+
+
     }
 
     /**

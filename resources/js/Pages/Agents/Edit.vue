@@ -21,26 +21,26 @@
                         <h2 class="card-title flex-grow-1"> </h2>
                     </div>
                     <form class="row g-3" @submit.prevent="update">
-                        <div class="col-6">
+                        <div class="col-4">
                             <label for="inputName" class="form-label">Nom(s)</label>
                             <input v-model="form.nom" required type="text" class="form-control" id="inputName">
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <label for="inputFirstname" class="form-label">Prénom(s)</label>
                             <input v-model="form.prenom" required type="text" class="form-control"
                                 id="inputFirstname">
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <label for="inputFirstname" class="form-label">Adresse</label>
                             <input v-model="form.adresse" required type="text" class="form-control"
                                 id="inputFirstname">
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <label for="inputFirstname" class="form-label">Telephone</label>
                             <input v-model="form.telephone" required type="text" class="form-control"
                                 id="inputFirstname" max="11">
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <label for="inputFirstname" class="form-label">Date embauche</label>
                             <input v-model="form.date_embauche" required type="date" class="form-control"
                                 id="inputFirstname" max="11">
@@ -130,7 +130,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-sm-12" style="float:left;" >
-                               <Pagination :links="agents.links"/> 
+                               <Pagination :links="agents.links"/>
                             </div>
                         </div>
                     </div>

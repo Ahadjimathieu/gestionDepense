@@ -36,8 +36,8 @@
                             <label for="inputFirstname" class="form-label">N° facture</label>
                             <select v-model="selectedFacture" class="form-control form-select"
                                 :class="{ 'is-invalid': errors.selectedFacture }" id="facture"
-                                aria-label=".form-select-lg example">
-                                <option selected>Selectionner la facture </option>
+                                aria-label=".form-select-lg example" >
+                                <option  value="">Selectionner la facture </option>
                                 <option v-for="facture in factures" :key="facture.id" :value="facture.id">
                                     {{ facture . numero_facture }} </option>
 

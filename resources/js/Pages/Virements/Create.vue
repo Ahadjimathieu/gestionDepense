@@ -100,6 +100,9 @@
                                                 Type</th> <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1">
                                                 Montant</th>
+                                                <th class="text-center" tabindex="0" aria-controls="example1"
+                                                rowspan="1" colspan="1">
+                                                Banque</th>
 
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1">
@@ -112,18 +115,20 @@
                                     <tbody>
                                         <tr v-for="virement in virements.data" :key="virement.id" class="">
                                             <td class="text-center">{{moment(virement . created_at) . format('DD/MM/YYYY') }}</td>
-                                            <td class="text-center"> {{ virement .type}}
+                                            <td class="text-center"> {{ virement .operation}}
                                                                  </td>
                                             <td class="text-center">
                                                 <div>{{ virement . montant }}</div>
                                             </td>
                                             <td class="text-center">
-                                                <div  v-if="virement.etat == 'en cours'" class="badge badge-warning">{{ depense . etat}}</div>
-                                                <div v-if="virement.etat == 'validé'"  class="badge badge-success">{{ depense . etat}}</div>
-                                                <div v-if="virement.etat == 'annuler'"  class="badge badge-success">{{ depense . etat}}</div>
+                                                <div>{{ virement . banque.nom }}</div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div  v-if="virement.etat == 'en cours'" class="badge badge-warning">{{ virement . etat}}</div>
+                                                <div v-if="virement.etat == 'validé'"  class="badge badge-success">{{ virement . etat}}</div>
                                             </td>
 
-                                            <td v-if="depense.etat == 'en cours'" class="text-center">
+                                            <td v-if="virement.etat == 'en cours'" class="text-center">
                                                 <Link type="button" method="delete" :href="`/virement/${virement.id}/annuler-virement/`"  data-id="7"
                                                 data-placement="bottom" title=""
                                                 class="btn btn-icon btn-danger data-supprimer"

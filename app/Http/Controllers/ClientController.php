@@ -17,7 +17,7 @@ class ClientController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         return Inertia::render('Clients/Index',[
@@ -30,10 +30,21 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+         $query = Client::query();
+
+    if ($request->has('search')) {
+        $searchTerm = $request->input('search');
+        $query->where(function($q) use ($searchTerm) {
+            $q->where('nom', 'like', "%$searchTerm%")
+              ->orWhere('prenom', 'like', "%$searchTerm%");
+        });
+    }
+
         return Inertia::render('Clients/Create',[
-            'clients' => Client::paginate(10)
+            'clients' => $query->paginate(5),
+            'filters' => $request->all()
         ]);
     }
 

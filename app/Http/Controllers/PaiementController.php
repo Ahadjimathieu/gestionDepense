@@ -15,6 +15,7 @@ use App\Models\Operation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdatePaiementRequest;
+use Mockery\Undefined;
 
 class PaiementController extends Controller
 {
@@ -25,12 +26,12 @@ class PaiementController extends Controller
      */
     public function index()
     {
- 
+
         $paiements = Paiement::where('etat', '=' ,'validé')->with('facture')->with('facture.client')->latest()->paginate(10);
-      
+
         return Inertia::render('Paiements/Index', [
             'paiements' => $paiements,
-          
+
         ]);
     }
 
@@ -134,10 +135,11 @@ class PaiementController extends Controller
 
     public function cancelPayment(Paiement $paiement)
     {
-        
 
-        $paiement->delete();
-       
+
+        $paiement->softDelete();
+
+
 
 
         return redirect()->route('paiement.index');
@@ -171,9 +173,15 @@ class PaiementController extends Controller
         $numero_ordre = $request->numero_ordre;
         $banque = $request->banque;
 
+        if($facture == ""){
+            return redirect()->route('paiement.create');
+        }
+
         $banque_solde = Banque::where('id', $banque)->first();
 
         $facture_courante = Facture::where('id', $facture)->first();
+
+       
 
         $montant_restant = $facture_courante->montant_restant;
 

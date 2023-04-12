@@ -10,6 +10,8 @@ use App\Http\Controllers\BanqueController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\FactureController;
+use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\VirementController;
 use App\Http\Controllers\Auth\LoginController;
@@ -140,6 +142,33 @@ Route::get('/virement/create', [VirementController::class, 'create'])->name('vir
 
 Route::post('/virement', [VirementController::class, 'store'])->name('virement.store')->middleware("auth");
 
-Route::post('/virement/{virement}/valider-virement', [VirementController::class, 'validateDepense'])->name('virement.validate')->middleware("auth");
+Route::post('/virement/{virement}/valider-virement', [VirementController::class, 'validateVirement'])->name('virement.validate')->middleware("auth");
 
-Route::delete('/virement/{virement}/annuler-virement', [VirementController::class, 'cancelDepense'])->name('virement.cancel')->middleware("auth");
+Route::delete('/virement/{virement}/annuler-virement', [VirementController::class, 'cancelVirement'])->name('virement.cancel')->middleware("auth");
+
+// Produits
+
+Route::get('/produit', [ProduitController::class, 'index'])->name('produit.index')->middleware("auth");
+
+Route::get('/produit/create', [ProduitController::class, 'create'])->name('produit.create')->middleware("auth");
+
+Route::post('/produit', [ProduitController::class, 'store'])->name('produit.store')->middleware("auth");
+
+Route::get('/produit/{produit}/edit', [ProduitController::class, 'edit'])->name('produit.edit')->middleware("auth");
+
+Route::put('/produit/{produit}', [ProduitController::class, 'update'])->name('produit.update')->middleware("auth");
+
+
+// Commandes
+
+Route::get('/commande', [CommandeController::class, 'index'])->name('commande.index')->middleware("auth");
+
+Route::get('/commande/create', [CommandeController::class, 'create'])->name('commande.create')->middleware("auth");
+
+Route::post('/commande', [CommandeController::class, 'store'])->name('commande.store')->middleware("auth");
+
+Route::get('/commande/{commande}/detail-commande', [CommandeController::class, 'edit'])->name('commande.edit')->middleware("auth");
+
+//Route::get('/facture/{facture}/facture-pdf', [FactureController::class, 'generatePDF'])->name('facture.pdf')->middleware("auth");
+
+Route::get('/get-price', [CommandeController::class, 'getPrix'])->name('produit.prix');

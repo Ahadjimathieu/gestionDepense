@@ -21,28 +21,28 @@
                             <h2 class="card-title flex-grow-1"> </h2>
                         </div>
                         <form class="row g-3" @submit.prevent="store">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label for="inputName"
                                     class="form-label">Nom(s)</label>
                                 <input  v-model="form.nom" required type="text"
                                     class="form-control"
                                     id="inputName">
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Prénom(s)</label>
                                 <input v-model="form.prenom" required type="text"
                                     class="form-control"
                                     id="inputFirstname">
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Adresse</label>
                                 <input  v-model="form.adresse" required type="text"
                                     class="form-control"
                                     id="inputFirstname">
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Telephone</label>
                                 <input v-model="form.telephone" required type="text"
@@ -52,9 +52,9 @@
 
 
                            <br>
-                           <div class="card-footer">
-                            <Link href="/client" class="btn btn-danger">Annuler</Link>
-                            <button type="submit"  class="btn btn-success float-right">Enregistrer</button>
+                           <div class="card-foote r">
+                            <Link href="/client" class="btn btn-danger float-right">Annuler</Link>
+                            <button type="submit"  class="btn btn-success float-end ">Enregistrer</button>
                         </div>
                         </form>
                     </div>
@@ -73,9 +73,12 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6" >
-                                    <div id="example1_filter"  style="float:right;" class="dataTables_filter"><label>Search:<input
-                                                type="search" class="form-control form-control-sm" placeholder=""
-                                                aria-controls="example1"></label></div>
+                                    <form>
+                                        <div id="example1_filter"  style="float:right;" class="dataTables_filter"><label>Search:<input
+                                            type="text" v-model="filters.search"  class="form-control form-control-sm" name="search"  @input="fetchClients" placeholder=""
+                                            aria-controls="example1"></label></div>
+                                    </form>
+
                                 </div>
                             </div>
                             <div class="row">
@@ -129,7 +132,7 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="col-sm-12" style="float:left;" >
-                                   <Pagination :links="clients.links" /> 
+                                   <Pagination :links="clients.links"  @pagination-change-page="fetchClients" />
                                 </div>
                             </div>
                         </div>
@@ -145,16 +148,36 @@
     import moment from "moment";
     export default {
         layout: Layout,
-      
+
         props:{
             clients:Object
         },
 
         data() {
         return {
-            moment: moment
+            moment: moment,
+            filters: {
+                search: (this.$route && this.$route.query && this.$route.query.search) || ''
+            },
         }
     },
+    created() {
+        this.fetchClients();
+    },
+    methods: {
+        fetchClients(page = 1) {
+            if (!this.$route) {
+                return;
+            }
+
+            this.$inertia.get(this.$route.path, {
+                page: page,
+                search: this.filters.search || null
+            }).then(response => {
+                this.clients = response.data;
+            });
+        }
+    }
 
 
     }

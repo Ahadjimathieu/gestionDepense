@@ -15,6 +15,7 @@ class Virement extends Model
     protected $fillable = [
         "montant",
         "operation",
+        "etat",
         "banque_id",
         "transaction_id",
     ];

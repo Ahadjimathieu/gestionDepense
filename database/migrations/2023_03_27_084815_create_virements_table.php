@@ -17,8 +17,11 @@ class CreateVirementsTable extends Migration
             $table->id();
             $table->Integer("montant");
             $table->string('operation');
-            $table->foreignId('transaction_id')->constrained();
-            $table->foreignId('banque_id')->constrained();
+            $table->string('etat');
+            $table->unsignedBigInteger('transaction_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('set null');
+            $table->unsignedBigInteger('banque_id')->nullable(); // déclare la clé étrangère id_directeur comme étant nullable
+            $table->foreign('banque_id')->references('id')->on('banques')->onDelete('set null');
             $table->timestamps();
         });
     }
