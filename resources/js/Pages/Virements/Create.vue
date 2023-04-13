@@ -22,7 +22,7 @@
                         <h2 class="card-title flex-grow-1"> </h2>
                     </div>
                     <form class="row g-3" @submit.prevent="store">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label for="inputFirstname" class="form-label">Banque</label>
                                 <select v-model="banque" class="form-control form-select" id="facture"
@@ -34,7 +34,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <label for="inputFirstname" class="form-label">Type d'opération</label>
                             <select v-model="type" class="form-control form-select"
                                 :class="{ 'is-invalid': errors.type }" id="facture"
@@ -45,7 +45,7 @@
 
                             </select>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label for=""> Montant </label>
                                 <input type="number" class="form-control" :class="{ 'is-invalid': errors.montant }"
@@ -59,7 +59,7 @@
                                     class="fas fa-times"></i>
                                 Annuler
                             </button>
-                            <button class="btn btn-icon icon-left btn-primary float-right" type="submit"
+                            <button class="btn btn-icon icon-left btn-success float-right" type="submit"
                                 id="addvente"><i class="fas fa-check"></i> Enregistrer</button>
                         </div>
                     </form>

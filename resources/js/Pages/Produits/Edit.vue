@@ -27,6 +27,9 @@
                                     class="form-control"
                                     id="inputName">
                             </div>
+                            <div class="col-2">
+                                
+                            </div>
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Prix (m²)</label>
@@ -37,7 +40,7 @@
                            <br>
                            <div class="card-footer">
                             <button href="" type="reset" class="btn btn-danger">Annuler</button>
-                            <button type="submit"  class="btn btn-primary float-right">Modifier</button>
+                            <button type="submit"  class="btn btn-success float-right">Modifier</button>
                         </div>
                         </form>
                     </div>

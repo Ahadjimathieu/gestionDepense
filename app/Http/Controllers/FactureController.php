@@ -58,16 +58,17 @@ class FactureController extends Controller
     public function store(Request $request)
     {
 
-        // $request->validate([
-        //     'client_id' => "required",
-        //     'facture' => "required",
-        //     'detail.designation' => "required|string|max:255",
-        //     'detail.qantite' => "required|numeric",
-        //     'detail.prix_unit' => "required|numeric",
-        //     'detail.total' => "required",
-        // ]);
+        $request->validate([
+            'client_id' => "required",
+            'facture' => "required",
+            'montant' => "required",
+            'details.designation' => "required|string|max:255",
+            'details.quantite' => "required|numeric|min:1",
+            'details.prix_unit' => "required",
+            'details.total' => "required",
+        ]);
 
-
+        dd($request->all());
         $facture = new Facture();
         $facture->numero_facture = $request->facture;
         $facture->montant = $request->montant;

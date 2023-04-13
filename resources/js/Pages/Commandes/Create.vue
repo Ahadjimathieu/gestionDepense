@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Nouvelle facture" />
+    <Head title="Nouvelle commande" />
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -63,14 +63,14 @@
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label>Longueur <font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid': errors.longueur }" v-model="detail.longueur" class="form-control" name=""  @change="updateTotal(detail)">
-
+                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid': errors['detail.longueur'] }" v-model="detail.longueur" class="form-control" name=""  @change="updateTotal(detail)">
+                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label>Largeur <font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid':errors.largeur }" v-model="detail.largeur" class="form-control" name="" @change="updateTotal(detail)">
+                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid':errors['detail.largeur'] }" v-model="detail.largeur" class="form-control" name="" @change="updateTotal(detail)">
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
@@ -106,7 +106,7 @@
                                     class="fas fa-times"></i>
                                         Annuler
                                     </button>
-                                    <button class="btn btn-icon icon-left btn-primary float-right" type="submit"  id="addvente"><i
+                                    <button class="btn btn-icon icon-left btn-success float-right" type="submit"  id="addvente"><i
                                         class="fas fa-check"></i> Enregistrer</button>
                             </div>
                             <div class="col-6" style="padding-top:32px;">
@@ -160,46 +160,54 @@
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1">
                                               Montant</th>
-                                               <th class="text-center" tabindex="0" aria-controls="example1"
-                                               rowspan="1" colspan="1">
-                                              Etat</th> <th class="text-center" tabindex="0" aria-controls="example1"
-                                              rowspan="1" colspan="1">
-                                             Etat Livraison</th> <th class="text-center" tabindex="0" aria-controls="example1"
+                                              <th class="text-center" tabindex="0" aria-controls="example1"
                                                rowspan="1" colspan="1">
                                                Date de creation</th>
+                                               <th class="text-center" tabindex="0" aria-controls="example1"
+                                               rowspan="1" colspan="1">
+                                              Validation</th>
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" >Actions
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr v-for="facture in factures" :key="facture.id" class="">
-                                            <td class="text-center">{{facture.numero_facture}}</td>
-                                            <td class="text-center">{{facture.client.nom}}      {{facture.client.prenom }}</td>
-                                            <td class="text-center">{{facture.montant}}</td>
-                                            <td class="text-center"> <div class="badge badge-success">{{facture.etat}}</div></td>
-                                            <td class="text-center">{{moment(facture.created_at).format("DD/MM/YYYY")}}</td>
-                                            <td class="text-center m-3">
-                                                <Link title="Detail la facture"  :href="`/facture/${facture.id}/detail-facture/`" type="button" class="btn
+                                        <tr v-for="commande in commandes.data" :key="commande.id" class="">
+                                            <td class="text-center">{{commande.numero_commande}}</td>
+                                            <td class="text-center">{{commande.client.nom}}      {{commande.client.prenom }}</td>
+                                            <td class="text-center">{{commande.total}} fcfa</td>
+                                            <td class="text-center">{{moment(commande.created_at).format("DD/MM/YYYY")}}</td>
+                                            <td v-if="commande.validation == 'en attente'" class="text-center"> <div class="badge badge-warning">{{commande.validation}}</div></td>
+                                            <td v-if="commande.validation == 'validé'" class="text-center"> <div class="badge badge-success">{{commande.validation}}</div></td>
+                                            <!-- <td v-if="commande.livraison == 'non-livrer'" class="text-center"> <div class="badge badge-warning">{{commande.livraison}}</div></td>
+                                            <td v-if="commande.livraison == 'livré'" class="text-center"> <div class="badge badge-success">{{commande.livraison}}</div></td> -->
+                                            <td v-if="commande.validation == 'en attente'" class="text-center m-3">
+                                                <Link title="Detail la facture"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
                                                     btn-icon  btn-info"><i
                                                         class="fas fa-info"></i></Link>
-                                                        <Link  type="button" :href="`/facture/${facture.id}/facture-pdf/`" title="imprimer la facture" class="btn
-                                                    btn-icon btn-warning"><i
+                                                        <Link  type="button" method="post" :href="`/commande/${commande.id}/valider-commande/`" title="imprimer la facture" class="btn
+                                                    btn-icon btn-success"><i
                                                         class="fas
-                                                        fa-print"></i></Link>
+                                                        fa-check"></i></Link>
                                                 <button class="btn
                                                     btn-link"><i
                                                         class="fas
                                                         fa"></i></button>
                                             </td>
-                                        </tr> -->
+                                            <td v-if="commande.validation == 'validé'" class="text-center m-3">
+                                                <Link title="Detail la facture"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
+                                                    btn-icon  btn-info"><i
+                                                        class="fas fa-info"></i></Link>
+        
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-sm-12" style="float:left;">
-                                <!-- <Pagination :links="clients.links"/>  -->
+                                <Pagination :links="commandes.links"/> 
                             </div>
                         </div>
                     </div>
@@ -276,7 +284,7 @@ import Pagination from '../../components/Pagination.vue'
                     this.montant = total;
                 },
             store() {
-                this.$inertia.post('/facture', { details: this.details , client_id: this.client_id, commande: this.commande,montant: this.montant});
+                this.$inertia.post('/commande', { details: this.details , client_id: this.client_id, commande: this.commande,montant: this.montant});
                 // Swal.fire({
                 //     position: 'top-end',
                 //     icon: 'success',

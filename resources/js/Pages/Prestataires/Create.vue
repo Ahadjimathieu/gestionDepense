@@ -21,7 +21,7 @@
                             <h2 class="card-title flex-grow-1"> </h2>
                         </div>
                         <form class="row g-3 m-5" @submit.prevent="store">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <label for="inputName" class="form-label">nom</label>
                                 <input v-model="form.nom" required type="text" :class="{ 'is-invalid': errors.nom }" class="form-control" id="inputName">
                             </div>
@@ -31,7 +31,7 @@
                                     class="fas fa-times"></i>
                                         retour à la liste
                                     </Link>
-                                    <button class="btn btn-icon icon-left btn-primary float-right" type="submit"  id="addvente"><i
+                                    <button class="btn btn-icon icon-left btn-success float-right" type="submit"  id="addvente"><i
                                         class="fas fa-check"></i> Enregistrer</button>
                             </div>
                         </form>

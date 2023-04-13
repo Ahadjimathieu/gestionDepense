@@ -1,5 +1,5 @@
 <template>
-    <Head title="Liste des factures"/>
+    <Head title="Liste des commandes"/>
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <div class="card col-lg-10 offset-1 col-md-12">
                     <div class="card-header">
-                        <h2 class="col-lg-10 text-center col-md-12">Liste des Factures</h2>
+                        <h2 class="col-lg-10 text-center col-md-12">Liste des Commandes</h2>
                     </div>
 
                     <div class="card-body">
@@ -40,42 +40,55 @@
                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="Rendering engine: activate to sort column descending">
-                                                    N° fact</th>
+                                                    N° commande</th>
                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Browser: activate to sort column ascending">Client</th>
                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1">
                                                   Montant</th>
-                                                   <th class="text-center" tabindex="0" aria-controls="example1"
-                                                   rowspan="1" colspan="1">
-                                                  Etat</th>  <th class="text-center" tabindex="0" aria-controls="example1"
+                                                  <th class="text-center" tabindex="0" aria-controls="example1"
                                                    rowspan="1" colspan="1">
                                                    Date de creation</th>
+                                                   <th class="text-center" tabindex="0" aria-controls="example1"
+                                                   rowspan="1" colspan="1">
+                                                  Validation</th> 
+                                                  <th class="text-center" tabindex="0" aria-controls="example1"
+                                                   rowspan="1" colspan="1">
+                                                  Livraison</th> 
                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" >Actions
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="facture in factures" :key="facture.id" class="">
-                                                <td class="text-center">{{facture.numero_facture}}</td>
-                                                <td class="text-center">{{facture.client.nom}}      {{facture.client.prenom }}</td>
-                                                <td class="text-center">{{facture.montant}}</td>
-                                                <td class="text-center"> <div class="badge badge-success">{{facture.etat}}</div></td>
-                                                <td class="text-center">{{moment(facture.created_at).format("DD/MM/YYYY")}}</td>
-                                                <td class="text-center m-3">
-                                                    <Link title="Detail la facture"  :href="`/facture/${facture.id}/detail-facture/`" type="button" class="btn
+                                            <tr v-for="commande in commandes.data" :key="commande.id" class="">
+                                                <td class="text-center">{{commande.numero_commande}}</td>
+                                                <td class="text-center">{{commande.client.nom}}      {{commande.client.prenom }}</td>
+                                                <td class="text-center">{{commande.total}}</td>
+                                                <td class="text-center">{{moment(commande.created_at).format("DD/MM/YYYY")}}</td>
+                                                <td v-if="commande.validation == 'en attente'" class="text-center"> <div class="badge badge-warning">{{commande.validation}}</div></td>
+                                                <td v-if="commande.validation == 'validé'" class="text-center"> <div class="badge badge-success">{{commande.validation}}</div></td>
+                                                <td v-if="commande.livraison == 'non-livrer'" class="text-center"> <div class="badge badge-warning">{{commande.livraison}}</div></td>
+                                                <td v-if="commande.livraison == 'livrée'" class="text-center"> <div class="badge badge-success">{{commande.livraison}}</div></td>
+                                                <td v-if="commande.livraison == 'non-livrer'" class="text-center m-3">
+                                                    <Link title="Detail de la commande"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
                                                         btn-icon  btn-info"><i
                                                             class="fas fa-info"></i></Link>
-                                                            <Link  type="button" href="/pdf" title="imprimer la facture" class="btn
-                                                        btn-icon btn-warning"><i
+                                                            <Link  type="button" method="post" :href="`/commande/${commande.id}/valider-livraison/`" title="Valider la livraison" class="btn
+                                                        btn-icon btn-success"><i
                                                             class="fas
-                                                            fa-print"></i></Link>
+                                                            fa-check"></i></Link>
                                                     <button class="btn
                                                         btn-link"><i
                                                             class="fas
                                                             fa"></i></button>
+                                                </td>
+                                                <td v-if="commande.livraison == 'livrée'" class="text-center m-3">
+                                                    <Link title="Detail de la commande"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
+                                                        btn-icon  btn-info"><i
+                                                            class="fas fa-info"></i></Link>
+            
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -85,7 +98,7 @@
                             <div class="row mt-3">
 
                                 <div class="col-sm-12" style="float:left;" >
-                                   <!-- <Pagination :links="factures.links"/>  -->
+                                   <Pagination :links="commandes.links"/> 
                                 </div>
                             </div>
                         </div>
@@ -110,7 +123,7 @@
         layout: Layout,
 
         props:{
-            factures:Object
+            commandes:Object
         },
         data() {
         return {

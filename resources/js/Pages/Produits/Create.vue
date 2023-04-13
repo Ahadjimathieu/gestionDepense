@@ -28,6 +28,10 @@
                                     class="form-control"
                                     id="inputName">
                             </div>
+                            <div class="col-2">
+                               
+                            </div>
+                                    
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Prix (m²)</label>

@@ -169,6 +169,11 @@ Route::post('/commande', [CommandeController::class, 'store'])->name('commande.s
 
 Route::get('/commande/{commande}/detail-commande', [CommandeController::class, 'edit'])->name('commande.edit')->middleware("auth");
 
+Route::post('/commande/{commande}/valider-commande', [CommandeController::class, 'validateCommande'])->name('commande.validate')->middleware("auth");
+
+Route::post('/commande/{commande}/valider-livraison', [CommandeController::class, 'validateLivraison'])->name('commande.livraison')->middleware("auth");
+
+
 //Route::get('/facture/{facture}/facture-pdf', [FactureController::class, 'generatePDF'])->name('facture.pdf')->middleware("auth");
 
 Route::get('/get-price', [CommandeController::class, 'getPrix'])->name('produit.prix');

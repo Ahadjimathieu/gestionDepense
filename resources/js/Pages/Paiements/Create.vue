@@ -145,7 +145,7 @@
                                     class="fas fa-times"></i>
                                 Annuler
                             </button>
-                            <button class="btn btn-icon icon-left btn-primary float-right" type="submit"
+                            <button class="btn btn-icon icon-left btn-success float-right" type="submit"
                                 id="addvente"><i class="fas fa-check"></i> Enregistrer</button>
                         </div>
                     </form>

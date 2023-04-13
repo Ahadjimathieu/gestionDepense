@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreCommandeRequest;
 use App\Http\Requests\UpdateCommandeRequest;
+use App\Models\DetailCommande;
 
 class CommandeController extends Controller
 {
@@ -21,8 +22,27 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        //
+        $commandes = Commande::with('client')->latest()->paginate(5);
+        return Inertia::render('Commandes/Index',[
+            'commandes' =>  $commandes,
+        ]);
     }
+
+    public function validateCommande(Commande $commande)
+    {
+        $commande->validation = "validé";
+        $commande->update();
+        return redirect()->route('commande.index');
+    }
+
+    public function validateLivraison(Commande $commande)
+    {
+        $commande->livraison = "livrée";
+        $commande->update();
+        return redirect()->route('commande.index');
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +58,9 @@ class CommandeController extends Controller
                     ->count();
         $nextInvoiceNumber = str_pad($count + 1, 3, '0', STR_PAD_LEFT);
         $numeroCommande = $currentDate->format('Ymd').'/'.$nextInvoiceNumber;
-        $commandes = Commande::all();
+        // $paiements = Paiement::with('facture')->with('facture.client')->latest()->paginate(10);
+
+        $commandes = Commande::with('client')->latest()->paginate(5);
         return Inertia::render('Commandes/Create',[
             'commandes' =>  $commandes,
             'clients' => Client::all(),
@@ -61,9 +83,41 @@ class CommandeController extends Controller
      * @param  \App\Http\Requests\StoreCommandeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCommandeRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'client_id' => "required",
+            'commande' => "required",
+            'montant' => "required",
+            'details.*.longueur' => "required|numeric",
+            'details.*.largeur' => "required|numeric",
+            'details.*.produit' => "required",
+            'details.*.total' => "required",
+        ]);
+        // dd($request->all());
+
+        // dd($request->all());
+        $commande = new Commande();
+        $commande->numero_commande = $request->commande;
+        $commande->client_id = $request->client_id;
+        $commande->total = $request->montant;
+        $commande->livraison = 'non-livrer';
+        $commande->validation = 'en attente';
+        $commande->save();
+        //dd($commande);
+
+        $commande_id = $commande->id;
+        foreach($request->details as $detailData) {
+            $detail = new DetailCommande();
+            $detail->longueur = $detailData['longueur'];
+            $detail->largeur = $detailData['largeur'];
+            $detail->produit_id = $detailData['produit'];
+            $detail->total = $detailData['total'];
+            $detail->commande_id = $commande_id;
+            $detail->save();
+        }
+
+        return redirect()->route('commande.index');
     }
 
     /**
@@ -85,7 +139,17 @@ class CommandeController extends Controller
      */
     public function edit(Commande $commande)
     {
-        //
+        $details = $details = DB::table('detail_commandes')
+        ->join('commandes', 'commandes.id', '=', 'detail_commandes.commande_id')
+        ->join('produits', 'produits.id', '=', 'detail_commandes.produit_id')
+        ->select('produits.designation','produits.prix','detail_commandes.longueur', 'detail_commandes.largeur','detail_commandes.total')
+        ->where('commandes.id', '=', $commande->id)
+        ->get();
+
+        //dd($details);
+        return Inertia::render('Commandes/Edit',[
+            'details' => $details
+        ]);
     }
 
     /**

@@ -46,14 +46,14 @@
                                 <div   class="col-lg-4 col-md-4">
                                     <div class="form-group">
                                         <label>Désignation <font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="text"  :class="{ 'is-invalid': errors.designation }" v-model="detail.designation" class="form-control" name="" >
+                                        <input title="saisir la quantité" type="text"   :class="{ 'is-invalid': errors.designation }" v-model="detail.designation" class="form-control" name="" >
                                     </div>
                                 </div>
 
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label>Qté <font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid': errors.quantite }" v-model="detail.quantite" class="form-control" name=""  @change="updateTotal(detail)">
+                                        <input title="saisir la quantité" required type="number" :class="{ 'is-invalid': errors.quantite }" v-model="detail.quantite" class="form-control" name=""  @change="updateTotal(detail)">
 
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                     class="fas fa-times"></i>
                                         Annuler
                                     </button>
-                                    <button class="btn btn-icon icon-left btn-primary float-right" type="submit"  id="addvente"><i
+                                    <button class="btn btn-icon icon-left btn-success float-right" type="submit"  id="addvente"><i
                                         class="fas fa-check"></i> Enregistrer</button>
                             </div>
                             <div class="col-6" style="padding-top:32px;">

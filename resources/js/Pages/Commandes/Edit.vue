@@ -17,14 +17,14 @@
 
             <div class="card col-lg-10 offset-1 col-md-12">
                 <div class="">
-                    <h2 class="text-start">Detail(s) de la facture</h2>
+                    <h2 class="text-start">Detail(s) de la commande</h2>
                 </div>
                 <div class="card-body">
                     <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="dt-buttons btn-group flex-wrap">
-
+                                    
                                 </div>
                             </div>
                         </div>
@@ -42,12 +42,16 @@
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1"
                                                 aria-label="Browser: activate to sort column ascending">Designation</th>
+                                                <th class="text-center" tabindex="0" aria-controls="example1"
+                                               rowspan="1" colspan="1">
+                                             Prix Unitaire (en m²)</th>
                                             <th class="text-center" tabindex="0" aria-controls="example1"
                                                 rowspan="1" colspan="1">
-                                              Quantité</th>
-                                               <th class="text-center" tabindex="0" aria-controls="example1"
-                                               rowspan="1" colspan="1">
-                                             Prix Unitaire (en fcfa)</th>  <th class="text-center" tabindex="0" aria-controls="example1"
+                                              longueur</th>
+                                              <th class="text-center" tabindex="0" aria-controls="example1"
+                                                rowspan="1" colspan="1">
+                                              Largeur</th>
+                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                rowspan="1" colspan="1">
                                               Montant total (en fcfa)</th>
                                             <th class="text-center" tabindex="0" aria-controls="example1"
@@ -57,10 +61,11 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="(detail, index) in details" :key="detail.id" class="">
-                                            <td class="text-center">{{index}}</td>
+                                            <td class="text-center">{{index + 1}}</td>
                                             <td class="text-center">{{detail.designation}}</td>
-                                            <td class="text-center">{{detail.qantite}}</td>
-                                            <td class="text-center">{{detail.prix_unit}}</td>
+                                            <td class="text-center">{{detail.prix}}</td>
+                                            <td class="text-center">{{detail.longueur}}</td>
+                                            <td class="text-center">{{detail.largeur}}</td>
                                             <td class="text-center">{{detail.total}}</td>
                                             <td class="text-center m-3">
                                                 <button class="btn
@@ -75,6 +80,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-sm-12" style="float:left;">
+                                btn
                                 <!-- <Pagination :links="clients.links"/>  -->
                             </div>
                         </div>
