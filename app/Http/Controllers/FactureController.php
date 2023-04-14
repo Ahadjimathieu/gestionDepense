@@ -62,13 +62,13 @@ class FactureController extends Controller
             'client_id' => "required",
             'facture' => "required",
             'montant' => "required",
-            'details.designation' => "required|string|max:255",
-            'details.quantite' => "required|numeric|min:1",
-            'details.prix_unit' => "required",
-            'details.total' => "required",
+            // 'details.designation' => "required|string|max:255",
+            // 'details.quantite' => "required|numeric|min:1",
+            // 'details.prix_unit' => "required",
+            // 'details.total' => "required",
         ]);
 
-        dd($request->all());
+        //dd($request->all());
         $facture = new Facture();
         $facture->numero_facture = $request->facture;
         $facture->montant = $request->montant;
