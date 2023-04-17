@@ -74,7 +74,7 @@ Route::get('/facture/{facture}/facture-pdf', [FactureController::class, 'generat
 
 Route::post('/facture/montant', [PaiementController::class, 'getMontant'])->name('facture.montant');
 
-Route::get('/pdf', [PdfController::class, 'getPdf']);
+Route::get('/facture/liste', [PdfController::class, 'getPdf']);
 
 //Route::put('/facture/{facture}', [FactureController::class, 'update'])->name('facture.update')->middleware("auth");
 

@@ -22,7 +22,7 @@
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
-                                    
+
                                 </div>
                                 <div class="col-sm-12 col-md-6" >
                                     <div id="example1_filter"  style="float:right;" class="dataTables_filter"><label>Search:<input
@@ -68,7 +68,7 @@
                                                     <Link title="Detail la facture"  :href="`/facture/${facture.id}/detail-facture/`" type="button" class="btn
                                                         btn-icon  btn-info"><i
                                                             class="fas fa-info"></i></Link>
-                                                            <Link  type="button" href="/pdf" title="imprimer la facture" class="btn
+                                                            <Link  type="button" @click="getPdf" title="imprimer la facture" class="btn
                                                         btn-icon btn-warning"><i
                                                             class="fas
                                                             fa-print"></i></Link>
@@ -116,6 +116,11 @@
         return {
           moment:moment,
         }
+    },
+    methods: {
+        getPdf() {
+        window.open('/facture/liste', '_blank');
+    }
     }
     }
 
