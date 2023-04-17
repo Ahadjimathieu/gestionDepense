@@ -30,6 +30,7 @@
         "moment": "^2.29.4",
         "sweetalert2": "^11.7.3",
         "vue": "^3.2.36",
-        "vue-loader": "^17.0.1"
+        "vue-loader": "^17.0.1",
+        "vue-text-mask": "^6.1.2"
     }
 }

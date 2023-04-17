@@ -73,8 +73,17 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-12" style="float:left;">
+                        <div class="card-footer">
+                            <div style="float:right;" >
+                                <button class="btn btn-icon btn-info"><i
+                                                        class="fas
+                                                        fa-print"></i> Imprimer la facture </button>
+                                <!-- <Pagination :links="clients.links"/>  -->
+                            </div>
+                            <div  >
+                                <Link class="btn btn-icon btn-danger"><i
+                                                        class="fas
+                                                        fa-times"></i> Retour à la liste </Link>
                                 <!-- <Pagination :links="clients.links"/>  -->
                             </div>
                         </div>
@@ -93,7 +102,7 @@
     export default {
         layout: Layout,
         props: {
-           
+
             details:Object,
         },
 

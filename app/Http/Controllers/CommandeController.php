@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use Dompdf\Dompdf;
 use Inertia\Inertia;
 use App\Models\Client;
 use App\Models\Produit;
 use App\Models\Commande;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StoreCommandeRequest;
-use App\Http\Requests\UpdateCommandeRequest;
 use App\Models\DetailCommande;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+
 
 class CommandeController extends Controller
 {
@@ -22,7 +23,7 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::with('client')->latest()->paginate(5);
+        $commandes = Commande::with('client')->latest()->paginate();
         return Inertia::render('Commandes/Index',[
             'commandes' =>  $commandes,
         ]);
@@ -159,7 +160,7 @@ class CommandeController extends Controller
      * @param  \App\Models\Commande  $commande
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCommandeRequest $request, Commande $commande)
+    public function update(Request $request, Commande $commande)
     {
         //
     }

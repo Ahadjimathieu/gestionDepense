@@ -1,6 +1,6 @@
 <template>
 
-    <Head title="Client create" />
+    <Head title="Detail-Commande" />
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="dt-buttons btn-group flex-wrap">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -78,12 +78,21 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-sm-12" style="float:left;">
-                                btn
+                        <div class="card-footer">
+                            <div style="float:right;" >
+                                <button class="btn btn-icon btn-info"><i
+                                                        class="fas
+                                                        fa-print"></i> Imprimer la commande </button>
+                                <!-- <Pagination :links="clients.links"/>  -->
+                            </div>
+                            <div  >
+                                <button class="btn btn-icon btn-danger"><i
+                                                        class="fas
+                                                        fa-times"></i> Retour à la liste </button>
                                 <!-- <Pagination :links="clients.links"/>  -->
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -99,7 +108,7 @@
     export default {
         layout: Layout,
         props: {
-           
+
             details:Object,
         },
 

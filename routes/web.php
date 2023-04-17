@@ -74,7 +74,7 @@ Route::get('/facture/{facture}/facture-pdf', [FactureController::class, 'generat
 
 Route::post('/facture/montant', [PaiementController::class, 'getMontant'])->name('facture.montant');
 
-Route::get('/facture/liste', [PdfController::class, 'getPdf']);
+Route::get('/facture/liste',  [PdfController::class, 'getPdf']);
 
 //Route::put('/facture/{facture}', [FactureController::class, 'update'])->name('facture.update')->middleware("auth");
 
@@ -172,6 +172,9 @@ Route::get('/commande/{commande}/detail-commande', [CommandeController::class, '
 Route::post('/commande/{commande}/valider-commande', [CommandeController::class, 'validateCommande'])->name('commande.validate')->middleware("auth");
 
 Route::post('/commande/{commande}/valider-livraison', [CommandeController::class, 'validateLivraison'])->name('commande.livraison')->middleware("auth");
+
+Route::get('/commande/{commande}/imprimer-commande', [PdfController::class, 'imprimer'])->name('commande.imprimer')->middleware("auth");
+
 
 
 //Route::get('/facture/{facture}/facture-pdf', [FactureController::class, 'generatePDF'])->name('facture.pdf')->middleware("auth");

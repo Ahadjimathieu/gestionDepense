@@ -22,7 +22,7 @@
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
-                                    
+
                                 </div>
                                 <div class="col-sm-12 col-md-6" >
                                     <div id="example1_filter"  style="float:right;" class="dataTables_filter"><label>Search:<input
@@ -52,10 +52,10 @@
                                                    Date de creation</th>
                                                    <th class="text-center" tabindex="0" aria-controls="example1"
                                                    rowspan="1" colspan="1">
-                                                  Validation</th> 
+                                                  Validation</th>
                                                   <th class="text-center" tabindex="0" aria-controls="example1"
                                                    rowspan="1" colspan="1">
-                                                  Livraison</th> 
+                                                  Livraison</th>
                                                 <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" >Actions
                                                 </th>
@@ -73,12 +73,16 @@
                                                 <td v-if="commande.livraison == 'livrée'" class="text-center"> <div class="badge badge-success">{{commande.livraison}}</div></td>
                                                 <td v-if="commande.livraison == 'non-livrer'" class="text-center m-3">
                                                     <Link title="Detail de la commande"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
-                                                        btn-icon  btn-info"><i
+                                                        btn-icon  btn-warning"><i
                                                             class="fas fa-info"></i></Link>
                                                             <Link  type="button" method="post" :href="`/commande/${commande.id}/valider-livraison/`" title="Valider la livraison" class="btn
                                                         btn-icon btn-success"><i
                                                             class="fas
                                                             fa-check"></i></Link>
+                                                            <Link  type="button" @click="imprimer(commande.id)" title="Valider la livraison" class="btn
+                                                            btn-icon btn-info"><i
+                                                                class="fas
+                                                                fa-print"></i></Link>
                                                     <button class="btn
                                                         btn-link"><i
                                                             class="fas
@@ -86,9 +90,13 @@
                                                 </td>
                                                 <td v-if="commande.livraison == 'livrée'" class="text-center m-3">
                                                     <Link title="Detail de la commande"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
-                                                        btn-icon  btn-info"><i
+                                                        btn-icon  btn-warning"><i
                                                             class="fas fa-info"></i></Link>
-            
+                                                            <Link  type="button" @click="imprimer(commande.id)" title="Valider la livraison" class="btn
+                                                            btn-icon btn-info"><i
+                                                                class="fas
+                                                                fa-print"></i></Link>
+
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -98,7 +106,7 @@
                             <div class="row mt-3">
 
                                 <div class="col-sm-12" style="float:left;" >
-                                   <Pagination :links="commandes.links"/> 
+                                   <Pagination :links="commandes.links"/>
                                 </div>
                             </div>
                         </div>
@@ -129,6 +137,11 @@
         return {
           moment:moment,
         }
+    },
+    methods: {
+        imprimer(id) {
+        window.open(`/commande/${id}/imprimer-commande/`,'_blank');
+    }
     }
     }
 

@@ -63,8 +63,8 @@
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label>Longueur <font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid': errors['detail.longueur'] }" v-model="detail.longueur" class="form-control" name=""  @change="updateTotal(detail)">
-                                        
+                                        <input title="saisir la quantité"  type="number" :class="{ 'is-invalid': errors['detail.longueur'] }" v-model="detail.longueur" class="form-control" name=""  @change="updateTotal(detail)">
+
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
@@ -111,8 +111,8 @@
                             </div>
                             <div class="col-6" style="padding-top:32px;">
 
-                                    
-                                        
+
+
 
                             </div>
 
@@ -198,7 +198,7 @@
                                                 <Link title="Detail la facture"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
                                                     btn-icon  btn-info"><i
                                                         class="fas fa-info"></i></Link>
-        
+
                                             </td>
                                         </tr>
                                     </tbody>
@@ -207,7 +207,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-sm-12" style="float:left;">
-                                <Pagination :links="commandes.links"/> 
+                                <Pagination :links="commandes.links"/>
                             </div>
                         </div>
                     </div>
@@ -223,6 +223,7 @@ import Pagination from '../../components/Pagination.vue'
 <script>
     import Layout from '../../components/MainLayout.vue'
     import moment from "moment";
+    import VueMask from 'vue-text-mask'
 
     export default {
         layout: Layout,

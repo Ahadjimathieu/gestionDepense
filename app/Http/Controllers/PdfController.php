@@ -7,7 +7,10 @@ namespace App\Http\Controllers;
 use PDF;
 use Dompdf\Dompdf;
 use Inertia\Inertia;
+use App\Models\Commande;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 
 class PdfController extends Controller
 {
@@ -17,12 +20,41 @@ class PdfController extends Controller
 
 
         $pdf = new Dompdf();
-        $html = 'facture';
+        $html = View::make('facture')->render();
         $pdf->loadHtml($html);
 
         // Génère le PDF
         $pdf->render();
-        return $pdf->stream('document.pdf');
+        return response($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="document.pdf"'
+        ]);
+    }
+
+    public function imprimer(Commande $commande)
+    {
+        $id = $commande->client_id;
+        $details = $details = DB::table('detail_commandes')
+        ->join('commandes', 'commandes.id', '=', 'detail_commandes.commande_id')
+        ->join('produits', 'produits.id', '=', 'detail_commandes.produit_id')
+        ->join('clients', 'clients.id', '=', 'commandes.client_id')
+        ->select('produits.designation','produits.prix','detail_commandes.longueur', 'detail_commandes.largeur','detail_commandes.total','commandes.total', 'clients.nom','clients.prenom','clients.telephone','clients.adresse')
+        ->where('commandes.id', '=', $commande->id)
+        ->get();
+
+        $pdf = new Dompdf();
+        $html = View::make('commande',compact('details'))->render();
+        $pdf->loadHtml($html);
+
+        // Génère le PDF
+        $pdf->render();
+        return response($pdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="document.pdf"'
+        ]);
+       
+    }
+        //$html = file_get_contents('http://127.0.0.1:8000/facture/liste');
 
         // Récupère les erreurs éventuelles
         // $errors = $pdf->getErrors();
@@ -92,109 +124,8 @@ class PdfController extends Controller
         //     $pdf->loadHTML($this->convert_to_html());
 
         //     return $pdf->download();
-    }
+    
 
-    public function convert_to_html()
-    {
-
-
-                $output='<link href="css/pdf.css" rel="stylesheet">
-                <link rel="stylesheet" href="css/bootstrap.min.css"/>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-                <link rel="stylesheet" href="css/font-awesome.min.css"/>
-
-
-                    <div class="container-fluid" style="margin-right:0px;margin-left:0px;width:95%; padding-left:10px;  padding-top:0px;">
-                        <div class="row" >
-                            <div class="col-sm-12">
-                                    <div class="panel panel-default invoice" id="invoice" >
-                                        <div class="panel-body">
-                                            <div class="invoice-ribbon"><div class="ribbon-inner">PAID</div></div>
-                                                <div class="row" style="padding-top:-0px;">
-
-                                                    <div class="col-sm-6 top-left">
-                                                    <img src="images/logo.png" width="100px"/>
-                                                    </div>
-
-                                                    <div class="col-sm-6 top-right" >
-
-                                                            <span class="marginright"></span>
-                                                    </div>
-
-                                                </div>
-                                                <hr>
-                                                <div class="row" style="padding-bottom:230px;">
-
-                                                    <div class="col to" style="float:left">
-                                                        <p class="lead marginbottom">Seller</p>
-                                                        <p>Tramud Events & Tours </p>
-                                                        <p>Suite 240, San Francisco</p>
-                                                        <p>Phone:+(233)555 16 50 54</p>
-                                                        <p>Email: tramudtourism@gmail.com</p>
-
-                                                    </div>
-                                                    <div class="col-xs-4 from"style="float:right">
-                                                        <p class="lead marginbottom">Buyer</p>
-                                                        <p class=""> Name : </p>
-                                                        <p>Address:  </p>
-                                                        <p></p>
-
-                                                        <p>Phone:</p>
-                                                        <p>Email: </p>
-
-                                                    </div>
-
-
-                                                </div>
-
-                                            <div class="row table-row">
-                                                <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                    <th class="text-center" style="width:5%">Tour</th>
-                                                    <th style="width:50%">Item</th>
-                                                    <th class="text-right" style="width:15%">Quantity</th>
-                                                    <th class="text-right" style="width:15%">Unit Price</th>
-                                                    <th class="text-right" style="width:15%">Total Price</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                            <tr>
-                                                                <td class="text-center"></td>
-                                                                <td><img src="" width="50px"/></td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right"></td>
-                                                                <td class="text-right"></td>
-                                                            </tr>
-                                                     </tbody>';
-
-
-
-
-                                                $output.='</table>';
-
-
-
-                                   $output.='<div class="row">
-
-                                                <div class="col-xs-6 text-right pull-right invoice-total" style="padding-right:40px;">
-
-                                                        <p>Total : $</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                          </div>
-                    </div>';
-
-
-
-                            return $output;
-
-
-    }
+   
 
 }
