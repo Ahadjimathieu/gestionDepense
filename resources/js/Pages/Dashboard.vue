@@ -11,12 +11,11 @@
                 </div>
             </div>
         </div>
-
+        
 
         <div class="content">
             <div class="container-fluid">
-
-                  
+                    
             </div>
         </div>
 
@@ -25,11 +24,7 @@
 
 <script>
     import Layout from '../components/MainLayout.vue'
-  
     export default {
         layout:Layout,
-      
-
     }
 </script>
-

@@ -24,7 +24,7 @@
                                 <div class="col-sm-12 col-md-6">
                                     <div class="dt-buttons btn-group flex-wrap"><Link
                                             class="btn btn-primary"
-                                            href="/client/create" > <i class="fa fa-user-plus" ></i> Ajouter un nouvel agent</Link>
+                                            href="/agent/create" > <i class="fa fa-user-plus" ></i> Ajouter un nouvel agent</Link>
 
                                     </div>
                                 </div>

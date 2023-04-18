@@ -23,7 +23,7 @@
                             <div class="col-4">
                                 <label for="inputName"
                                     class="form-label">Désignation</label>
-                                <input  v-model="form.designation" required type="text"
+                                <input  v-model="form.designation" :class="{ 'is-invalid': errors.designation }" type="text"
                                     class="form-control"
                                     id="inputName">
                             </div>
@@ -33,13 +33,13 @@
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Prix (m²)</label>
-                                <input v-model="form.prix" required type="text"
+                                <input v-model="form.prix" :class="{ 'is-invalid': errors.prix }" type="number"
                                     class="form-control"
                                     id="inputFirstname">
                             </div>
                            <br>
                            <div class="card-footer">
-                            <button href="" type="reset" class="btn btn-danger">Annuler</button>
+                            <Link href="/produit"  class="btn btn-danger">retour à la liste</Link>
                             <button type="submit"  class="btn btn-success float-right">Modifier</button>
                         </div>
                         </form>
@@ -130,6 +130,7 @@
         props:{
             produit:Object,
             produits:Object,
+            errors: Object,
         },
         data() {
         return {
@@ -150,6 +151,8 @@
                 showConfirmButton: false,
                 timer: 5000
                     });
+                    form.designation = "";
+                    form.prix = "";
             },
         },
 

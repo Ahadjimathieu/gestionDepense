@@ -80,12 +80,12 @@
                         <h2 class="card-title flex-grow-1"> </h2>
                     </div>
                     <form class="row g-3 m-5" @submit.prevent="initialiserCaisse">
-                        <div class="col-12">
+                        <div class="col-4">
                             <label for="inputName" class="form-label">Montant</label>
-                            <input v-model="form.montant" required type="text" class="form-control" id="inputName">
+                            <input v-model="form.montant" :class="{ 'is-invalid': errors.montant }" type="text" class="form-control" id="inputName">
                         </div>
-
-                        <div class="col-6">
+                        
+                        <div class="col-6 mt-5">
                             <button type="submit" class="btn btn-success ">Enregistrer</button>
                         </div>
                     </form>
@@ -102,6 +102,7 @@
         layout: Layout,
         props: {
             solde:Object,
+            errors: Object,
 
         },
         data() {
@@ -135,13 +136,20 @@
 
     let initialiserCaisse = () => {
         router.post('/caisse', form)
-        // Swal.fire({
-        //     position: 'top-end',
-        //     icon: 'success',
-        //     title: 'Solde initialisée enregistré avec succes',
-        //     showConfirmButton: false,
-        //     timer: 5000
-        // })
+
+        if(errors == null) 
+        {
+            Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Solde initialisée enregistré avec succes',
+            showConfirmButton: false,
+            timer: 5000
+        })
+
+        form.montant = null;
+        }
+        
 
     }
 </script>

@@ -23,11 +23,11 @@
                     <form class="row g-3" @submit.prevent="update">
                         <div class="col-6">
                             <label for="inputName" class="form-label">Nom</label>
-                            <input v-model="form.nom" required type="text" class="form-control" id="inputName">
+                            <input v-model="form.nom"  :class="{ 'is-invalid': errors.nom }" type="text" class="form-control" id="inputName">
                         </div>
                         <div class="col-6">
                             <label for="inputFirstname" class="form-label">solde</label>
-                            <input v-model="form.solde" required type="text" class="form-control"
+                            <input v-model="form.solde"  :class="{ 'is-invalid': errors.solde }" type="text" class="form-control"
                                 id="inputFirstname">
                         </div>
 
@@ -109,6 +109,7 @@
         props: {
             banque: Object,
             banques: Object,
+            errors: Object,
         },
         data() {
             return {

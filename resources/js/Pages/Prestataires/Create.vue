@@ -153,6 +153,7 @@ import Pagination from '../../components/Pagination.vue'
             showConfirmButton: false,
             timer: 5000
             })
+            form.nom = "";
 
     }
 

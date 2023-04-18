@@ -24,28 +24,28 @@
                             <div class="col-4">
                                 <label for="inputName"
                                     class="form-label">Nom(s)</label>
-                                <input  v-model="form.nom" required type="text"
+                                <input  v-model="form.nom" :class="{ 'is-invalid': errors.nom }" type="text"
                                     class="form-control"
                                     id="inputName">
                             </div>
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Prénom(s)</label>
-                                <input v-model="form.prenom" required type="text"
+                                <input v-model="form.prenom" :class="{ 'is-invalid': errors.prenom }" type="text"
                                     class="form-control"
                                     id="inputFirstname">
                             </div>
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Adresse</label>
-                                <input  v-model="form.adresse" required type="text"
+                                <input  v-model="form.adresse" :class="{ 'is-invalid': errors.adresse }" type="text"
                                     class="form-control"
                                     id="inputFirstname">
                             </div>
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Telephone</label>
-                                <input v-model="form.telephone" required type="text"
+                                <input v-model="form.telephone" :class="{ 'is-invalid': errors.telephone }" type="number"
                                     class="form-control"
                                     id="inputFirstname" max="11">
                             </div>
@@ -150,7 +150,8 @@
         layout: Layout,
 
         props:{
-            clients:Object
+            clients:Object,
+            errors: Object,
         },
 
         data() {
@@ -159,6 +160,7 @@
             filters: {
                 search: (this.$route && this.$route.query && this.$route.query.search) || ''
             },
+            
         }
     },
     created() {
@@ -197,14 +199,18 @@
 
     let store = () => {
         router.post('/client',form)
-        Swal.fire({
+
+        if(errors == null) 
+        {
+            Swal.fire({
             position: 'top-end',
             icon: 'success',
             title: 'Client enregistré avec succes',
             showConfirmButton: false,
             timer: 5000
-            })
-
+            });
+        }
+           
     }
 
 </script>

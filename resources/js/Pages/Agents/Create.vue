@@ -23,36 +23,36 @@
                         <form class="row g-3" @submit.prevent="store">
                             <div class="col-4">
                                 <label for="inputName"
-                                    class="form-label">Nom(s)</label>
-                                <input  v-model="form.nom" required type="text"
+                                    class="form-label">Nom </label>
+                                <input  v-model="form.nom"  :class="{ 'is-invalid': errors.nom }" type="text"
                                     class="form-control"
                                     id="inputName">
                             </div>
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Prénom(s)</label>
-                                <input v-model="form.prenom" required type="text"
+                                <input v-model="form.prenom"  :class="{ 'is-invalid': errors.prenom }" type="text"
                                     class="form-control"
                                     id="inputFirstname">
                             </div>
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Adresse</label>
-                                <input  v-model="form.adresse" required type="text"
+                                <input  v-model="form.adresse"  :class="{ 'is-invalid': errors.adresse }" type="text"
                                     class="form-control"
                                     id="inputFirstname">
                             </div>
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Telephone</label>
-                                <input v-model="form.telephone" required type="text"
+                                <input v-model="form.telephone"  :class="{ 'is-invalid': errors.telephone }" type="text"
                                     class="form-control"
                                     id="inputFirstname" max="11">
                             </div>
                             <div class="col-4">
                                 <label for="inputFirstname"
                                     class="form-label">Date embauche</label>
-                                <input v-model="form.date_embauche" required type="date"
+                                <input v-model="form.date_embauche"  :class="{ 'is-invalid': errors.date_embauche }" type="date"
                                     class="form-control"
                                     id="inputFirstname" max="11">
                             </div>
@@ -156,7 +156,8 @@
         layout: Layout,
 
         props:{
-            agents:Object
+            agents:Object,
+            errors:Object
         },
         data() {
         return {
@@ -183,13 +184,18 @@ import Pagination from '../../components/Pagination.vue'
 
     let store = () => {
         router.post('/agent',form)
-        Swal.fire({
+
+        if(errors === null){
+            Swal.fire({
             position: 'top-end',
             icon: 'success',
             title: 'Agent enregistré avec succes',
             showConfirmButton: false,
             timer: 5000
             })
+        }
+        form = [];
+       
 
     }
 

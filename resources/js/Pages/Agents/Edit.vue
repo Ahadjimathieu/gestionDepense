@@ -23,26 +23,26 @@
                     <form class="row g-3" @submit.prevent="update">
                         <div class="col-4">
                             <label for="inputName" class="form-label">Nom(s)</label>
-                            <input v-model="form.nom" required type="text" class="form-control" id="inputName">
+                            <input v-model="form.nom"  type="text" :class="{ 'is-invalid': errors.nom }" class="form-control" id="inputName">
                         </div>
                         <div class="col-4">
                             <label for="inputFirstname" class="form-label">Prénom(s)</label>
-                            <input v-model="form.prenom" required type="text" class="form-control"
+                            <input v-model="form.prenom"  type="text" :class="{ 'is-invalid': errors.prenom }" class="form-control"
                                 id="inputFirstname">
                         </div>
                         <div class="col-4">
                             <label for="inputFirstname" class="form-label">Adresse</label>
-                            <input v-model="form.adresse" required type="text" class="form-control"
+                            <input v-model="form.adresse"  type="text" :class="{ 'is-invalid': errors.adresse }" class="form-control"
                                 id="inputFirstname">
                         </div>
                         <div class="col-4">
                             <label for="inputFirstname" class="form-label">Telephone</label>
-                            <input v-model="form.telephone" required type="text" class="form-control"
+                            <input v-model="form.telephone"  type="text" :class="{ 'is-invalid': errors.telephone }" class="form-control"
                                 id="inputFirstname" max="11">
                         </div>
                         <div class="col-4">
                             <label for="inputFirstname" class="form-label">Date embauche</label>
-                            <input v-model="form.date_embauche" required type="date" class="form-control"
+                            <input v-model="form.date_embauche"  type="date" :class="{ 'is-invalid': errors.date_embauche }" class="form-control"
                                 id="inputFirstname" max="11">
                         </div>
 
@@ -104,7 +104,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="agent in agents" :key="agent.id" class="">
+                                        <tr v-for="agent in agents.data" :key="agent.id" class="">
                                             <td>{{ agent . nom }}</td>
                                             <td>{{ agent . prenom }}</td>
                                             <td>{{ agent . adresse }}</td>
@@ -112,16 +112,14 @@
                                             <td>{{ agent . date_embauche }}</td>
                                             <!-- {{ moment(agent . created_at) . format('DD-MM-YYYY') }} -->
                                             <td class="text-center">
-                                                <button
-                                                    class="btn
-                                                    btn-link"><i
-                                                        class="fas
-                                                        fa-edit"></i></button>
-                                                <button
-                                                    class="btn
-                                                    btn-link"><i
-                                                        class="fas
-                                                        fa-trash"></i></button>
+                                                <Link  :href="`/agent/${agent.id}/edit`" class="btn
+                                                btn-link"><i
+                                                    class="fas
+                                                    fa-edit"></i></Link>
+                                                <button class="btn
+                                                btn-link"><i
+                                                    class="fas
+                                                    fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -150,6 +148,7 @@
         props: {
             agent: Object,
             agents: Object,
+            errors: Object,
         },
         data() {
             return {
@@ -165,13 +164,15 @@
         methods: {
             update() {
                 this.form.put(`/agent/${this.agent.id}`)
-                Swal.fire({
+                    Swal.fire({
                     position: 'top-end',
                     icon: 'success',
                     title: 'Agent modifié avec succes',
                     showConfirmButton: false,
                     timer: 5000
-                });
+                });  
+                
+                form = [];
             },
         },
 

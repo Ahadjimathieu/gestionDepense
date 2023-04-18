@@ -23,7 +23,7 @@
                     <form class="row g-3" @submit.prevent="update">
                         <div class="col-12">
                             <label for="inputName" class="form-label">nom</label>
-                            <input v-model="form.nom" required type="text" class="form-control" id="inputName">
+                            <input v-model="form.nom" :class="{ 'is-invalid': errors.nom }" type="text" class="form-control" id="inputName">
                         </div>
 
                         <div class="col-6">
@@ -114,6 +114,7 @@
         props: {
             prestataire: Object,
             prestataires: Object,
+            errors: Object,
         },
         data() {
             return {
@@ -134,6 +135,7 @@
                     showConfirmButton: false,
                     timer: 5000
                 });
+                form.nom = "";
             },
         },
 

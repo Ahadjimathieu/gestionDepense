@@ -24,14 +24,14 @@
                             <div class="col-6">
                                 <label for="inputName"
                                     class="form-label">Nom</label>
-                                <input  v-model="form.nom" required type="text"
+                                <input  v-model="form.nom" :class="{ 'is-invalid': errors.nom }" type="text"
                                     class="form-control"
                                     id="inputName">
                             </div>
                             <div class="col-6">
                                 <label for="inputFirstname"
                                     class="form-label">Solde Initial</label>
-                                <input v-model="form.solde" required type="number"
+                                <input v-model="form.solde" :class="{ 'is-invalid': errors.solde }" type="number"
                                     class="form-control"
                                     id="inputFirstname">
                             </div>
@@ -118,7 +118,8 @@
     export default {
         layout: Layout,
         props:{
-            banques:Object
+            banques:Object,
+            errors: Object,
         },
         data() {
         return {
