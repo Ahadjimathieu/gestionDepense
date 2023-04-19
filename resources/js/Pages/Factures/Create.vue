@@ -28,12 +28,22 @@
                         </div>
                         <div class="col-6">
                             <label for="inputFirstname" class="form-label">Client</label>
-                            <select class="form-control form-select" required aria-label=".form-select-lg example" v-model="client_id"  >
+                            <Multiselect v-model="client_id"
+                            :options="clients"
+                            :searchable="true"
+                            :show-labels="false"
+                            :placeholder="'Choississez le client'"
+                            :allow-empty="false"
+                            :custom-label="customClient"
+                            :select-label="selectClient">
+                            
+                            </Multiselect>
+                            <!-- <select class="form-control form-select" required aria-label=".form-select-lg example" v-model="client_id"  >
                                 <option value="" >Selectionner le client </option>
                                 <option v-for="client in clients" :key="client.id" :value="client.id">
                                     {{ client . nom }} {{ client . prenom }}</option>
 
-                            </select>
+                            </select> -->
                         </div>
 
                         <div class="row col-4 pt-3 offset-4">
@@ -214,9 +224,14 @@ import Pagination from '../../components/Pagination.vue'
 <script>
     import Layout from '../../components/MainLayout.vue'
     import moment from "moment";
+    import Multiselect from  '@suadelabs/vue3-multiselect'
+
 
     export default {
         layout: Layout,
+        components: {
+            Multiselect
+        },
         props: {
             clients: Object,
             facture: String,
@@ -233,11 +248,18 @@ import Pagination from '../../components/Pagination.vue'
                 ],
                 client_id: '',
                 montant: null,
+                clients: this.clients,
 
             }
         },
         methods:{
 
+            customClient(client) {
+                return `${client.nom} ${client.prenom}`;
+                },
+                selectClient(client) {
+                return client.id;
+                },
                  addRow() {
             this.details.push({});
             },
@@ -282,4 +304,5 @@ import Pagination from '../../components/Pagination.vue'
     }
 </script>
 
+<style src="@suadelabs/vue3-multiselect/dist/vue3-multiselect.css"></style>
 

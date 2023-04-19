@@ -57,26 +57,46 @@
                             <div v-if="type === 'banque'" class="col-6">
                                 <div class="form-group">
                                     <label for="inputFirstname" class="form-label">Banque</label>
-                                    <select v-model="banque" class="form-control form-select" id="facture"
+                                    <Multiselect v-model="banque"
+                                    :options="banques"
+                                    :searchable="true"
+                                    :show-labels="false"
+                                    :placeholder="'Choississez la banque'"
+                                    :allow-empty="false"
+                                    :custom-label="customBanque"
+                                    :select-label="selectBanque">
+                                    :class="{ 'is-invalid': errors.banque }"
+                                    </Multiselect>
+                                    <!-- <select v-model="banque" class="form-control form-select" id="facture"
                                         :class="{ 'is-invalid': errors.banque }" required aria-label=".form-select-lg example">
                                         <option  selected value="">Selectionner la banque </option>
                                         <option v-for="banque in banques" :key="banque.id" :value="banque.id">
                                             {{ banque . nom }} </option>
 
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>
                             <div v-if="depense === 'salaire'" class="row">
                                 <div  class="col-6">
                                     <div class="form-group">
                                         <label for="inputFirstname" class="form-label">Agent</label>
-                                        <select v-model="agent" class="form-control form-select" id="facture"
+                                        <Multiselect v-model="agent"
+                                        :options="agents"
+                                        :searchable="true"
+                                        :show-labels="false"
+                                        :placeholder="'Choississez agent'"
+                                        :allow-empty="false"
+                                        :custom-label="customAgent"
+                                        :select-label="selectAgent">
+                                        :class="{ 'is-invalid': errors.agent }"
+                                        </Multiselect>  
+                                        <!-- <select v-model="agent" class="form-control form-select" id="facture"
                                             :class="{ 'is-invalid': errors.agent }"  required aria-label=".form-select-lg example">
                                             <option selected value="">Selectionner l'agent </option>
                                             <option v-for="agent in agents" :key="agent.id" :value="agent.id">
                                                 {{ agent . nom }}  {{ agent . prenom }}  </option>
     
-                                        </select>
+                                        </select> -->
                                     </div>
                             </div>
                             <div class="col-6">
@@ -92,12 +112,22 @@
                             <div v-if="depense === 'prestataire'" class="col-6">
                                 <div class="form-group">
                                     <label for="inputFirstname" class="form-label">Prestataire</label>
-                                    <select v-model="prestataire"  class="form-control form-select" id="facture"
+                                    <Multiselect v-model="prestataire"
+                                        :options="prestataires"
+                                        :searchable="true"
+                                        :show-labels="false"
+                                        :placeholder="'Choississez le prestataire'"
+                                        :allow-empty="false"
+                                        :custom-label="customPrestataire"
+                                        :select-label="selectPrestataire">
+                                        :class="{ 'is-invalid': errors.prestataire }"
+                                        </Multiselect>  
+                                    <!-- <select v-model="prestataire"  class="form-control form-select" id="facture"
                                         :class="{ 'is-invalid': errors.prestataire }" required aria-label=".form-select-lg example">
                                         <option  value="">Selectionner le prestataire </option>
                                         <option v-for="prestataire in prestataires" :key="prestataire.id" :value="prestataire.id">
                                             {{ prestataire . nom }}   </option>
-                                    </select>
+                                    </select> -->
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
@@ -229,10 +259,14 @@ import Pagination from '../../components/Pagination.vue'
 <script>
     import Layout from '../../components/MainLayout.vue'
     import moment from "moment";
+    import Multiselect from  '@suadelabs/vue3-multiselect'
 
 
     export default {
         layout: Layout,
+        components: {
+            Multiselect
+        },
         props: {
             agents: Object,
             prestataires: Object,
@@ -252,9 +286,30 @@ import Pagination from '../../components/Pagination.vue'
                 prestataire: '',
                 banque: '',
                 note: '',
+                agents: this.agents,
+                prestataires: this.prestataires,
+                banques: this.banques,
             }
         },
         methods: {
+            customAgent(agent) {
+                return `${agent.nom} ${agent.prenom}`;
+                },
+                selectAgent(agent) {
+                return agent.id;
+                },
+                customPrestataire(prestataire) {
+                return `${prestataire.nom} ${prestataire.prenom}`;
+                },
+                selectPrestataire(prestataire) {
+                return prestataire.id;
+                },
+                customBanque(banque) {
+                return `${banque.nom}`;
+                },
+                selectBanque(banque) {
+                return banque.id;
+                },
             store() {
                 this.$inertia.post('/depense', { type: this.type, depense:this.depense, montant:this.montant, agent:this.agent,prestataire:this.prestataire,banque:this.banque,note:this.note
                    
@@ -271,3 +326,4 @@ import Pagination from '../../components/Pagination.vue'
         },
     }
 </script>
+<style src="@suadelabs/vue3-multiselect/dist/vue3-multiselect.css"></style>
