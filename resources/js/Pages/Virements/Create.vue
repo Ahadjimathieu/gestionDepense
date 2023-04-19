@@ -25,13 +25,23 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label for="inputFirstname" class="form-label">Banque</label>
-                                <select v-model="banque" class="form-control form-select" id="facture"
+                                <Multiselect v-model="banque"
+                                :options="banques"
+                                :searchable="true"
+                                :show-labels="false"
+                                :placeholder="'Select option'"
+                                :allow-empty="false"
+                                :custom-label="customLabel"
+                                :select-label="selectLabel">
+
+                                </Multiselect>
+                                <!-- <select v-model="banque" class="form-control form-select" id="facture"
                                     :class="{ 'is-invalid': errors.banque }" required aria-label=".form-select-lg example">
                                     <option   value="">Selectionner la banque </option>
                                     <option v-for="banque in banques" :key="banque.id" :value="banque.id">
                                         {{ banque . nom }} </option>
 
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                         <div class="col-4">
@@ -159,15 +169,22 @@
 </template>
 <script setup>
 import Pagination from '../../components/Pagination.vue'
+
 </script>
 
 <script>
     import Layout from '../../components/MainLayout.vue'
     import moment from "moment";
+        import Multiselect from  '@suadelabs/vue3-multiselect'
+
 
 
     export default {
         layout: Layout,
+       
+        components: {
+            Multiselect
+        },
         props: {
             banques: Object,
             virements: Object,
@@ -181,11 +198,25 @@ import Pagination from '../../components/Pagination.vue'
                 type: '',
                 montant: '',
                 banque: '',
+
+                banques: this.banques,
+               
             }
         },
+    //    
+    // },
         methods: {
+            // nameWithLang ({ nom }) {
+            // return `${nom}`
+            // },
+            customLabel(banque) {
+                return `${banque.nom}`;
+                },
+                selectLabel(banque) {
+                return banque.id;
+                },
             store() {
-                this.$inertia.post('/virement', { type: this.type, montant:this.montant,banque:this.banque
+                this.$inertia.post('/virement', { type: this.type, montant:this.montant, banque:this.banque
 
                 });
                 // Swal.fire({
@@ -200,3 +231,4 @@ import Pagination from '../../components/Pagination.vue'
         },
     }
 </script>
+<style src="@suadelabs/vue3-multiselect/dist/vue3-multiselect.css"></style>

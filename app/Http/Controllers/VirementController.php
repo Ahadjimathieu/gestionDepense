@@ -141,6 +141,8 @@ class VirementController extends Controller
             'montant' => 'required|numeric'
         ]);
 
+        dd($request->all());
+
         $montant = $request->montant;
         $type = $request->type;
         $banque = $request->banque;
