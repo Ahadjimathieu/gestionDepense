@@ -53,8 +53,10 @@ class DepenseController extends Controller
 
     public function validateDepense(Depense $depense)
     {
+        //dd($depense);
 
         $depense->etat = 'validé';
+        //dd($depense);
 
         $salaire = new Salaire();
         $transaction = new Transaction();
@@ -78,6 +80,8 @@ class DepenseController extends Controller
 
 
 
+
+
         if($depense->type == 'prestataire')
         {
 
@@ -91,6 +95,7 @@ class DepenseController extends Controller
 
         }
 
+        //dd($banque);
         $depense->update();
 
         $id = $depense->id;
@@ -113,10 +118,10 @@ class DepenseController extends Controller
     }
 
 
-    public function cancelDpense(Depense $depense)
+    public function cancelDepense(Depense $depense)
     {
 
-        $depense->softDelete();
+        $depense->delete();
 
 
 
@@ -135,19 +140,17 @@ class DepenseController extends Controller
             'type' => "required",
             'depense' => "required",
             'montant' => "required|numeric",
-            'prestataire' => "nullable|numeric",
-            'agent' => "nullable|numeric",
-            'banque' => "nullable|numeric",
+            'agent' => "nullable",
+            'prestataire' => "nullable",
+            'banque' => "nullable",
             'note' => "required|string|max:255",
         ]);
-
-
-
+        //dd($request->all());
         $type = $request->type;
         $dep = $request->depense;
-        $banque_id = $request->banque;
-        $prestataire = $request->prestataire;
-        $agent = $request->agent;
+        $banque_id = $request->banque['id'];
+        $prestataire_id = $request->prestataire['id'];
+        $agent = $request->agent['id'];
         $montant = $request->montant;
         $note = $request->note;
         $credits = Transaction::where('operation', 'credit')->sum('montant');
@@ -241,7 +244,7 @@ class DepenseController extends Controller
             $depense->operation = $type;
             $depense->etat = "en cours";
             $depense->salaire_id =  null;
-            $depense->prestataire_id = $prestataire;
+            $depense->prestataire_id = $prestataire_id;
             $depense->save();
             //session()->put('prestataire', $prestataire);
 
@@ -262,7 +265,8 @@ class DepenseController extends Controller
 
         }
 
-        return redirect()->route('depense.create')->withInput($request->except('text', 'number'));
+        $request = [];
+        return redirect()->route('depense.index');
 
 
 

@@ -131,7 +131,8 @@
                                                 <div>{{ virement . montant }}</div>
                                             </td>
                                             <td class="text-center">
-                                                <div>{{ virement . banque.nom }}</div>
+                                                <div v-if="virement.banque_id !== null" >{{ virement . banque.nom }}</div>
+                                               
                                             </td>
                                             <td class="text-center">
                                                 <div  v-if="virement.etat == 'en cours'" class="badge badge-warning">{{ virement . etat}}</div>

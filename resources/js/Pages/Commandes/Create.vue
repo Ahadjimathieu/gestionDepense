@@ -24,7 +24,7 @@
                     <form class="row g-3" @submit.prevent="store">
                         <div class="col-6">
                             <label for="inputName" class="form-label">N° Commande</label>
-                            <input required type="text" disabled class="form-control"   v-model="commande" id="inputName">
+                            <input required type="text" disabled class="form-control"  :class="{'is-invalid': errors.commande}"  v-model="commande" id="inputName">
                         </div>
                         <div class="col-6">
                             <label for="inputFirstname" class="form-label">Client</label>
@@ -35,8 +35,8 @@
                                 :placeholder="'Choississez le client'"
                                 :allow-empty="false"
                                 :custom-label="customClient"
-                                :select-label="selectClient">
-                                :class="{ 'is-invalid': errors.client_id }"
+                                :select-label="selectClient"
+                                :class="{ 'is-invalid': errors.client_id }">
                                 </Multiselect>
                             <!-- <select class="form-control form-select" required aria-label=".form-select-lg example" v-model="client_id"  >
                                 <option value="" >Selectionner le client </option>
@@ -56,7 +56,7 @@
                                 <div   class="col-lg-3 col-md-3">
                                     <div class="form-group">
                                         <label>Produit <font color="red">*</font></label>
-                                        <select v-model="detail.produit" class="form-control form-select" required aria-label=".form-select-lg example"  @change="onProductSelected(detail)"   >
+                                        <select v-model="detail.produit" class="form-control form-select" :class="{'is-invalid': errors.details+'.' +index+ '.'+produit}"  aria-label=".form-select-lg example"  @change="onProductSelected(detail)"   >
                                             <option value="" >Selectionner le produit </option>
                                             <option v-for="produit in produits" :key="produit.id" :value="produit.id">
                                                 {{ produit . designation }}</option>
@@ -73,14 +73,15 @@
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label>Longueur <font color="red">*</font></label>
-                                        <input title="saisir la quantité"  type="number" :class="{ 'is-invalid': errors['detail.longueur'] }" v-model="detail.longueur" class="form-control" name=""  @change="updateTotal(detail)">
+                                        <input type="number" class="form-control"  v-model="detail.longueur" :class="{'is-invalid': errors.details+'.' +index+ '.'+longueur}" >
+                                       
 
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label>Largeur <font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid':errors['detail.largeur'] }" v-model="detail.largeur" class="form-control" name="" @change="updateTotal(detail)">
+                                        <input title="saisir la quantité" type="number"  v-model="detail.largeur" class="form-control" :class="{'is-invalid': errors.details+'.' +index+ '.'+largeur}" name="" @change="updateTotal(detail)">
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
@@ -104,7 +105,7 @@
                             <div class="col-4">
                                <div class="form-group">
                                  <label for=""> Montant total </label>
-                                <input type="text" name="" id="" v-model="montant" class="form-control" disabled>
+                                <input type="text" name="" id="" v-model="montant" :class="{'is-invalid': errors.montant}" class="form-control" disabled>
 
                                </div>
                             </div>
@@ -234,7 +235,7 @@ import Pagination from '../../components/Pagination.vue'
     import Layout from '../../components/MainLayout.vue'
     import moment from "moment";
     import Multiselect from  '@suadelabs/vue3-multiselect'
-    
+    import Inputmask from 'inputmask'
 
     export default {
             layout: Layout,
@@ -254,7 +255,7 @@ import Pagination from '../../components/Pagination.vue'
 
                 moment: moment,
                 details: [
-                    {produit:null ,longueur:0,largeur:0,prix:null,total:null,},
+                    {produit:null ,longueur:null,largeur:null,prix:null,total:null,},
                 ],
                 client_id: '',
                 prix: null,

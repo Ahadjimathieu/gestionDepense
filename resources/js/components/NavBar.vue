@@ -21,7 +21,7 @@
                     data-accordion="false">
                     <li class="nav-item">
                         <Link href="" class="nav-link " :class="{ 'active': $page.url === '' }">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="fas fa-file-invoice fa-xl"></i>
                         <p>
                             Facture
                             <i class="right fas fa-angle-left"></i>
@@ -111,7 +111,7 @@
                     </li>
                     <li class="nav-item">
                         <Link href="#" class="nav-link" :class="{ 'active': $page.url === '' }">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <i class="fas fa-shopping-bag"></i>
                             <p>
                                 Commande
                                 <i class="right fas fa-angle-left"></i>
@@ -140,7 +140,7 @@
                     </li>
                     <li class="nav-item">
                         <Link href="#" class="nav-link" :class="{ 'active': $page.url === '' }">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <i class="fas fa-money-bill-wave"></i>
                             <p>
                                 Banque
                                 <i class="right fas fa-angle-left"></i>

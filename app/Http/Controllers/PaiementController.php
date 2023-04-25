@@ -137,7 +137,7 @@ class PaiementController extends Controller
     {
 
 
-        $paiement->softDelete();
+        $paiement->delete();
 
 
 
@@ -181,7 +181,7 @@ class PaiementController extends Controller
 
         $facture_courante = Facture::where('id', $facture)->first();
 
-       
+
 
         $montant_restant = $facture_courante->montant_restant;
 
@@ -327,6 +327,9 @@ class PaiementController extends Controller
 
             //session()->put('virementbancaire', $virementbancaire);
         }
+
+        $request = [];
+        return redirect()->route('paiement.index');
 
         //dd($request->all());
     }

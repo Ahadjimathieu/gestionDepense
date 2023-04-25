@@ -119,7 +119,7 @@ class VirementController extends Controller
 
 
 
-        $virement->softDeletes();
+        $virement->delete();
 
 
 
@@ -141,12 +141,13 @@ class VirementController extends Controller
             'montant' => 'required|numeric'
         ]);
 
-        dd($request->all());
 
         $montant = $request->montant;
         $type = $request->type;
-        $banque = $request->banque;
+        $banque = $request->banque['id'];
+        //dd($request->all());
 
+        //dd($banque);
         $banquesolde = Banque::where('id', $banque)->first();
 
         $solde = $banquesolde->solde;
@@ -206,6 +207,8 @@ class VirementController extends Controller
             }
 
         }
+        $request = [];
+        return redirect()->route('virement.index');
     }
 
     /**

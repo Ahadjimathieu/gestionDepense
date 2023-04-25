@@ -36,7 +36,7 @@
                             :allow-empty="false"
                             :custom-label="customClient"
                             :select-label="selectClient">
-                            
+
                             </Multiselect>
                             <!-- <select class="form-control form-select" required aria-label=".form-select-lg example" v-model="client_id"  >
                                 <option value="" >Selectionner le client </option>
@@ -52,38 +52,38 @@
                                     data-original-title="Ajouter produit">Ajouter les détails de la facture <i class="fas fa-plus"></i></button>
                         </div>
                         <div class="addNouveau">
-                            <div v-for="(detail,index) in details"  :key="detail.index" class="row col-12">
-                                <div   class="col-lg-4 col-md-4">
-                                    <div class="form-group">
-                                        <label>Désignation <font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="text"   :class="{ 'is-invalid': errors.designation }" v-model="detail.designation" class="form-control" name="" >
+                                <div v-for="(detail,index) in details"  :key="index" class="row col-12">
+                                    <div   class="col-lg-4 col-md-4">
+                                        <div class="form-group">
+                                            <label>Désignation <font color="red">*</font></label>
+                                            <input title="saisir la quantité" type="text"  v-model="detail.designation"  class="form-control" :class="{'is-invalid': errors.details+'.' +index+ '.'+designation}" name="" >
+                                        </div>
                                     </div>
-                                </div>
+                                  
+                                    <div class="col-lg-2 col-md-2">
+                                        <div class="form-group">
+                                            <label>Qté <font color="red">*</font></label>
+                                            <input title="saisir la quantité" required type="number" v-model="detail.quantite"  class="form-control" :class="{'is-invalid': errors.details+'.' +index+ '.'+quantite}"  name=""  @change="updateTotal(detail)">
 
-                                <div class="col-lg-2 col-md-2">
-                                    <div class="form-group">
-                                        <label>Qté <font color="red">*</font></label>
-                                        <input title="saisir la quantité" required type="number" :class="{ 'is-invalid': errors.quantite }" v-model="detail.quantite" class="form-control" name=""  @change="updateTotal(detail)">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="form-group">
+                                            <label>Prix Unitaire<font color="red">*</font></label>
+                                            <input title="saisir la quantité" type="number" v-model="detail.prix_unit"   class="form-control" :class="{'is-invalid': errors.details+'.' +index+ '.'+prix_unit}"  name="" @change="updateTotal(detail)">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <div class="form-group">
+                                            <label> Total<font color="red">*</font></label>
+                                            <input title="saisir la quantité" disabled type="number" v-model="detail.total" class="form-control" name="" required=""  @change="calculerTotal">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding: 30px">
+
+                                        <button  type="button" class="btn btn-icon btn-danger" id="addNewblock" @click="removeRow(index)" data-original-title="Ajouter produit"><i class="fas fa-trash"></i></button>
 
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3">
-                                    <div class="form-group">
-                                        <label>Prix Unitaire<font color="red">*</font></label>
-                                        <input title="saisir la quantité" type="number" :class="{ 'is-invalid':errors.prix_unit }" v-model="detail.prix_unit" class="form-control" name="" @change="updateTotal(detail)">
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-md-2">
-                                    <div class="form-group">
-                                        <label> Total<font color="red">*</font></label>
-                                        <input title="saisir la quantité" disabled type="number" v-model="detail.total" class="form-control" name="" required=""  @change="calculerTotal">
-                                    </div>
-                                </div>
-                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="padding: 30px">
-
-                                    <button  type="button" class="btn btn-icon btn-danger" id="addNewblock" @click="removeRow(index)" data-original-title="Ajouter produit"><i class="fas fa-trash"></i></button>
-
-                                </div>
                                 <!-- <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label> Monta<font color="red">*</font></label>
@@ -91,21 +91,13 @@
                                     </div>
                                 </div> -->
                             </div>
-
-
-
-
                         </div>
-
-
                         <br>
-
                         <div class=" row col-12">
-
                             <div class="col-4">
                                <div class="form-group">
                                  <label for=""> Montant total </label>
-                                <input type="text" name="" id="" v-model="montant" class="form-control" disabled>
+                                <input type="text" name="" id="" v-model="montant"  :class="{ 'is-invalid': errors.montant }" class="form-control" disabled>
 
                                </div>
                             </div>
@@ -121,13 +113,7 @@
                                         class="fas fa-check"></i> Enregistrer</button>
                             </div>
                             <div class="col-6" style="padding-top:32px;">
-
-                                    
-                                        
-
                             </div>
-
-
                             <!-- <Link href="/client" class="btn btn-danger">Annuler</Link>
                             <button type="submit"  class="btn btn-success float-right">Enregistrer</button> -->
                         </div>
@@ -243,15 +229,18 @@ import Pagination from '../../components/Pagination.vue'
             return {
 
                 moment: moment,
-                details: [
+               details: [
                     {designation:'',quantite:0,prix_unit:0,total:null,},
-                ],
+                    ]
+                 ,
                 client_id: '',
                 montant: null,
                 clients: this.clients,
 
+
             }
         },
+
         methods:{
 
             customClient(client) {

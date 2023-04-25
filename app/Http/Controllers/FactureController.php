@@ -62,19 +62,19 @@ class FactureController extends Controller
             'client_id' => "required",
             'facture' => "required",
             'montant' => "required",
-            // 'details.designation' => "required|string|max:255",
-            // 'details.quantite' => "required|numeric|min:1",
-            // 'details.prix_unit' => "required",
-            // 'details.total' => "required",
+            'details' => 'required|array',
+            'details.*.designation' => 'required|string',
+            'details.*.quantite' => 'required|integer|min:1',
+            'details.*.prix_unit' => 'required|numeric|min:0',
         ]);
 
-        //dd($request->all());
+        dd($request->all());
         $facture = new Facture();
         $facture->numero_facture = $request->facture;
         $facture->montant = $request->montant;
         $facture->montant_restant = $request->montant;
         $facture->etat = 'non-regler';
-        $facture->client_id = $request->client_id;
+        $facture->client_id = $request->client_id['id'];
         $facture->save();
 
         $facture_id = $facture->id;
@@ -89,6 +89,7 @@ class FactureController extends Controller
             $detail->save();
         }
 
+        $request = [];
 
         return redirect()->route('facture.index');
     }

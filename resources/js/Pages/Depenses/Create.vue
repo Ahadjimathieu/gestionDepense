@@ -26,7 +26,7 @@
                             <label for="inputName" class="form-label">Lieu de l'opération</label>
                             <select v-model="type" class="form-control form-select" id=""
                                 :class="{ 'is-invalid': errors.type }" aria-label=".form-select-lg example">
-                                <option selected value="">Selectionner </option>
+                                <option  value="">Selectionner </option>
                                 <option value="caisse">Caisse </option>
                                 <option value="banque">Banque </option>
 
@@ -37,7 +37,7 @@
                             <select v-model="depense" class="form-control form-select"
                                 :class="{ 'is-invalid': errors.depense }" id="facture"
                                 aria-label=".form-select-lg example">
-                                <option selected value="">Selectionner le type de dépense </option>
+                                <option  value="">Selectionner le type de dépense </option>
                                 <option value="salaire">Salaire </option>
                                 <option value="prestataire">Prestataires </option>
                                 <option value="autre">autre </option>
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <br>
-                       
+
                             <div v-if="type === 'banque'" class="col-6">
                                 <div class="form-group">
                                     <label for="inputFirstname" class="form-label">Banque</label>
@@ -65,7 +65,6 @@
                                     :allow-empty="false"
                                     :custom-label="customBanque"
                                     :select-label="selectBanque">
-                                    :class="{ 'is-invalid': errors.banque }"
                                     </Multiselect>
                                     <!-- <select v-model="banque" class="form-control form-select" id="facture"
                                         :class="{ 'is-invalid': errors.banque }" required aria-label=".form-select-lg example">
@@ -88,14 +87,13 @@
                                         :allow-empty="false"
                                         :custom-label="customAgent"
                                         :select-label="selectAgent">
-                                        :class="{ 'is-invalid': errors.agent }"
-                                        </Multiselect>  
+                                        </Multiselect>
                                         <!-- <select v-model="agent" class="form-control form-select" id="facture"
                                             :class="{ 'is-invalid': errors.agent }"  required aria-label=".form-select-lg example">
                                             <option selected value="">Selectionner l'agent </option>
                                             <option v-for="agent in agents" :key="agent.id" :value="agent.id">
                                                 {{ agent . nom }}  {{ agent . prenom }}  </option>
-    
+
                                         </select> -->
                                     </div>
                             </div>
@@ -104,11 +102,11 @@
                                     <label for=""> Montant </label>
                                     <input type="number" class="form-control" :class="{ 'is-invalid': errors.montant }"
                                         v-model="montant" id="montant">
-    
+
                                 </div>
                             </div>
                             </div>
-                       
+
                             <div v-if="depense === 'prestataire'" class="col-6">
                                 <div class="form-group">
                                     <label for="inputFirstname" class="form-label">Prestataire</label>
@@ -118,10 +116,9 @@
                                         :show-labels="false"
                                         :placeholder="'Choississez le prestataire'"
                                         :allow-empty="false"
-                                        :custom-label="customPrestataire"
-                                        :select-label="selectPrestataire">
-                                        :class="{ 'is-invalid': errors.prestataire }"
-                                        </Multiselect>  
+                                        :custom-label="customLabel"
+                                        :select-label="selectLabel">
+                                        </Multiselect>
                                     <!-- <select v-model="prestataire"  class="form-control form-select" id="facture"
                                         :class="{ 'is-invalid': errors.prestataire }" required aria-label=".form-select-lg example">
                                         <option  value="">Selectionner le prestataire </option>
@@ -134,7 +131,7 @@
                                         <label for=""> Montant </label>
                                         <input type="number" class="form-control" :class="{ 'is-invalid': errors.montant }"
                                             v-model="montant" id="montant">
-    
+
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +144,7 @@
 
                                 </div>
                             </div>
-                                
+
                         </div>
                         <div class="card-footer">
                             <button type="reset" class="btn btn-icon icon-left btn-danger"><i
@@ -222,7 +219,7 @@
                                                 <div v-if="depense.etat == 'validé'"  class="badge badge-success">{{ depense . etat}}</div>
                                                 <div v-if="depense.etat == 'annuler'"  class="badge badge-success">{{ depense . etat}}</div>
                                             </td>
-                                           
+
                                             <td v-if="depense.etat == 'en cours'" class="text-center">
                                                 <Link type="button" method="delete" :href="`/depense/${depense.id}/annuler-depense/`"  data-id="7"
                                                 data-placement="bottom" title=""
@@ -232,9 +229,9 @@
                                                 title=""
                                                 class="btn btn-icon btn-success data-valider"
                                                 data-original-title="Valider"><i class="fas fa-check"></i></Link>
-                                           
+
                                             </td>
-                                         
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -298,10 +295,10 @@ import Pagination from '../../components/Pagination.vue'
                 selectAgent(agent) {
                 return agent.id;
                 },
-                customPrestataire(prestataire) {
-                return `${prestataire.nom} ${prestataire.prenom}`;
+                customLabel(prestataire) {
+                return `${prestataire.nom}`;
                 },
-                selectPrestataire(prestataire) {
+                selectLabel(prestataire) {
                 return prestataire.id;
                 },
                 customBanque(banque) {
@@ -312,7 +309,7 @@ import Pagination from '../../components/Pagination.vue'
                 },
             store() {
                 this.$inertia.post('/depense', { type: this.type, depense:this.depense, montant:this.montant, agent:this.agent,prestataire:this.prestataire,banque:this.banque,note:this.note
-                   
+
                 });
                 // Swal.fire({
                 //     position: 'top-end',
