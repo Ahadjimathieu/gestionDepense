@@ -113,10 +113,10 @@
                                                 <td>{{client.telephone}}</td>
                                                 <td>{{moment(client.created_at).format("DD-MM-YYYY")}}</td>
                                                 <td class="text-center">
-                                                    <button class="btn
-                                                        btn-link"><i
-                                                            class="fas
-                                                            fa-edit"></i></button>
+                                                    <Link :href="`/client/${client.id}/edit`" class="btn
+                                                    btn-link"><i
+                                                        class="fas
+                                                        fa-edit"></i></Link>
                                                     <button class="btn
                                                         btn-link"><i
                                                             class="fas

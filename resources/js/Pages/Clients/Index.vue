@@ -41,22 +41,22 @@
                                         aria-describedby="example1_info">
                                         <thead>
                                             <tr>
-                                                <th class="sorting sorting_asc" tabindex="0" aria-controls="example1"
+                                                <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1" aria-sort="ascending"
                                                     aria-label="Rendering engine: activate to sort column descending">
                                                     Nom</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1"
+                                                <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Browser: activate to sort column ascending">Prenom (s)</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1"
+                                                <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" colspan="1">
                                                    Adresse</th>
-                                                   <th class="sorting" tabindex="0" aria-controls="example1"
+                                                   <th class="text-center" tabindex="0" aria-controls="example1"
                                                    rowspan="1" colspan="1">
-                                                   Telephone</th>  <th class="sorting" tabindex="0" aria-controls="example1"
+                                                   Telephone</th>  <th class="text-center" tabindex="0" aria-controls="example1"
                                                    rowspan="1" colspan="1">
                                                    Date de creation</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1"
+                                                <th class="text-center" tabindex="0" aria-controls="example1"
                                                     rowspan="1" >Actions
                                                 </th>
                                             </tr>

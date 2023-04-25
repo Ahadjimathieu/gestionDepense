@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\BanqueController;
@@ -60,6 +61,17 @@ Route::get('/client/{client}/edit', [ClientController::class, 'edit'])->name('cl
 
 Route::put('/client/{client}', [ClientController::class, 'update'])->name('client.update')->middleware("auth");
 
+// Utilisateurs
+
+Route::get('/utilisateur', [UserController::class, 'index'])->name('utilisateur.index')->middleware("auth");
+
+Route::get('/utilisateur/create', [UserController::class, 'create'])->name('utilisateur.create')->middleware("auth");
+
+Route::post('/utilisateur', [UserController::class, 'store'])->name('utilisateur.store')->middleware("auth");
+
+Route::get('/utilisateur/{utilisateur}/edit', [UserController::class, 'edit'])->name('utilisateur.edit')->middleware("auth");
+
+Route::put('/utilisateur/{utilisateur}', [UserController::class, 'update'])->name('utilisateur.update')->middleware("auth");
 // Factures
 
 Route::get('/facture', [FactureController::class, 'index'])->name('facture.index')->middleware("auth");

@@ -220,6 +220,10 @@ import Pagination from '../../components/Pagination.vue'
                 this.$inertia.post('/virement', { type: this.type, montant:this.montant, banque:this.banque
 
                 });
+
+                type = '';
+                montant = '';
+                banque = '';
                 // Swal.fire({
                 //     position: 'top-end',
                 //     icon: 'success',
