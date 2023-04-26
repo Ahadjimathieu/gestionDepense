@@ -140,17 +140,17 @@ class DepenseController extends Controller
             'type' => "required",
             'depense' => "required",
             'montant' => "required|numeric",
-            'agent' => "nullable",
-            'prestataire' => "nullable",
-            'banque' => "nullable",
+            'agent' => "nullable|array",
+            'prestataire' => "nullable|array",
+            'banque' => "nullable|array",
             'note' => "required|string|max:255",
         ]);
-        //dd($request->all());
+       // dd($request->agent['id']);
         $type = $request->type;
         $dep = $request->depense;
-        $banque_id = $request->banque['id'];
-        $prestataire_id = $request->prestataire['id'];
-        $agent = $request->agent['id'];
+        //$banque_id = $request->banque['id'];
+        // $prestataire_id = $request->prestataire['id'];
+        // $agent = $request->agent['id'];
         $montant = $request->montant;
         $note = $request->note;
         $credits = Transaction::where('operation', 'credit')->sum('montant');
@@ -189,21 +189,21 @@ class DepenseController extends Controller
             $operation->paiement_id = null;
             $operation->numero_ordre = null;
             $operation->numero_compte = null;
-            $operation->banque_id = $banque_id;
+            $operation->banque_id = $request->banque['id'];
             session()->put('operation', $operation);
 
 
             // Depense
             //Banque
 
-            $banque_solde = Banque::where('id', $banque_id)->first();
+            $banque_solde = Banque::where('id', $request->banque['id'])->first();
             $solde = $banque_solde->solde;
 
             if ($solde >= $montant){
                 $nouveau = $solde - $montant;
                 $banque  = new Banque();
                 $banque->solde = $nouveau;
-                $banque->id = $banque_id;
+                $banque->id = $request->banque['id'];
                 session()->put('banque', $banque);
 
             }else{
@@ -219,7 +219,7 @@ class DepenseController extends Controller
 
             $salaire = new Salaire();
             $salaire->montant_salaire = $montant;
-            $salaire->agent_id = $agent;
+            $salaire->agent_id = $request->agent['id'];
             session()->put('salaire', $salaire);
 
             //Depense
@@ -244,7 +244,7 @@ class DepenseController extends Controller
             $depense->operation = $type;
             $depense->etat = "en cours";
             $depense->salaire_id =  null;
-            $depense->prestataire_id = $prestataire_id;
+            $depense->prestataire_id = $request->prestataire['id'];
             $depense->save();
             //session()->put('prestataire', $prestataire);
 

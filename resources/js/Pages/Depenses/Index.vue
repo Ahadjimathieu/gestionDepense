@@ -69,6 +69,19 @@
                                                     <div v-if="depense.etat == 'validé'"  class="badge badge-success">{{ depense . etat}}</div>
                                                     <div v-if="depense.etat == 'annuler'"  class="badge badge-success">{{ depense . etat}}</div>
                                                 </td>
+    
+                                                <td v-if="depense.etat == 'en cours'" class="text-center">
+                                                    <Link type="button" method="delete" :href="`/depense/${depense.id}/annuler-depense/`"  data-id="7"
+                                                    data-placement="bottom" title=""
+                                                    class="btn btn-icon btn-danger data-supprimer"
+                                                    data-original-title="Supprimer"><i class="fas fa-trash"></i></Link>
+                                                <Link type="button"  method="post" :href="`/depense/${depense.id}/valider-depense/`" data-toggle="tooltip" data-id="7"
+                                                    title=""
+                                                    class="btn btn-icon btn-success data-valider"
+                                                    data-original-title="Valider"><i class="fas fa-check"></i></Link>
+    
+                                                </td>
+    
                                             </tr>
                                         </tbody>
                                     </table>

@@ -13,8 +13,7 @@
         <aside class="control-sidebar control-sidebar-dark">
             <div class="card-body bg-dark box-profile">
                 <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/user.png')}}"
-                        alt="User profile picture">
+                    <i class="fas fa-user"></i>
                 </div>
 
                 <h3 class="profile-username text-center ellipsis">{{user.nom}} {{user.prenom}}</h3>
@@ -42,7 +41,7 @@
         <footer class="main-footer">
 
             <div class="float-right d-none d-sm-inline">
-                Anything you want
+               
             </div>
 
             <strong>Copyright &copy; 2023  .</strong> All rights
