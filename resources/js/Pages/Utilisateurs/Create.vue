@@ -62,8 +62,8 @@
                             </div>
                            <br>
                            <div class="card-foote r">
-                            <Link href="/client" class="btn btn-danger float-right">Annuler</Link>
-                            <button type="submit"  class="btn btn-success float-end ">Enregistrer</button>
+                            <Link href="/utilisateur" class="btn btn-danger">Annuler</Link>
+                            <button type="submit"  class="btn btn-success float-right ">Enregistrer</button>
                         </div>
                         </form>
                     </div>

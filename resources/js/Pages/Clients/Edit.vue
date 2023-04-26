@@ -52,9 +52,9 @@
 
                            <br>
                            <div class="card-footer">
-                            <Link href="/client" class="btn btn-danger">Annuler</Link>
-                            <button type="submit"  class="btn btn-success float-right">Modifier</button>
-                        </div>
+                                <Link href="/client" class="btn btn-danger">Annuler</Link>
+                                <button type="submit"  class="btn btn-success float-right">Modifier</button>
+                            </div>
                         </form>
                     </div>
                 </div>

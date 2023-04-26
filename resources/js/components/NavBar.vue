@@ -25,7 +25,7 @@
                         </Link>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link" :class="{ 'active': $page.url === '#' }">
                         <i class="nav-icon fas fa-file-invoice fa-xl"></i>
                         <p>
                             Facture
@@ -86,10 +86,10 @@
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="/caisse" class="nav-link" :class="{ 'active': $page.url === '/caisse' }">
+                                <Link href="/caisse" class="nav-link" :class="{ 'active': $page.url === '/caisse' }">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Initialiser la caisse</p>
-                                </a>
+                                </Link>
                             </li>
                             <li class="nav-item">
                                 <Link href="/agent/create" class="nav-link"
@@ -121,27 +121,27 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <Link href="" class="nav-link">
+                        <a href="" class="nav-link">
                         <i class="nav-icon fas fa-shopping-bag"></i>
                         <p>
                             Commande
                             <i class="right fas fa-angle-left"></i>
                         </p>
-                        </Link>
+                        </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="/produit/create" class="nav-link"
+                                <Link href="/produit/create" class="nav-link"
                                     :class="{ 'active': $page.url === '/produit/create' }">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Nouveau produit/Liste</p>
-                                </a>
+                                </Link>
                             </li>
                             <li class="nav-item">
-                                <a href="/commande/create" class="nav-link"
+                                <Link href="/commande/create" class="nav-link"
                                     :class="{ 'active': $page.url === '/commande/create' }">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Nouvelle commande</p>
-                                </a>
+                                </Link>
                             </li>
                             <li class="nav-item">
                                 <Link href="/commande" class="nav-link"
@@ -153,27 +153,27 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <Link href="" class="nav-link" >
+                        <a href="" class="nav-link" >
                         <i class="nav-icon fas fa-money-bill-wave"></i>
                         <p>
                             Banque
                             <i class="right fas fa-angle-left"></i>
                         </p>
-                        </Link>
+                        </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="/virement/create" class="nav-link"
+                                <Link href="/virement/create" class="nav-link"
                                     :class="{ 'active': $page.url === '/virement/create' }">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Nouveau virement</p>
-                                </a>
+                                </Link>
                             </li>
                             <li class="nav-item">
-                                <a href="/virement" class="nav-link"
+                                <Link href="/virement" class="nav-link"
                                     :class="{ 'active': $page.url === '/virement' }">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Liste des virements</p>
-                                </a>
+                                </Link>
                             </li>
                         </ul>
                     </li>
