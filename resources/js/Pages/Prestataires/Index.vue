@@ -60,11 +60,11 @@
                                                 <!-- {{moment(agent.created_at).format("DD-MM-YYYY")}} -->
                                                 <td class="text-center">
                                                     <Link  :href="`/prestataire/${prestataire.id}/edit`" class="btn
-                                                    btn-link"><i
+                                                    btn-icon btn-primary"><i
                                                         class="fas
                                                         fa-edit"></i></Link>
                                                 <button class="btn
-                                                    btn-link"><i
+                                                    btn-icon btn-danger"><i
                                                         class="fas
                                                         fa-trash"></i></button>
                                                 </td>

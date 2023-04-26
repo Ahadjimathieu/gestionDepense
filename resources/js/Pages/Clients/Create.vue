@@ -115,14 +115,14 @@
                                             <td class="text-center">
                                                 <Link :href="`/client/${client.id}/edit`"
                                                     class="btn
-                                                        btn-link">
+                                                        btn-icon btn-primary">
                                                 <i
                                                     class="fas
                                                             fa-edit"></i>
                                                 </Link>
                                                 <button
                                                     class="btn
-                                                        btn-link"><i
+                                                        btn-btn-icon btn-danger"><i
                                                         class="fas
                                                             fa-trash"></i></button>
                                             </td>

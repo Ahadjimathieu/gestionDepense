@@ -25,13 +25,13 @@
                         </Link>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" :class="{ 'active': $page.url === '#' }">
+                        <Link href="" class="nav-link" :class="{ 'active': $page.url === '/client/create' || $page.url === '/facture/create' || $page.url === '/facture' || $page.url === '/paiement/regler' || $page.url === '/paiement' || $page.url === '/banque' }">
                         <i class="nav-icon fas fa-file-invoice fa-xl"></i>
                         <p>
                             Facture
                             <i class="right fas fa-angle-left"></i>
                         </p>
-                        </a>
+                        </Link>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
                                 <Link href="/client/create" class="nav-link"
@@ -77,13 +77,13 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <Link href="" class="nav-link"  :class="{ 'active': $page.url === '/caisse' || $page.url === '/agent/create' || $page.url === '/depense'|| $page.url === '/depense/create' || $page.url === '/prestataire' }">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Depense
                             <i class="right fas fa-angle-left"></i>
                         </p>
-                        </a>
+                        </Link>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
                                 <Link href="/caisse" class="nav-link" :class="{ 'active': $page.url === '/caisse' }">
@@ -113,7 +113,7 @@
                             </li>
                             <li class="nav-item">
                                 <Link href="/prestataire" class="nav-link"
-                                    :class="{ 'active': $page.url === '/prestataire/' }">
+                                    :class="{ 'active': $page.url === '/prestataire' }">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Nouveau prestataire / Liste</p>
                                 </Link>
@@ -121,13 +121,13 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link">
+                        <Link href="" class="nav-link"  :class="{ 'active': $page.url === '/produit/create' || $page.url === '/commande/create' || $page.url === '/commande'}">
                         <i class="nav-icon fas fa-shopping-bag"></i>
                         <p>
                             Commande
                             <i class="right fas fa-angle-left"></i>
                         </p>
-                        </a>
+                        </Link>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
                                 <Link href="/produit/create" class="nav-link"
@@ -153,13 +153,13 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="" class="nav-link" >
+                        <Link href="" class="nav-link"   :class="{ 'active': $page.url === '/virement/create' || $page.url === '/virement' || $page.url === '/utilisateur' }">
                         <i class="nav-icon fas fa-money-bill-wave"></i>
                         <p>
                             Banque
                             <i class="right fas fa-angle-left"></i>
                         </p>
-                        </a>
+                        </Link>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
                                 <Link href="/virement/create" class="nav-link"

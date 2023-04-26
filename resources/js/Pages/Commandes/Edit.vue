@@ -69,7 +69,7 @@
                                             <td class="text-center">{{detail.total}}</td>
                                             <td class="text-center m-3">
                                                 <button class="btn
-                                                    btn-link"><i
+                                                    btn-icon btn-danger"><i
                                                         class="fas
                                                         fa-trash"></i></button>
                                             </td>

@@ -63,11 +63,11 @@
                                                 <td class="text-center" >{{moment(produit.created_at).format("DD-MM-YYYY")}}</td>
                                                 <td class="text-center">
                                                     <Link :href="`/produit/${produit.id}/edit`" class="btn
-                                                        btn-link"><i
+                                                        btn-icon btn-primary"><i
                                                             class="fas
                                                             fa-edit"></i></Link>
                                                     <button class="btn
-                                                        btn-link"><i
+                                                        btn-icon btn-danger"><i
                                                             class="fas
                                                             fa-trash"></i></button>
                                                 </td>

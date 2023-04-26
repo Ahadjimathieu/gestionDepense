@@ -84,7 +84,7 @@
                                                                 class="fas
                                                                 fa-print"></i></Link>
                                                     <button class="btn
-                                                        btn-link"><i
+                                                    btn-icon"><i
                                                             class="fas
                                                             fa"></i></button>
                                                 </td>
