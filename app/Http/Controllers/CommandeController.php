@@ -38,7 +38,7 @@ class CommandeController extends Controller
 
     public function validateLivraison(Commande $commande)
     {
-        $commande->livraison = "livrée";
+        $commande->livraison = "livré";
         $commande->update();
         return redirect()->route('commande.index');
     }

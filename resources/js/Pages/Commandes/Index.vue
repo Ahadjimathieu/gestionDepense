@@ -70,7 +70,7 @@
                                                 <td v-if="commande.validation == 'en attente'" class="text-center"> <div class="badge badge-warning">{{commande.validation}}</div></td>
                                                 <td v-if="commande.validation == 'validé'" class="text-center"> <div class="badge badge-success">{{commande.validation}}</div></td>
                                                 <td v-if="commande.livraison == 'non-livrer'" class="text-center"> <div class="badge badge-warning">{{commande.livraison}}</div></td>
-                                                <td v-if="commande.livraison == 'livrée'" class="text-center"> <div class="badge badge-success">{{commande.livraison}}</div></td>
+                                                <td v-if="commande.livraison == 'livré'" class="text-center"> <div class="badge badge-success">{{commande.livraison}}</div></td>
                                                 <td v-if="commande.livraison == 'non-livrer'" class="text-center m-3">
                                                     <Link title="Detail de la commande"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
                                                         btn-icon  btn-warning"><i
@@ -88,7 +88,7 @@
                                                             class="fas
                                                             fa"></i></button>
                                                 </td>
-                                                <td v-if="commande.livraison == 'livrée'" class="text-center m-3">
+                                                <td v-if="commande.livraison == 'livré'" class="text-center m-3">
                                                     <Link title="Detail de la commande"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
                                                         btn-icon  btn-warning"><i
                                                             class="fas fa-info"></i></Link>

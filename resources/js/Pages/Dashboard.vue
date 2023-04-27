@@ -74,23 +74,21 @@
                                 <div class="row">
                                     <div class="col">
                                         <h6 class="text-muted mb-0">
-                                            <font color="red">Ma boutique (Ventes au comptant)</font>
+                                            <font color="red">Commande (Ventes au comptant)</font>
                                         </h6>
 
-                                        <h6 class="text-muted mt-2 mb-0">Nombre de commande : 3</h6>
+                                        <h6 class="text-muted mt-2 mb-0">Nombre de commande  :  {{commandeTotal}}</h6>
 
-                                        <h6 class="text-muted mt-2 mb-0">Nombre de livraison : 3</h6>
+                                        <h6 class="text-muted mt-2 mb-0">Nombre de commande livrée :  {{commandeLivre}}</h6>
+
+                                        <h6 class="text-muted mt-2 mb-0">Nombre de commande non-livrée : {{commandeNonLivre}}</h6>
 
                                         <h6 class="text-muted mt-2 mb-0">Total commandes : <div
-                                                class="badge badge-info badge-shadow">39 000 FCFA </div>
+                                                class="badge badge-success badge-shadow"> {{ montantTotal }} FCFA </div>
                                         </h6>
-                                        <h6 class="text-muted mt-2 mb-0">Nombre de versement: <div
-                                                class="badge badge-warning badge-shadow">0 </div>
-                                        </h6>
+                                        
 
-                                        <h6 class="text-muted mt-2 mb-0">Total versement : <div
-                                                class="badge badge-success badge-shadow">0 FCFA </div>
-                                        </h6>
+                                       
                                     </div>
 
                                 </div>
@@ -104,20 +102,19 @@
                                 <div class="row">
                                     <div class="col">
                                         <h6 class="text-muted mb-0">
-                                            <font color="green">Ventes & Paiements crédits</font>
+                                            <font color="red">Facture </font>
                                         </h6>
-                                        <h6 class="text-muted mt-3 mb-0">Solde initial <div
-                                                class="badge badge-info badge-shadow">15 000 FCFA</div>
+
+                                        <h6 class="text-muted mt-2 mb-0">Nombre de facture : {{factureTotal}}</h6>
+
+                                        <h6 class="text-muted mt-2 mb-0">Nombre de facture réglée : {{factureRegle}}</h6>
+
+                                        <h6 class="text-muted mt-2 mb-0">Nombre de facture non-régler : {{factureNonRegle}}</h6>
+
+                                        <h6 class="text-muted mt-2 mb-0">Total facture : <div
+                                                class="badge badge-success badge-shadow"> {{montantTotalFacture}} FCFA </div>
                                         </h6>
-                                        <h6 class="text-muted mt-3 mb-0">Total à payer <div
-                                                class="badge badge-info badge-shadow">2 226 500 FCFA</div>
-                                        </h6>
-                                        <h6 class="text-muted mt-2 mb-0">Total paiement <div
-                                                class="badge badge-success badge-shadow">2 147 000 FCFA</div>
-                                        </h6>
-                                        <h6 class="text-muted mt-2 mb-0">Reste à payer <div
-                                                class="badge badge-warning badge-shadow">79 500 FCFA</div>
-                                        </h6>
+                                       
                                         <span class="font-weight-bold mb-0"></span>
                                     </div>
                                 </div>
@@ -144,10 +141,6 @@
                                             <h6 class="text-muted mt-2 mb-0">Autre <span class="text-nowrap">
                                                 <div class="badge badge-success badge-shadow"> {{autre}} FCFA</div>
                                             </span></h6>
-                                        
-                                        <h6 class="text-muted mt-2 mb-0" >Solde caisse recette<div
-                                                class="badge badge-success badge-shadow"> 2 186 000</div></h6>
-                                        <span class="font-weight-bold mb-0"></span>
                                     </div>
                                 </div>
                             </div>
@@ -195,12 +188,23 @@
         layout: Layout,
 
         props:{
+            // Depenses
            depense: Object,
            prestataire: Object,
            salaire: Object,
            autre: Object,
            soldeCaisse: Object,
            approCaisse: Object,
+           //Commandes
+           commandeTotal: Object,
+           commandeLivre: Object,
+           commandeNonLivre: Object,
+           montantTotal: Object,
+           // Facture
+           factureTotal: Object,
+           factureRegle: Object,
+           factureNonRegle: Object,
+           montantTotalFacture: Object,
         },
         data() {
         return {

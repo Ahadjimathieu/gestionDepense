@@ -27,7 +27,7 @@ class PaiementController extends Controller
     public function index()
     {
 
-        $paiements = Paiement::where('etat', '=' ,'validé')->with('facture')->with('facture.client')->latest()->paginate(10);
+        $paiements = Paiement::with('facture')->with('facture.client')->latest()->paginate(10);
 
         return Inertia::render('Paiements/Index', [
             'paiements' => $paiements,
@@ -190,7 +190,7 @@ class PaiementController extends Controller
             if ($montant_facture > $montant) {
                 $etat = 'non-regler';
             } elseif ($montant = $montant_facture) {
-                $etat = 'regler';
+                $etat = 'reglé';
             }
             //dd($etat);
             // Paiement
@@ -228,7 +228,7 @@ class PaiementController extends Controller
             if ($montant_facture > $montant) {
                 $etat = 'regler-partiellement';
             } elseif ($montant = $montant_facture) {
-                $etat = 'regler';
+                $etat = 'reglé';
             }
             // Paiement
 
@@ -281,7 +281,7 @@ class PaiementController extends Controller
             if ($montant_facture > $montant) {
                 $etat = 'a moitié regler';
             } elseif ($montant = $montant_facture) {
-                $etat = 'regler';
+                $etat = 'reglé';
             }
             // Paiement
 

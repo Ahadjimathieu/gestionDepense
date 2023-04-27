@@ -72,17 +72,61 @@
                                                 <td class="text-center">
                                                     {{ moment(paiement . created_at) . format('DD-MM-YYYY-hh') }}</td>
                                                 <td class="text-center">{{ paiement . montant_paiement }}</td>
-                                                <td  class="text-center">
+                                                <td v-if="paiement.etat == 'en attente'" class="text-center">
+                                                <Link type="button"
+                                                    data-toggle="tooltip" title=""
+                                                    class="btn btn-icon btn-info" data-original-title="Détails"><i
+                                                        class="fas fa-info"></i></Link>
+                                                <Link type="button"  method="post" :href="`/paiement/${paiement.id}/valider-paiement/`" data-toggle="tooltip" data-id="7"
+                                                    title=""
+                                                    class="btn btn-icon btn-success data-valider"
+                                                    data-original-title="Valider"><i class="fas fa-check"></i></Link>
+                                                <Link type="button" method="delete" :href="`/paiement/${paiement.id}/annuler-paiement/`"  data-id="7"
+                                                    data-placement="bottom" title=""
+                                                    class="btn btn-icon btn-danger data-supprimer"
+                                                    data-original-title="Supprimer"><i class="fas fa-trash"></i></Link>
+                                                <Link type="button"
+    
+                                                    data-toggle="tooltip"  title=""
+                                                    class="btn btn-icon btn-primary" data-original-title="Modifier"><i
+                                                        class="fas fa-edit"></i></Link>
+                                                <Link type="button" target="_blank"
+                                                    href=""
+                                                    class="btn btn-icon btn-warning"><i class="fas fa-print"></i></Link>
+                                                </td>
+                                                <td v-if="paiement.etat == 'validé'" class="text-center">
                                                     <Link type="button"
                                                         href=""
                                                         data-toggle="tooltip" title=""
                                                         class="btn btn-icon btn-info" data-original-title="Détails"><i
                                                             class="fas fa-info"></i></Link>
+                                                    <Link type="button" target="_blank"
+                                                        href=""
+                                                        class="btn btn-icon btn-danger"><i class="fas fa-times"></i></Link>
                                                         <Link type="button" target="_blank"
                                                         href=""
                                                         class="btn btn-icon btn-warning"><i class="fas fa-print"></i></Link>
                                                     </td>
-                                                
+                                                <!-- <td class="text-center m-3">
+                                                    <Link title="Detail la facture"
+                                                        :href="`/paiement/${paiement.id}/detail-facture/`" type="button"
+                                                        class="btn
+                                                        btn-icon  btn-info">
+                                                    <i class="fas fa-info"></i></Link>
+                                                    <Link type="button" :href="`/paiement/${paiement.id}/facture-pdf/`"
+                                                        title="imprimer la facture"
+                                                        class="btn
+                                                        btn-icon btn-warning">
+                                                    <i
+                                                        class="fas
+                                                            fa-print"></i>
+                                                    </Link>
+                                                    <button
+                                                        class="btn
+                                                        btn-icon"><i
+                                                            class="fas
+                                                            fa"></i></button>
+                                                </td> -->
                                             </tr>
                                         </tbody>
                                     </table>

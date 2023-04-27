@@ -68,7 +68,7 @@ class FactureController extends Controller
             'details.*.prix_unit' => 'required|numeric|min:0',
         ]);
 
-        dd($request->all());
+        //dd($request->all());
         $facture = new Facture();
         $facture->numero_facture = $request->facture;
         $facture->montant = $request->montant;
