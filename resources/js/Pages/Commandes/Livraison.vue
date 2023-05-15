@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <div class="card col-lg-10 offset-1 col-md-12">
                     <div class="card-header">
-                        <h2 class="col-lg-10 text-center col-md-12">Liste des Commandes</h2>
+                        <h2 class="col-lg-10 text-center col-md-12">Validation des Livraisons</h2>
                     </div>
 
                     <div class="card-body">
@@ -75,14 +75,14 @@
                                                     <Link title="Detail de la commande"  :href="`/commande/${commande.id}/detail-commande/`" type="button" class="btn
                                                         btn-icon  btn-warning"><i
                                                             class="fas fa-info"></i></Link>
-                                                            <!-- <Link  type="button" method="post" :href="`/commande/${commande.id}/valider-livraison/`" title="Valider la livraison" class="btn
+                                                            <Link  type="button" method="post" :href="`/commande/${commande.id}/valider-livraison/`" title="Valider la livraison" class="btn
                                                         btn-icon btn-success"><i
                                                             class="fas
                                                             fa-check"></i></Link>
                                                             <Link  type="button" @click="imprimer(commande.id)" title="Valider la livraison" class="btn
                                                             btn-icon btn-info"><i
                                                                 class="fas
-                                                                fa-print"></i></Link> -->
+                                                                fa-print"></i></Link>
                                                     <button class="btn
                                                     btn-icon"><i
                                                             class="fas

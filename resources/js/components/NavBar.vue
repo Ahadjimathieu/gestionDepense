@@ -20,7 +20,7 @@
                     data-accordion="false">
                     <li class="nav-item">
                         <Link href="/" class="nav-link" :class="{ 'active': $page.url === '/' }">
-                        <i class="nav-icon fas fa-home"></i>    
+                        <i class="nav-icon fas fa-home"></i>
                         <p>Tableau de bord</p>
                         </Link>
                     </li>
@@ -121,7 +121,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <Link href="" class="nav-link"  :class="{ 'active': $page.url === '/produit/create' || $page.url === '/commande/create' || $page.url === '/commande'}">
+                        <Link href="" class="nav-link"  :class="{ 'active': $page.url === '/produit/create' || $page.url === '/commande/create' || $page.url === '/commande' || $page.url === '/commande/livraison'}">
                         <i class="nav-icon fas fa-shopping-bag"></i>
                         <p>
                             Commande
@@ -144,12 +144,20 @@
                                 </Link>
                             </li>
                             <li class="nav-item">
+                                <Link href="/commande/livraison" class="nav-link"
+                                    :class="{ 'active': $page.url === '/commande/livraison' }">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Validation de la livraison</p>
+                                </Link>
+                            </li>
+                            <li class="nav-item">
                                 <Link href="/commande" class="nav-link"
                                     :class="{ 'active': $page.url === '/commande' }">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Liste des commandes</p>
                                 </Link>
                             </li>
+
                         </ul>
                     </li>
                     <li class="nav-item">

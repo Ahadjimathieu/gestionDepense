@@ -187,6 +187,8 @@ Route::post('/commande/{commande}/valider-livraison', [CommandeController::class
 
 Route::get('/commande/{commande}/imprimer-commande', [PdfController::class, 'imprimer'])->name('commande.imprimer')->middleware("auth");
 
+Route::get('/commande/livraison', [CommandeController::class, 'livraison'])->name('commande.valide_livraison')->middleware("auth");
+
 
 
 //Route::get('/facture/{facture}/facture-pdf', [FactureController::class, 'generatePDF'])->name('facture.pdf')->middleware("auth");

@@ -35,8 +35,7 @@
                                 :placeholder="'Choississez le client'"
                                 :allow-empty="false"
                                 :custom-label="customClient"
-                                :select-label="selectClient"
-                                :class="{ 'is-invalid': errors.client_id }">
+                                :select-label="selectClient">
                                 </Multiselect>
                             <!-- <select class="form-control form-select" required aria-label=".form-select-lg example" v-model="client_id"  >
                                 <option value="" >Selectionner le client </option>
@@ -74,7 +73,7 @@
                                     <div class="form-group">
                                         <label>Longueur <font color="red">*</font></label>
                                         <input type="number" class="form-control"  v-model="detail.longueur" :class="{'is-invalid': errors.details+'.' +index+ '.'+longueur}" >
-                                       
+
 
                                     </div>
                                 </div>

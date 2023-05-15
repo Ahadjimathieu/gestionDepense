@@ -29,6 +29,19 @@ class CommandeController extends Controller
         ]);
     }
 
+    public function livraison(){
+
+    //     $commandes = DB::table('commandes')
+    //     ->with('client')
+    //     ->where('validation', 'validé')
+    //     ->where('livraison', 'non-livrer')
+    //    ->latest()->paginate();
+        $commandes = Commande::with('client')->where('validation', 'validé')
+        ->where('livraison', 'non-livrer')->latest()->paginate();
+        return Inertia::render('Commandes/Livraison',[
+            'commandes' =>  $commandes,
+        ]);
+    }
     public function validateCommande(Commande $commande)
     {
         $commande->validation = "validé";
@@ -97,10 +110,10 @@ class CommandeController extends Controller
         ]);
         // dd($request->all());
 
-        // dd($request->all());
+       //dd($request->client_id['id']);
         $commande = new Commande();
         $commande->numero_commande = $request->commande;
-        $commande->client_id = $request->client_id;
+        $commande->client_id = $request->client_id['id'];
         $commande->total = $request->montant;
         $commande->livraison = 'non-livrer';
         $commande->validation = 'en attente';
@@ -118,7 +131,7 @@ class CommandeController extends Controller
             $detail->save();
         }
 
-        return redirect()->route('commande.index');
+        return redirect()->route('commande.create');
     }
 
     /**
